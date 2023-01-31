@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: lightgreen;
+}
+
+.main {
+  min-height: calc(100vh - 125px);
+}
+
+.footer {
+  color: #000000;
+
+  .footer-list {
+    height: 50px;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+
+      .footer-link {
+        text-decoration: none;
+        color: #000000;
+      }
+
+      .footer-link:hover {
+        color: #dadd13;
+      }
+
+      .rs-link:hover {
+        filter: brightness(0) saturate(100%) invert(85%) sepia(95%) saturate(875%) hue-rotate(347deg) brightness(89%)
+          contrast(93%);
+      }
+    }
+  }
+}
