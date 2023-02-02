@@ -1,5 +1,6 @@
 import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/page1/utils-auth-form";
 import constsAuthForm from "../pages/page1/const-auth-form";
+import Authorization from "../pages/page1/authorization";
 export default class AppView {
   container: HTMLElement;
 
@@ -41,24 +42,44 @@ export default class AppView {
     checkSubmitButtonsStatus(this.isValidEmail, this.isValidPassword);
   }
 
-  async authorization(): Promise<void> {
-    const email = <HTMLInputElement>document.querySelector('#email');
-    const password = <HTMLInputElement>document.querySelector('#password');
+  authorization(): void {
+    const userEmail = <HTMLInputElement>this.container.querySelector('#email');
+    const userPassword = <HTMLInputElement>this.container.querySelector('#password');
     
     showLoader();
+
+    const authUser = new Authorization();
+	  authUser.loginUser({email: userEmail.value, password: userPassword.value});
     
-    await this.loginUser(email.value, password.value);
+    //await loginUser(email.value, password.value);
   }
 
-  async loginUser(userEmail: string, userPwd: string): Promise<void> {
-
+  switchMode(mode: string):void {
+    const isLogin = (mode === constsAuthForm.LOGIN) ? 'flex' : 'none';
+    const isReg = (mode === constsAuthForm.REGISTRATION) ? 'flex' : 'none';
+    
+    const loginBlocks = this.container.querySelectorAll('.authorization-block') as NodeListOf<HTMLElement>;
+    
+    loginBlocks.forEach((loginElem: HTMLElement) => {
+      loginElem.style.display = isLogin;
+    });
+    
+    const regBlocks = this.container.querySelectorAll('.registration-block') as NodeListOf<HTMLElement>;;
+    
+    regBlocks.forEach((regElem: HTMLElement) => {
+      regElem.style.display = isReg;
+    });
   }
 
-  async registration(): Promise<void> {
-    const name = <HTMLInputElement>document.querySelector('#name');
-    const email = <HTMLInputElement>document.querySelector('#email');
-    const password = <HTMLInputElement>document.querySelector('#password');
+  registration() {
+    const userName = <HTMLInputElement>this.container.querySelector('#name');
+    const userEmail = <HTMLInputElement>this.container.querySelector('#email');
+    const userPassword = <HTMLInputElement>this.container.querySelector('#password');
     
     showLoader();
+
+    const authUser = new Authorization();
+	  authUser.createUser({email: userEmail.value, password: userPassword.value});
+    
   }
 }

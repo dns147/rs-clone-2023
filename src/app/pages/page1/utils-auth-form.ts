@@ -1,3 +1,5 @@
+import Authorization from "./authorization";
+
 export function checkSubmitButtonsStatus(isValidEmail: boolean, isValidPassword: boolean): void {
 	const registryBtn = <HTMLButtonElement>document.querySelector('.registration-btn');
 	const loginBtn = <HTMLButtonElement>document.querySelector('.authorization-btn');

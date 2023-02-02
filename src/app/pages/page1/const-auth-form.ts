@@ -4,4 +4,6 @@ const REGISTRATION = 'registration';
 
 export default {
 	MIN_PASS_LEN,
+	LOGIN,
+	REGISTRATION,
 };

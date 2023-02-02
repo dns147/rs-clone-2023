@@ -18,10 +18,20 @@ export default class AppController {
   getEventsClick(event: Event): void {
     if (event.target instanceof Element) {
       const btnAuthorization = <HTMLElement>event.target.closest('.authorization-btn');
+      const regLink = <HTMLElement>event.target.closest('.reg-link');
+      const loginLink = <HTMLElement>event.target.closest('.login-link');
       const btnRegistration = <HTMLElement>event.target.closest('.registration-btn');
 
       if (btnAuthorization) {
         this.model.authorization();
+      }
+
+      if (regLink) {
+        this.model.goToRegistrationMode();
+      }
+
+      if (loginLink) {
+        this.model.goToLoginMode();
       }
 
       if (btnRegistration) {
