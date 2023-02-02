@@ -122,6 +122,8 @@
         margin: 20px 0 20px;
         width: 170px;
         padding: 15px 0;
+        background: #a5d6a7;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 
         @media (max-width: 1440px) {
           margin: 15px 0 15px;
@@ -130,9 +132,11 @@
         }
 
         &:hover {
-          svg path {
-            fill: white;
-          }
+          cursor: pointer;
+        }
+
+        &:active {
+          box-shadow: rgb(130 226 113 / 25%) 0px 30px 60px -12px inset, rgb(16 43 10 / 66%) 0px 18px 36px -18px inset;
         }
       }
 

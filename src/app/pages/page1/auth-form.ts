@@ -1,7 +1,9 @@
 import './style-auth-form.scss';
+import './loader.scss';
 
 export default class Page1 {
-  constructor() {}
+  constructor() {
+  }
 
   render(): string {
     return `
@@ -25,8 +27,8 @@ export default class Page1 {
                 <span>Поле заполнено неверно!</span>
               </div>
               <div class="pwd-field field">
-                <input type="password" id="pwd" name="password" required placeholder="Пароль*" minlength="8">
-                <span>Минимальная длина пароля - 8 символов</span>
+                <input type="password" id="password" name="password" required placeholder="Пароль*" minlength="8">
+                <span>Минимальная длина пароля - 6 символов</span>
               </div>
             </div>
             <p>* - поля, обязательные для заполнения</p>
