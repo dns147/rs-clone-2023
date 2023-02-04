@@ -11,6 +11,20 @@ body {
   min-height: calc(100vh - 125px);
 }
 
+.header{
+  .user-icon {
+    position: absolute;
+    right: 0;
+    font-size: 30px;
+    color: #0000006b;
+  }
+
+  .user-icon:hover {
+    cursor: pointer;
+    color: #000000;
+  }
+}
+
 .footer {
   color: #000000;
 

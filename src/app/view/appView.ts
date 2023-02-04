@@ -1,6 +1,8 @@
-import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/page1/utils-auth-form";
-import constsAuthForm from "../pages/page1/const-auth-form";
-import Authorization from "../pages/page1/authorization";
+import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/authForm/utils-auth-form";
+import constsAuthForm from "../pages/authForm/const-auth-form";
+import Authorization from "../pages/authForm/authorization";
+import { TypeOfClasses } from "../../spa/coreTypes";
+import AuthForm from "../pages/authForm/AuthForm";
 export default class AppView {
   container: HTMLElement;
 
@@ -12,6 +14,14 @@ export default class AppView {
 
     this.isValidEmail = false;
     this.isValidPassword = false;
+  }
+
+  goToLoginContainer(): void {
+    // const pageAuthForm: TypeOfClasses = new AuthForm;
+    // this.container.insertAdjacentHTML('beforeend', pageAuthForm.render());
+
+    const registrationContainer = <HTMLDivElement>this.container.querySelector('.registration-container');
+    registrationContainer.style.display = 'block';
   }
 
   validateEmail(emailInput: HTMLInputElement): void {
@@ -74,5 +84,10 @@ export default class AppView {
     regBlocks.forEach((regElem: HTMLElement) => {
       regElem.style.display = isReg;
     });
+  }
+
+  closeRegistrationForm(): void {
+    const registrationContainer = <HTMLDivElement>this.container.querySelector('.registration-container');
+    registrationContainer.style.display = 'none';
   }
 }

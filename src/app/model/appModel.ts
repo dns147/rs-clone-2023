@@ -1,11 +1,15 @@
 import AppView from '../view/AppView';
-import constsAuthForm from "../pages/page1/const-auth-form";
+import constsAuthForm from "../pages/authForm/const-auth-form";
 
 export default class AppModel {
   view: AppView;
   
   constructor(view: AppView) {
     this.view = view;
+  }
+
+  goToLoginContainer(): void {
+    this.view.goToLoginContainer();
   }
 
   validateEmail(emailInput: HTMLInputElement): void {
@@ -30,5 +34,9 @@ export default class AppModel {
 
   registration(): void {
     this.view.registration();
+  }
+
+  closeRegistrationForm(): void {
+    this.view.closeRegistrationForm();
   }
 }

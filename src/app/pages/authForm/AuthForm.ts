@@ -1,19 +1,18 @@
 import './style-auth-form.scss';
 import './loader.scss';
 
-export default class Page1 {
+export default class AuthForm {
   constructor() {
   }
 
   render(): string {
     return `
-      <div class="container registration-container">
+      <div class="registration-container">
         <form class="registration-form">
           <div class="form-content">
             <div class="block-headers">
               <div class="registration-block">
-                <h2>Зарегистрируйся,</h2>
-                <h3>чтобы получить доступ к новым локациям!</h3>
+                <h2>Зарегистрироваться</h2>
               </div>
               <div class="authorization-block">
                 <h2>Войти в аккаунт</h2>
@@ -46,6 +45,9 @@ export default class Page1 {
                 <button class="link-btn reg-link" type="button">Зарегистрироваться</button>
               </div>
             </div>
+          </div>
+          <div class="close-registration-form">
+            <i class="fa-solid fa-circle-xmark"></i>
           </div>
         </form>
       </div>

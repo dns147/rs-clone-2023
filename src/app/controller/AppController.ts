@@ -17,11 +17,17 @@ export default class AppController {
 
   getEventsClick(event: Event): void {
     if (event.target instanceof Element) {
+      const userIcon = <HTMLElement>event.target.closest('.user-icon');
       const btnAuthorization = <HTMLElement>event.target.closest('.authorization-btn');
       const regLink = <HTMLElement>event.target.closest('.reg-link');
       const loginLink = <HTMLElement>event.target.closest('.login-link');
       const btnRegistration = <HTMLElement>event.target.closest('.registration-btn');
+      const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
 
+      if (userIcon) {
+        this.model.goToLoginContainer();
+      }
+      
       if (btnAuthorization) {
         this.model.authorization();
       }
@@ -36,6 +42,10 @@ export default class AppController {
 
       if (btnRegistration) {
         this.model.registration();
+      }
+
+      if (closeRegistrationForm) {
+        this.model.closeRegistrationForm();
       }
     }
   }

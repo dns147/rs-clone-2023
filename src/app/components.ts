@@ -9,6 +9,9 @@ export const Header = {
 						<a class="header-item" href="#/page3">Page3</a>
 					  <a class="header-item" href="#/page4">Page4</a>
           </nav>
+          <div class="user-icon">
+            <i class="fa-solid fa-user"></i>
+          </div>
 				</div>
 			</header>
     `;
