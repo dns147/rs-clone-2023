@@ -1,5 +1,3 @@
-import Authorization from "./authorization";
-
 export function checkSubmitButtonsStatus(isValidEmail: boolean, isValidPassword: boolean): void {
 	const registryBtn = <HTMLButtonElement>document.querySelector('.registration-btn');
 	const loginBtn = <HTMLButtonElement>document.querySelector('.authorization-btn');
@@ -30,4 +28,30 @@ export function showLoader(): void {
 	formRegistration.insertAdjacentHTML('afterbegin', `
 		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
 	`);
+}
+
+export function getErrorMessage(error: Error): string {
+	if (error instanceof Error) {
+	  return error.message;
+	}
+  
+	return String(error);
+}
+
+export function showForm() {
+	(<HTMLFormElement>document.querySelector('.registration-form')).style.height = 'auto';
+	(<HTMLDivElement>document.querySelector('.lds-ellipsis')).style.display = 'none';
+	
+	const form = <HTMLDivElement>document.querySelector('.form-content');
+	form.style.display = 'block';
+}
+
+export function showLoginError(msg: string) {
+	const errorMessage = <HTMLSpanElement>document.querySelector('.errorMsg');
+	errorMessage.textContent = msg;
+	errorMessage.style.opacity = '1';
+
+	setTimeout(() => {
+		errorMessage.style.opacity = '0';
+	}, 5000);
 }

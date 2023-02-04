@@ -45,16 +45,21 @@ export default class AppView {
   authorization(): void {
     const userEmail = <HTMLInputElement>this.container.querySelector('#email');
     const userPassword = <HTMLInputElement>this.container.querySelector('#password');
-    
     showLoader();
-
     const authUser = new Authorization();
 	  authUser.loginUser({email: userEmail.value, password: userPassword.value});
-    
-    //await loginUser(email.value, password.value);
   }
 
-  switchMode(mode: string):void {
+  registration(): void {
+    const userName = <HTMLInputElement>this.container.querySelector('#name');
+    const userEmail = <HTMLInputElement>this.container.querySelector('#email');
+    const userPassword = <HTMLInputElement>this.container.querySelector('#password');
+    showLoader();
+    const authUser = new Authorization();
+	  authUser.createUser({name: userName.value, email: userEmail.value, password: userPassword.value});
+  }
+
+  switchMode(mode: string): void {
     const isLogin = (mode === constsAuthForm.LOGIN) ? 'flex' : 'none';
     const isReg = (mode === constsAuthForm.REGISTRATION) ? 'flex' : 'none';
     
@@ -69,17 +74,5 @@ export default class AppView {
     regBlocks.forEach((regElem: HTMLElement) => {
       regElem.style.display = isReg;
     });
-  }
-
-  registration() {
-    const userName = <HTMLInputElement>this.container.querySelector('#name');
-    const userEmail = <HTMLInputElement>this.container.querySelector('#email');
-    const userPassword = <HTMLInputElement>this.container.querySelector('#password');
-    
-    showLoader();
-
-    const authUser = new Authorization();
-	  authUser.createUser({email: userEmail.value, password: userPassword.value});
-    
   }
 }
