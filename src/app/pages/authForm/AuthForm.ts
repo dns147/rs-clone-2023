@@ -12,37 +12,37 @@ export default class AuthForm {
           <div class="form-content">
             <div class="block-headers">
               <div class="registration-block">
-                <h2>Зарегистрироваться</h2>
+                <h2>Register</h2>
               </div>
               <div class="authorization-block">
-                <h2>Войти в аккаунт</h2>
+                <h2>Sign in</h2>
               </div>
-              <span class="errorMsg">Неправильный e-mail или пароль</span>
+              <span class="errorMsg">Wrong e-mail or password</span>
             </div>
             <div class="form-fields">
-              <input type="text" id="name" name="username" placeholder="Имя" class="registration-block">
+              <input type="text" id="name" name="username" placeholder="Name" class="registration-block">
               <div class="email-field field">
                 <input type="email" id="email" name="email" required placeholder="E-mail*">
-                <span>Поле заполнено неверно!</span>
+                <span>The field is filled incorrectly!</span>
               </div>
               <div class="pwd-field field">
-                <input type="password" id="password" name="password" required placeholder="Пароль*" minlength="8">
-                <span>Минимальная длина пароля - 6 символов</span>
+                <input type="password" id="password" name="password" required placeholder="Password*" minlength="8">
+                <span>Min password length - 6 symbols</span>
               </div>
             </div>
-            <p>* - поля, обязательные для заполнения</p>
+            <p>* - required fields</p>
             <div class="registration-block">
-              <a class="registration-btn disabled">Зарегистрироваться</a>
+              <a class="registration-btn disabled">Register</a>
               <div class="auth-link">
-                <span>Уже зарегистрированы?</span>
-                <button class="link-btn login-link" type="button">Да, войти!</button>
+                <span>Already registered?</span>
+                <button class="link-btn login-link" type="button">Yes, sign in!</button>
               </div>
             </div>
             <div class="authorization-block">
-              <a class="authorization-btn disabled">Войти</a>
+              <a class="authorization-btn disabled">Sign in</a>
               <div class="registration-link">
-                <span>Нет аккаунта?</span>
-                <button class="link-btn reg-link" type="button">Зарегистрироваться</button>
+                <span>Don't have an account?</span>
+                <button class="link-btn reg-link" type="button">Register</button>
               </div>
             </div>
           </div>
