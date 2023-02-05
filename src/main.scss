@@ -1,3 +1,9 @@
+@mixin background-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +15,99 @@ body {
 
 .main {
   min-height: calc(100vh - 125px);
+}
+
+.header{
+  .user {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    column-gap: 5px;
+
+    .user-icon {
+      width: 30px;
+      height: 30px;
+      background: url(./assets/img/user-regular.svg);
+      @include background-img;
+      border: none;
+    }
+
+    .user-info {
+      cursor: pointer;
+      display: none;
+
+      .user-name {
+        font-size: 18px;
+      }
+
+      .dropdown-caret {
+        border-bottom-color: #0000;
+        border-left-color: #0000;
+        border-right-color: #0000;
+        border-style: solid;
+        border-width: 4px;
+        content: "";
+        display: inline-block;
+        height: 0;
+        vertical-align: middle;
+        width: 0;
+        margin-left: 5px;
+      }
+    }
+
+    .user-icon:hover {
+      cursor: pointer;
+      background: url(./assets/img/user-solid.svg);
+      @include background-img;
+    }
+  
+    .user-icon-auth {
+      background: url(./assets/img/user-solid.svg);
+      @include background-img;
+    }
+
+    .user-icon-auth:hover {
+      cursor: auto;
+    }
+  }
+
+  .user-menu {
+    display: none;
+    position: absolute;
+    right: 30px;
+    top: 50px;
+    width: 100px;
+    height: 80px;
+    border: 1px solid #dadd13;
+    background: #3d473e3b;
+    border-radius: 6px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+    overflow: hidden;
+
+    .user-menu-btn {
+      border: none;
+      background: none;
+      padding: 5px;
+    }
+
+    .user-menu-btn:hover {
+      cursor: pointer;
+      background: #dadd13;
+    }
+
+    .divider {
+      border-top: 1px solid #dadd13;
+    }
+
+    .user-menu-btn:last-child {
+      margin-top: 5px;
+      width: 100%;
+    }
+  }
 }
 
 .footer {

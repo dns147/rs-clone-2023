@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/dns147/rs-clone-2023#readme",
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "clean-webpack-plugin": "^4.0.0",
@@ -31,6 +32,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "firebase": "^9.16.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss-loader": "^7.0.2",

@@ -9,6 +9,19 @@ export const Header = {
 						<a class="header-item" href="#/page3">Page3</a>
 					  <a class="header-item" href="#/page4">Page4</a>
           </nav>
+          <div class="user">
+            <button class="user-icon"></button>
+            <div class="user-info">
+              <span class="user-name"></span>
+              <span class="dropdown-caret"></span>
+            </div>
+          </div>
+          <div class="user-menu">
+            <button class="user-menu-btn user-statistic">Статистика</button>
+            <div class="divider">
+              <button class="user-menu-btn user-quit">Выход</button>
+            </div>
+          </div>
 				</div>
 			</header>
     `;

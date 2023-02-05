@@ -1,3 +1,4 @@
+import AuthForm from '../app/pages/authForm/AuthForm';
 import { Routes, TypeOfClasses } from './coreTypes';
 
 export class Router {
@@ -20,5 +21,19 @@ export class Router {
     const page: TypeOfClasses = new routes[routeName]();
     contentContainer.innerHTML = page.render();
     page.init();
+
+    this.renderRegistrationContainer(container);
+  }
+
+  renderRegistrationContainer(container: HTMLElement): void {
+    const registrationContainer = <HTMLDivElement>container.querySelector('.registration-container');
+
+    if (!registrationContainer) {
+      const pageAuthForm: TypeOfClasses = new AuthForm;
+      container.insertAdjacentHTML('beforeend', pageAuthForm.render());
+  
+      const registrationContainer = <HTMLDivElement>container.querySelector('.registration-container');
+      registrationContainer.style.display = 'none';
+    }
   }
 }
