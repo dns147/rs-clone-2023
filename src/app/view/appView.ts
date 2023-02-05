@@ -1,8 +1,7 @@
 import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/authForm/utils-auth-form";
 import constsAuthForm from "../pages/authForm/const-auth-form";
 import Authorization from "../pages/authForm/authorization";
-import { TypeOfClasses } from "../../spa/coreTypes";
-import AuthForm from "../pages/authForm/AuthForm";
+import { hideUserMenu, showUserMenu } from "../utils-component";
 export default class AppView {
   container: HTMLElement;
 
@@ -17,11 +16,13 @@ export default class AppView {
   }
 
   goToLoginContainer(): void {
-    // const pageAuthForm: TypeOfClasses = new AuthForm;
-    // this.container.insertAdjacentHTML('beforeend', pageAuthForm.render());
-
     const registrationContainer = <HTMLDivElement>this.container.querySelector('.registration-container');
     registrationContainer.style.display = 'block';
+  }
+
+  closeRegistrationForm(): void {
+    const registrationContainer = <HTMLDivElement>this.container.querySelector('.registration-container');
+    registrationContainer.style.display = 'none';
   }
 
   validateEmail(emailInput: HTMLInputElement): void {
@@ -86,8 +87,20 @@ export default class AppView {
     });
   }
 
-  closeRegistrationForm(): void {
-    const registrationContainer = <HTMLDivElement>this.container.querySelector('.registration-container');
-    registrationContainer.style.display = 'none';
+  goToUserMenu(): void {
+    const userMenu = <HTMLElement>this.container.querySelector('.user-menu');
+    if (userMenu.classList.contains('active')) {
+      hideUserMenu(userMenu);
+    } else {
+      showUserMenu(userMenu);
+    }
+  }
+
+  userSignOut(): void {
+    const authUser = new Authorization();
+	  authUser.userSignOut();
+
+    this.isValidEmail = false;
+    this.isValidPassword = false;
   }
 }

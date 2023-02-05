@@ -39,4 +39,12 @@ export default class AppModel {
   closeRegistrationForm(): void {
     this.view.closeRegistrationForm();
   }
+
+  goToUserMenu(): void {
+    this.view.goToUserMenu();
+  }
+
+  userSignOut(): void {
+    this.view.userSignOut();
+  }
 }

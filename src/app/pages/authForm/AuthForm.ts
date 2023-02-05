@@ -32,14 +32,14 @@ export default class AuthForm {
             </div>
             <p>* - поля, обязательные для заполнения</p>
             <div class="registration-block">
-              <a class="registration-btn fill-btn disabled">Зарегистрироваться</a>
+              <a class="registration-btn disabled">Зарегистрироваться</a>
               <div class="auth-link">
                 <span>Уже зарегистрированы?</span>
                 <button class="link-btn login-link" type="button">Да, войти!</button>
               </div>
             </div>
             <div class="authorization-block">
-              <a class="empty-btn authorization-btn disabled">Войти</a>
+              <a class="authorization-btn disabled">Войти</a>
               <div class="registration-link">
                 <span>Нет аккаунта?</span>
                 <button class="link-btn reg-link" type="button">Зарегистрироваться</button>

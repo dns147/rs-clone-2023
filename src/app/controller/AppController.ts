@@ -23,7 +23,9 @@ export default class AppController {
       const loginLink = <HTMLElement>event.target.closest('.login-link');
       const btnRegistration = <HTMLElement>event.target.closest('.registration-btn');
       const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
-
+      const userInfo = <HTMLElement>event.target.closest('.user-info');
+      const userQuit = <HTMLElement>event.target.closest('.user-quit');
+      
       if (userIcon) {
         this.model.goToLoginContainer();
       }
@@ -46,6 +48,14 @@ export default class AppController {
 
       if (closeRegistrationForm) {
         this.model.closeRegistrationForm();
+      }
+
+      if (userInfo) {
+        this.model.goToUserMenu();
+      }
+
+      if (userQuit) {
+        this.model.userSignOut();
       }
     }
   }
