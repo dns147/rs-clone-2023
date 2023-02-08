@@ -1,16 +1,11 @@
+@import './scss/constants.scss';
+@import './scss/reset.scss';
+@import './scss/base.scss';
+
 @mixin background-img {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: lightgreen;
 }
 
 .main {
