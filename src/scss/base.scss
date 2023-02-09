@@ -1,0 +1,124 @@
+@import './constants.scss';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  color: $text-color-light;
+  background-color: $accent3-color;
+}
+
+a {
+  transition: 0.3s;
+}
+
+a:hover,
+a:active {
+  color: $accent3-color;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.main-flex {
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.btn {
+  border-radius: $border-radius;
+  padding: 5px 10px;
+  min-width: 100px;
+  background-color: $accent1-color;
+  color: $text-color-light;
+  height: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn--round {
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.btn--big {
+  width: 100%;
+}
+
+.btn--mini {
+  min-width: auto;
+}
+.btn--transp {
+  background-color: transparent;
+  border: 1px solid $text-color-light;
+}
+
+.btn--col-3 {
+  background-color: $accent3-color;
+  color: $text-color-light;
+}
+
+.btn--col-5 {
+  background-color: $accent5-color;
+  color: $text-color-light;
+}
+
+.btn--col-7 {
+  background-color: $accent7-color;
+  color: $text-color;
+  font-weight: 500;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: $accent2-color;
+  color: $text-color;
+}
+
+.btn--col-5:hover,
+.btn--col-7:hover {
+  background-color: $accent9-color;
+  color: $text-color-light;
+}
+.btn--transp:hover {
+  border: none;
+  background-color: $accent9-color;
+  color: $text-color-light;
+}
+
+// scrollbar in overflow-y
+::-webkit-scrollbar-track {
+  background: $gray-color-light;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $accent1-color;
+  border-radius: 10px;
+  border: 2px solid $gray-color-light;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
