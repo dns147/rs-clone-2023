@@ -10,9 +10,15 @@ export default class AppController {
 
     this.getEventsClick = this.getEventsClick.bind(this);
     this.getEventsInput = this.getEventsInput.bind(this);
+    this.getEventsMouse = this.getEventsMouse.bind(this);
+    this.setKeyDown = this.setKeyDown.bind(this);
+    this.setKeyUp = this.setKeyUp.bind(this);
 
     document.addEventListener('click', this.getEventsClick);
     document.addEventListener('input', this.getEventsInput);
+    document.addEventListener('mousemove', this.getEventsMouse);
+    document.addEventListener('keydown', this.setKeyDown);
+    document.addEventListener('keyup', this.setKeyUp);
   }
 
   getEventsClick(event: Event): void {
@@ -73,5 +79,17 @@ export default class AppController {
         this.model.validatePassword(passwordInput);
       }
     }
+  }
+
+  getEventsMouse(event: MouseEvent): void {
+    this.model.rotatePlayer(event);
+  }
+
+  setKeyDown(event: KeyboardEvent): void {
+    this.model.setKeyDown(event);
+  }
+
+  setKeyUp(event: KeyboardEvent): void {
+    this.model.setKeyUp(event);
   }
 }
