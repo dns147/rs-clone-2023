@@ -8,6 +8,7 @@ export const Header = {
 					  <a class="header-item" href="#/page2">Page2</a>
 						<a class="header-item" href="#/page3">Page3</a>
 					  <a class="header-item" href="#/page4">Page4</a>
+            <a class="header-item" href="#/pumpkinGame">Pumpkin Game</a>
           </nav>
           <div class="user">
             <button class="user-icon"></button>
