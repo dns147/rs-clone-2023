@@ -11,3 +11,12 @@ export function getAngle(x: number, y: number, posCenterX: number, posCenterY: n
     grad: angleGrad,
   };
 }
+
+export function getImage(images: HTMLImageElement[], url: string): HTMLImageElement {
+  const resultImgs: HTMLImageElement[] = images.filter((img: HTMLImageElement) => img.src === url);
+  return resultImgs[0];
+}
+
+export function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
