@@ -1,3 +1,4 @@
+import { MousePos } from "../../../spa/coreTypes";
 import Sprite from "./sprite";
 
 export type Player = {
@@ -6,4 +7,9 @@ export type Player = {
   sprite: Sprite;
   width: number;
   height: number;
+};
+
+export type ClickInfo = {
+  pos: MousePos;
+  distance: number;
 };

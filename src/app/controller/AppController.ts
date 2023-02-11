@@ -11,12 +11,16 @@ export default class AppController {
     this.getEventsClick = this.getEventsClick.bind(this);
     this.getEventsInput = this.getEventsInput.bind(this);
     this.getEventsMouse = this.getEventsMouse.bind(this);
+    this.setMouseDown = this.setMouseDown.bind(this);
+    this.setMouseUp = this.setMouseUp.bind(this);
     this.setKeyDown = this.setKeyDown.bind(this);
     this.setKeyUp = this.setKeyUp.bind(this);
 
     document.addEventListener('click', this.getEventsClick);
     document.addEventListener('input', this.getEventsInput);
     document.addEventListener('mousemove', this.getEventsMouse);
+    document.addEventListener('mousedown', this.setMouseDown);
+    document.addEventListener('mouseup', this.setMouseUp);
     document.addEventListener('keydown', this.setKeyDown);
     document.addEventListener('keyup', this.setKeyUp);
   }
@@ -31,6 +35,7 @@ export default class AppController {
       const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
       const userInfo = <HTMLElement>event.target.closest('.user-info');
       const userQuit = <HTMLElement>event.target.closest('.user-quit');
+      const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
       
       if (userIcon) {
         this.model.goToLoginContainer();
@@ -63,6 +68,10 @@ export default class AppController {
       if (userQuit) {
         this.model.userSignOut();
       }
+
+      if (pumpkinCanvas) {
+        this.model.shootPumpkin();
+      }
     }
   }
 
@@ -83,6 +92,14 @@ export default class AppController {
 
   getEventsMouse(event: MouseEvent): void {
     this.model.rotatePlayer(event);
+  }
+
+  setMouseDown(): void {
+    this.model.setMouseDown();
+  }
+
+  setMouseUp(): void {
+    this.model.setMouseUp();
   }
 
   setKeyDown(event: KeyboardEvent): void {
