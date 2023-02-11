@@ -2,9 +2,9 @@ import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/
 import constsAuthForm from "../pages/authForm/const-auth-form";
 import Authorization from "../pages/authForm/authorization";
 import { hideUserMenu, showUserMenu } from "../utils-component";
+
 export default class AppView {
   container: HTMLElement;
-
   isValidEmail: boolean;
   isValidPassword: boolean;
 

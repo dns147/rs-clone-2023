@@ -1,13 +1,30 @@
-.pumpkin-canvas {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  //background-image: url(../../../assets/img/bg-pumpkin.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: url("../../../assets/img/aim.png"), pointer;
+.game-area {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
 }
 
-// html::-webkit-scrollbar {
-//     width: 0;
-// }
+.pumpkin-canvas {
+  width: 100%;
+  height: 100%;
+  background: #8ce2e2;
+  //position: fixed;
+  //background-image: url(../../../assets/img/bg-pumpkin.jpg);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  cursor: url("../../../assets/img/aim1.png"), pointer;
+}
+
+.stats-panel {
+  position: absolute;
+  width: 100%;
+  height: 8%;
+  top: 0;
+  opacity: 0.8;
+  background: gold;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+}

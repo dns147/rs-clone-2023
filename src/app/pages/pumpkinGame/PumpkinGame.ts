@@ -1,7 +1,7 @@
 import { ControlKeys, MousePos } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
-import { ClickInfo, Player } from './types-pumpkin-game';
+import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
 import { getAngle } from './utils-pumpkin-game';
 
 export default class PumpkinGame {
@@ -14,14 +14,16 @@ export default class PumpkinGame {
   windowInnerWidth: number;
   windowInnerHeight: number;
   images: HTMLImageElement[];
-  pumpkins: Player[];
+  pumpkins: Pumpkin[];
   lastTime: number;
+  lastShoot: number;
   timerIdMain: number;
   gameTime: number;
   pumpkinSpeed: number;
+  intervalShoot: number;
 
   player: Player | null;
-  shootPumpkin: Player | null;
+  shootPumpkin: Pumpkin | null;
 
   constructor() {
     this.canvas = null;
@@ -36,9 +38,11 @@ export default class PumpkinGame {
     this.images = [];
     this.pumpkins = [];
     this.lastTime = 0;
+    this.lastShoot = 0;
     this.timerIdMain = 0;
     this.gameTime = 0;
-    this.pumpkinSpeed = 300;
+    this.pumpkinSpeed = 1000;
+    this.intervalShoot = 800;
 
     this.player = null;
     this.shootPumpkin = null;
@@ -56,11 +60,16 @@ export default class PumpkinGame {
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
 
     return `
-      <canvas width="1920" height="1080" class="pumpkin-canvas"></canvas>
+      <div class="game-area">
+        <div class="stats-panel">stats-panel</div>
+        <canvas width="1920" height="1080" class="pumpkin-canvas"></canvas>
+      </div>
     `;
   }
 
   init(): void {
+    window.addEventListener('resize', this.resizeGameArea);
+    this.resizeGameArea();
     this.canvas = <HTMLCanvasElement>document.querySelector('.pumpkin-canvas');
     this.ctx = <CanvasRenderingContext2D>this.canvas.getContext('2d');
 
@@ -85,6 +94,30 @@ export default class PumpkinGame {
     });
   }
 
+  resizeGameArea(): void {
+    const gameArea = <HTMLElement>document.querySelector('.game-area');
+    const widthToHeight = 16 / 8.07;
+    let newWidth = window.innerWidth;
+    let newHeight = window.innerHeight;
+    const newWidthToHeight = newWidth / newHeight;
+
+    if (newWidthToHeight > widthToHeight) {
+      newWidth = newHeight * widthToHeight;
+      gameArea.style.height = newHeight + 'px';
+      gameArea.style.width = newWidth + 'px';
+    } else {
+      newHeight = newWidth / widthToHeight;
+      gameArea.style.width = newWidth + 'px';
+      gameArea.style.height = newHeight + 'px';
+    }
+
+    gameArea.style.marginTop = (-newHeight / 2) + 'px';
+    gameArea.style.marginLeft = (-newWidth / 2) + 'px';
+
+    this.canvasWidth = newWidth;
+    this.canvasHeight = newHeight;
+  }
+
   checkLoadImages(countImages: number, imagesLength: number): void {
     if (countImages === imagesLength) {
       this.initGame();
@@ -102,13 +135,22 @@ export default class PumpkinGame {
 
     this.shootPumpkin = {
       rotate: 0,
-      pos: [this.canvasWidth/2, this.canvasHeight/2],
+      pos: [0, 0],
       sprite: new Sprite(this.images[1], [0, 0], [35, 28], 5, [5, 4, 3, 2, 1], null, false, 0),
       width: 35,
-      height: 28
+      height: 28,
+      clickInfo: {
+        pos: {},
+        distance: 0,
+        angle: {
+          rad: 0,
+          grad: 0
+        },
+      }
     };
 
     this.reset();
+    this.lastShoot = Date.now();
     this.lastTime = Date.now();
     this.mainLoop();
   }
@@ -121,14 +163,10 @@ export default class PumpkinGame {
     this.update(dt);
     this.renderGame();
 
-    // if (this.shootPumpkin && localStorage['isClick'] === 'true') {
-    //   this.pumpkins.push(this.shootPumpkin);
-    //   console.log(this.pumpkins);
-    //   localStorage.setItem('isClick', 'false');
-    // }
-
     this.lastTime = now;
     this.timerIdMain = requestAnimationFrame(this.mainLoop);
+
+    //console.log(this.timerIdMain)
   }
 
   //--- Обновление объектов игры ---
@@ -138,15 +176,10 @@ export default class PumpkinGame {
     if (this.canvas) {
       this.ctx?.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
-
-    if (this.shootPumpkin && localStorage['isClick'] === 'true') {
-      this.pumpkins.push(this.shootPumpkin);
-      console.log(this.pumpkins);
-      localStorage.setItem('isClick', 'false');
-    }
     
-    this.handleMouse(); //--- вызов обработчика клавиш из внешнего модуля ---
-    this.updateEntities(dt); //--- вызов обновления анимации ---
+    this.handleMouse();
+    this.handleShoot();
+    this.updateEntities(dt);
     //this.checkCollisions(); //--- проверка на коллизии ---
   }
 
@@ -162,9 +195,7 @@ export default class PumpkinGame {
       this.renderPlayer(this.player);
     }
 
-    // if (this.shootPumpkin) {
-    this.renderShootPumpkin();
-    // }
+    this.renderShootPumpkins(this.pumpkins);
   }
 
   renderPlayer(player: Player): void {
@@ -172,23 +203,42 @@ export default class PumpkinGame {
     player.sprite.render(this.ctx);
   }
 
-  renderShootPumpkin(): void {
-    this.ctx?.translate(this.canvasWidth/2, this.canvasHeight/2);
-
-    this.pumpkins.forEach((shootPumpkin) => {
-      // this.ctx?.translate(shootPumpkin.pos[0], shootPumpkin.pos[1]);
-      // shootPumpkin.pos = [this.canvasWidth / 2, this.canvasHeight / 2];
-      shootPumpkin.sprite.render(this.ctx);
+  renderShootPumpkins(pumpkins: Pumpkin[]): void {
+    pumpkins.forEach((pumpkin: Pumpkin) => {
+      this.ctx?.translate(pumpkin.pos[0], pumpkin.pos[1]);
+      pumpkin.sprite.render(this.ctx);
     });
   }
 
   handleMouse(): void {
     const mousePos: MousePos = localStorage['mousePos'] ? JSON.parse(localStorage['mousePos']) : {};
-    
     if (this.canvas && this.player) {
-      const angleGrad: number = getAngle(mousePos['x'], mousePos['y'], this.posCenterX, this.posCenterY);
+      const angle: Angle = getAngle(mousePos['x'], mousePos['y'], this.posCenterX, this.posCenterY);
+      const angleGrad: number = angle.grad;
       this.rotatePlayer(angleGrad, this.player);
     } 
+  }
+
+  handleShoot(): void {
+    if (this.shootPumpkin && localStorage['isClick'] === 'true' && Date.now() - this.lastShoot > this.intervalShoot) {
+      const clickInfo: ClickInfo = localStorage['clickInfo'] ? JSON.parse(localStorage['clickInfo']) : [];
+      const mousePos: MousePos = clickInfo.pos;
+      const angle: Angle = clickInfo.angle;    
+      const distance: number = clickInfo.distance;
+
+      this.pumpkins.push({
+        pos: [this.canvasWidth/2, this.canvasHeight/2],
+        sprite: new Sprite(this.images[1], [0, 0], [35, 28], 7, [5, 4, 3, 2, 1], null, false, 0),
+        clickInfo: {
+          pos: mousePos,
+          distance: distance,
+          angle: angle,
+        }
+      });
+
+      this.lastShoot = Date.now();
+      localStorage.setItem('isClick', 'false');
+    }
   }
 
   rotatePlayer(angleGrad: number, player: Player): void {
@@ -231,45 +281,41 @@ export default class PumpkinGame {
   }
 
   updateShootPumpkin(dt: number): void {
-    const clickInfo: ClickInfo[] = localStorage['clickInfo'] ? JSON.parse(localStorage['clickInfo']) : [];
+    for (let i = 0; i < this.pumpkins.length; i += 1) {
+      const pumpkin: Pumpkin = this.pumpkins[i];
+      const mouseX: number = pumpkin.clickInfo.pos['x'];
+      const mouseY: number = pumpkin.clickInfo.pos['y'];
+      const distance: number = pumpkin.clickInfo.distance;
+      const angle: Angle = pumpkin.clickInfo.angle;
+      const angleGrad: number = angle.grad;
+      const angleRad: number = angle.rad;
 
-    this.pumpkins.forEach((shootPumpkin: Player, index: number) => {
-      const mousePos: MousePos = clickInfo[index].pos;
-      const mouseX: number = mousePos['x'];
-      const mouseY: number = mousePos['y'];
-      const angleGrad: number = getAngle(mouseX, mouseY, this.posCenterX, this.posCenterY);
-      const distance: number = clickInfo[index].distance;
-     
-      if (angleGrad > 0 && angleGrad < 90) {
-        shootPumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - 35) / distance;
-        shootPumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + 28) / distance;
+      if (angleGrad > 0 && angleGrad <= 90) {
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - 35) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + 28) / distance;
       }
-
+  
       if (angleGrad > 90 && angleGrad < 180) {
-        shootPumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - 35) / distance;
-        shootPumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - 28) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - 35) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - 28) / distance;
       }
-
+  
       if (angleGrad < 0 && angleGrad > -90) {
-        shootPumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + 35) / distance;
-        shootPumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + 28) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + 35) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + 28) / distance;
       }
-
+  
       if (angleGrad < -90 && angleGrad > -180) {
-        shootPumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + 35) / distance;
-        shootPumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - 28) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + 35) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - 28) / distance;
       }
-      
-      shootPumpkin.sprite.update(dt);
-      this.checkBounds(shootPumpkin, clickInfo, index);
-    });
-  }
 
-  checkBounds(obj: Player, clickInfo: ClickInfo[], index: number): void {
-    if (obj.pos[0] < 0 || obj.pos[0] > this.canvasWidth || obj.pos[1] < 0 || obj.pos[1] > this.canvasHeight) {
-      this.pumpkins.splice(index, 1);
-      clickInfo.splice(index, 1);
-      localStorage.setItem('clickInfo', JSON.stringify(clickInfo));
+      if (pumpkin.pos[0] < 0 || pumpkin.pos[0] > this.canvasWidth || pumpkin.pos[1] < 0 || pumpkin.pos[1] > this.canvasHeight) {
+        this.pumpkins.splice(i, 1);
+        i -= 1;
+      }
+
+      pumpkin.sprite.update(dt);
     }
   }
 }
