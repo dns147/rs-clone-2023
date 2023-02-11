@@ -18,9 +18,14 @@ body {
   min-height: calc(100vh - 125px);
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .header{
   .user {
-    position: absolute;
+    // position: absolute;
     right: 20px;
     display: flex;
     align-items: center;
@@ -28,8 +33,10 @@ body {
     column-gap: 5px;
 
     .user-icon {
-      width: 30px;
-      height: 30px;
+      // width: 30px;
+      // height: 30px;
+      width: 18px;
+      height: 18px;
       background: url(./assets/img/user-regular.svg);
       @include background-img;
       border: none;
