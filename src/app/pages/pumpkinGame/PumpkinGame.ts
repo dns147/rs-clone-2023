@@ -20,11 +20,12 @@ export default class PumpkinGame {
   monsters: Player[];
   lastTime: number;
   lastShoot: number;
-  timerIdMain: number;
+  timerId: number;
   gameTime: number;
   pumpkinSpeed: number;
   intervalShoot: number;
   enemySpeed: number;
+  isGameOver: boolean;
 
   player: Player | null;
   shootPumpkin: Pumpkin | null;
@@ -48,11 +49,12 @@ export default class PumpkinGame {
     this.monsters = [];
     this.lastTime = 0;
     this.lastShoot = 0;
-    this.timerIdMain = 0;
+    this.timerId = 0;
     this.gameTime = 0;
     this.pumpkinSpeed = 1000;
     this.intervalShoot = 800;
     this.enemySpeed = 30;
+    this.isGameOver = true;
 
     this.player = null;
     this.shootPumpkin = null;
@@ -76,8 +78,20 @@ export default class PumpkinGame {
       <div class="game-area">
         <div class="status-panel">
           <a class="status-item" href="#/page1">Exit</a>
+          <button class="btn-play">Play</button>
         </div>
-        <canvas width="1920" height="1080" class="pumpkin-canvas"></canvas>
+        <div class="fire-container"></div>
+        <svg class="svg-fire">
+          <filter id="fire">
+            <feTurbulence x="0" y="0" baseFrequency="0.09" numOctaves="5" seed="2">
+              <animate attributeName="baseFrequency" dur="50s" values="0.02;0.003;0.02;" repeatCount="indefinite">
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="30">
+          </filter>
+        </svg>
+        <div class="wrapper-canvas">
+          <canvas width="1920" height="1080" class="pumpkin-canvas"></canvas>
+        </div>
       </div>
     `;
   }
@@ -93,15 +107,15 @@ export default class PumpkinGame {
     this.imagesUrl = CONSTS.IMAGE_URL;
     let countImages = 0;
 
-    this.imagesUrl.forEach(url => {
+    for (let i = 0; i < this.imagesUrl.length; i += 1) {
       const img = new Image();
-      img.src = url;
+      img.src = this.imagesUrl[i];
       img.onload = () => {
-        this.images.push(img);
+        this.images[i] = img;
         countImages += 1;
         this.checkLoadImages(countImages, this.imagesUrl.length);
       };
-    });
+    }
   }
 
   checkLoadImages(countImages: number, imagesLength: number): void {
@@ -135,14 +149,21 @@ export default class PumpkinGame {
   }
 
   initGame(): void {
-    this.addEntities();
-    this.reset();
-    this.lastShoot = Date.now();
-    this.lastTime = Date.now();
-    this.mainLoop();
+    const btnPlay = <HTMLButtonElement>document.querySelector('.btn-play');
+
+    btnPlay.addEventListener('click', () => {
+      btnPlay.disabled = true;
+      this.addEntities();
+      this.reset();
+      this.lastShoot = Date.now();
+      this.lastTime = Date.now();
+      this.mainLoop();
+    });
   }
 
   addEntities(): void {
+    console.log(getImage(this.images, this.imagesUrl[0]))
+
     this.player = {
       rotate: 0,
       pos: [0, 0],
@@ -201,9 +222,10 @@ export default class PumpkinGame {
     this.renderGame();
 
     this.lastTime = now;
-    this.timerIdMain = requestAnimationFrame(this.mainLoop);
 
-    //console.log(this.timerIdMain)
+    if (!this.isGameOver) {
+      this.timerId = requestAnimationFrame(this.mainLoop);
+    }
   }
 
   //--- Обновление объектов игры ---
@@ -270,11 +292,15 @@ export default class PumpkinGame {
       this.player.pos = [this.canvasWidth/2, this.canvasHeight/2];
       this.shootPumpkin.pos = [this.canvasWidth/2, this.canvasHeight/2];
     }
+
+    this.isGameOver = false;
   }
 
   renderGame(): void {
-    if (this.player) {
+    if (!this.isGameOver && this.player) {
       this.renderPlayer(this.player);
+      this.renderShootPumpkins(this.pumpkins);
+      this.renderMonsters(this.monsters);
     }
 
     if (this.spider1) {
@@ -288,9 +314,6 @@ export default class PumpkinGame {
     if (this.spider3) {
       this.renderPlayer(this.spider3);
     }
-
-    this.renderShootPumpkins(this.pumpkins);
-    this.renderMonsters(this.monsters);
   }
 
   renderPlayer(obj: Player): void {
@@ -510,9 +533,19 @@ export default class PumpkinGame {
         if (boxCollides([pos1[0] + size1[0] / 4, pos1[1] + size1[1] / 4], 
                             [size1[0] / 2, size1[1] / 2], 
                             this.player.pos, this.player.sprite.size)) {
-          //this.gameOver();         
+          this.gameOver();         
         }
       }
     }
   }
+
+  gameOver() {
+    this.gameTime = 0;
+    this.monsters = [];
+    this.pumpkins = [];
+    this.isGameOver = true;
+    const btnPlay = <HTMLButtonElement>document.querySelector('.btn-play');
+    btnPlay.disabled = false;
+    //window.cancelAnimationFrame(this.timerId); 
+ }
 }
