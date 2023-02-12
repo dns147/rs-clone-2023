@@ -2,7 +2,7 @@ import { ControlKeys, MousePos } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
 import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
-import { getAngle, getImage, getRandomInt } from './utils-pumpkin-game';
+import { getAngle, getFactor, getImage, getRandomInt } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 
 export default class PumpkinGame {
@@ -52,7 +52,7 @@ export default class PumpkinGame {
     this.gameTime = 0;
     this.pumpkinSpeed = 1000;
     this.intervalShoot = 800;
-    this.enemySpeed = 40;
+    this.enemySpeed = 30;
 
     this.player = null;
     this.shootPumpkin = null;
@@ -389,8 +389,7 @@ export default class PumpkinGame {
       const x1 = this.player ? this.player.pos[0] : 0;
       const y1 = this.player ? this.player.pos[1] : 0;
 
-      var s = this.enemySpeed * dt;
-      var distance = Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
+      let distance = Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
       
       monster.pos[0] += this.enemySpeed * dt * (x1 - x0) / distance;
       monster.pos[1] += this.enemySpeed * dt * (y1 - y0) / distance;
@@ -413,25 +412,29 @@ export default class PumpkinGame {
       const angle: Angle = pumpkin.clickInfo.angle;
       const angleGrad: number = angle.grad;
       const angleRad: number = angle.rad;
+      const factorX: number = getFactor(angleGrad, angleRad).factorX;
+      const factorY: number = getFactor(angleGrad, angleRad).factorY;
+      const pumpkinWidth = <number>this.shootPumpkin?.width;
+      const pumpkinHeight =  <number>this.shootPumpkin?.height;
 
       if (angleGrad > 0 && angleGrad <= 90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - 35) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + 28) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight * factorY) / distance;
       }
   
-      if (angleGrad > 90 && angleGrad < 180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - 35) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - 28) / distance;
+      if (angleGrad > 90 && angleGrad <= 180) {
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight * factorY) / distance;
       }
   
-      if (angleGrad < 0 && angleGrad > -90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + 35) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + 28) / distance;
+      if (angleGrad < 0 && angleGrad >= -90) {
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight * factorY) / distance;
       }
   
-      if (angleGrad < -90 && angleGrad > -180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + 35) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - 28) / distance;
+      if (angleGrad < -90 && angleGrad >= -180) {
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight * factorY) / distance;
       }
 
       if (pumpkin.pos[0] < 0 || pumpkin.pos[0] > this.canvasWidth || pumpkin.pos[1] < 0 || pumpkin.pos[1] > this.canvasHeight) {
