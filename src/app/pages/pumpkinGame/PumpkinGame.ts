@@ -2,7 +2,7 @@ import { ControlKeys, MousePos } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
 import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
-import { getAngle, getFactor, getImage, getRandomInt } from './utils-pumpkin-game';
+import { boxCollides, getAngle, getFactor, getImage, getRandomInt } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 
 export default class PumpkinGame {
@@ -188,7 +188,7 @@ export default class PumpkinGame {
       pos: [220, 340],
       sprite: new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0),
       width: 90,
-      height: 79
+      height: 78
     };
   }
 
@@ -218,7 +218,7 @@ export default class PumpkinGame {
     this.handleShoot();
     this.updateEntities(dt);
     this.addMonsters();
-    //this.checkCollisions(); //--- проверка на коллизии ---
+    this.checkCollisions(dt);
   }
 
   addMonsters(): void {
@@ -227,28 +227,38 @@ export default class PumpkinGame {
         case 0:	//left
           this.monsters.push({
             pos: [0, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 3, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+          });
+
+          this.monsters.push({
+            pos: [0, Math.random() * (this.canvasHeight - 30)],
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[3]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0)
           });
           break;
 
-        case 1:	//top
-          this.monsters.push({
-            pos: [Math.random() * this.canvasWidth, 0],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 3, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
-          });
-          break;
+        // case 1:	//top
+        //   this.monsters.push({
+        //     pos: [Math.random() * this.canvasWidth, 0],
+        //     sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 3, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+        //   });
+        //   break;
 
-        case 2:	//bottom
-          this.monsters.push({
-            pos: [Math.random() * this.canvasWidth, this.canvasHeight - 30],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 3, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
-          });
-          break;
+        // case 2:	//bottom
+        //   this.monsters.push({
+        //     pos: [Math.random() * this.canvasWidth, this.canvasHeight - 30],
+        //     sprite: new Sprite(getImage(this.images, this.imagesUrl[7]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0)
+        //   });
+        //   break;
 
         default: //right
           this.monsters.push({
             pos: [this.canvasWidth, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 3, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[5]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+          });
+
+          this.monsters.push({
+            pos: [this.canvasWidth, Math.random() * (this.canvasHeight - 30)],
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0)
           });
           break;
       }
@@ -418,23 +428,23 @@ export default class PumpkinGame {
       const pumpkinHeight =  <number>this.shootPumpkin?.height;
 
       if (angleGrad > 0 && angleGrad <= 90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth * factorX) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight * factorY) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight) / distance;
       }
   
       if (angleGrad > 90 && angleGrad <= 180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth * factorX) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight * factorY) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight) / distance;
       }
   
       if (angleGrad < 0 && angleGrad >= -90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth * factorX) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight * factorY) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight) / distance;
       }
   
       if (angleGrad < -90 && angleGrad >= -180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth * factorX) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight * factorY) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight) / distance;
       }
 
       if (pumpkin.pos[0] < 0 || pumpkin.pos[0] > this.canvasWidth || pumpkin.pos[1] < 0 || pumpkin.pos[1] > this.canvasHeight) {
@@ -443,6 +453,66 @@ export default class PumpkinGame {
       }
 
       pumpkin.sprite.update(dt);
+    }
+  }
+
+  checkCollisions(dt: number): void {
+    this.checkCollisionsMonsters(dt, this.monsters);
+  }
+
+  checkCollisionsMonsters(dt: number, monsters: Player[]): void {
+    if (this.player) {
+      for (let i = 0; i < monsters.length; i += 1) {
+        const pos1 = monsters[i].pos;
+        const size1 = monsters[i].sprite.size;
+
+        //--- обнаружение столкновений монстров друг с другом ---
+        for (let j = i + 1; j < monsters.length; j += 1) {
+          const pos2 = monsters[j].pos;
+          const size2 = monsters[j].sprite.size;
+
+          if (boxCollides([pos1[0] - size1[0] / 2, pos1[1] - size1[1] / 2], size1, pos2, size2)) {
+            const mark1: string = getRandomInt(0, 2) === 0 ? '+' : '-';
+            const mark2: string = getRandomInt(0, 2) === 0 ? '+' : '-';
+
+            if (mark1 === '+') {
+              monsters[j].pos[0] += this.enemySpeed * dt - 10;
+              monsters[j].pos[1] -= this.enemySpeed * dt - 10;
+            } else {
+              monsters[j].pos[0] -= this.enemySpeed * dt - 10;
+              monsters[j].pos[1] += this.enemySpeed * dt - 10;
+            }
+
+            if (mark2 === '+') {
+              monsters[j].pos[0] += this.enemySpeed * dt - 10;
+              monsters[j].pos[1] += this.enemySpeed * dt - 10;
+            } else {
+              monsters[j].pos[0] -= this.enemySpeed * dt - 10;
+              monsters[j].pos[1] -= this.enemySpeed * dt - 10;
+            }
+          }
+        }
+
+        //--- обнаружение столкновений монстров и пуль ---
+        for (let j = 0; j < this.pumpkins.length; j += 1) {
+          const pos2 = this.pumpkins[j].pos;
+          const size2 = this.pumpkins[j].sprite.size;
+
+          if (boxCollides([pos1[0] - size1[0] / 2, pos1[1] - size1[1] / 2], size1, pos2, size2)) {
+            monsters.splice(i, 1);
+            this.pumpkins.splice(j, 1);
+            i -= 1;
+            break;
+          }
+        }
+      
+        //--- обнаружение столкновений монстров и игрока ---
+        if (boxCollides([pos1[0] + size1[0] / 4, pos1[1] + size1[1] / 4], 
+                            [size1[0] / 2, size1[1] / 2], 
+                            this.player.pos, this.player.sprite.size)) {
+          //this.gameOver();         
+        }
+      }
     }
   }
 }

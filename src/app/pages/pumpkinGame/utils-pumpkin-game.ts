@@ -80,3 +80,18 @@ export function getFactor(angleGrad: number, angleRad: number): {factorX: number
     factorY: factorY
   };
 }
+
+//--- boxCollides — это обертка для collides, принимающая массивы 
+// с положением и размером каждого элемента ---
+export function boxCollides(pos1: number[], size1: number[], pos2: number[], size2: number[]) {
+  return collides(pos1[0], pos1[1],
+                        pos1[0] + size1[0], pos1[1] + size1[1],
+                        pos2[0], pos2[1],
+                        pos2[0] + size2[0], pos2[1] + size2[1]);
+}
+
+//--- collides принимает координаты верхнего/левого и нижнего/правого 
+// углов обоих объектов и проверяет, есть ли какие-то пересечения ---
+export function collides(x: number, y: number, r: number, b: number, x2: number, y2: number, r2: number, b2: number) {
+  return !(r <= x2 || x > r2 || b <= y2 || y > b2);
+}
