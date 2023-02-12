@@ -3,6 +3,8 @@ import constsAuthForm from "../pages/authForm/const-auth-form";
 import { ControlKeys, MousePos } from '../../spa/coreTypes';
 import { Angle } from '../pages/pumpkinGame/types-pumpkin-game';
 import { getAngle } from '../pages/pumpkinGame/utils-pumpkin-game';
+import CONSTS_PUMPKIN_GAME from '../pages/pumpkinGame/consts-pumpkin-game';
+//import sound from '../../assets/mp3/pumpkin-icon-settings.mp3';
 
 export default class AppModel {
   view: AppView;
@@ -73,6 +75,20 @@ export default class AppModel {
 
     localStorage.setItem('clickInfo', JSON.stringify(clickInfo));
     localStorage.setItem('isClick', 'true');
+  }
+
+  showSettingsPumpkin(): void {
+    
+  }
+
+  soundSettingsPumpkin(btn: HTMLButtonElement): void {
+    if (btn.dataset.sound === 'play') {
+      btn.setAttribute('data-sound', 'stop');
+      CONSTS_PUMPKIN_GAME.soundSettings.pause();
+    } else {
+      btn.setAttribute('data-sound', 'play');
+      CONSTS_PUMPKIN_GAME.soundSettings.play();
+    }
   }
 
   setKeyDown(event: KeyboardEvent): void {

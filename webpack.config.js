@@ -47,6 +47,14 @@ module.exports = {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: 'asset/inline',
       },
+
+      {
+        test: /\.mp3$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      },
     ],
   },
 

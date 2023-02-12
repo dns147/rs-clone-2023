@@ -9,6 +9,14 @@ const IMAGE_URL = [
 	require('../../../assets/sprites/spider-walk3-back.png'),
 ];
 
+const PLAY_LIST_URL = [
+	'../../../assets/mp3/pumpkin-icon-settings.mp3',
+];
+
+const soundSettings = new Audio(PLAY_LIST_URL[0]);
+
 export default {
 	IMAGE_URL,
+	PLAY_LIST_URL,
+	soundSettings,
 };

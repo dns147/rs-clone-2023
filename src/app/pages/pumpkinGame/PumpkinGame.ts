@@ -1,4 +1,4 @@
-import { ControlKeys, MousePos } from '../../../spa/coreTypes';
+import { MousePos } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
 import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
@@ -75,22 +75,29 @@ export default class PumpkinGame {
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
 
     return `
-      <div class="game-area">
-        <div class="status-panel">
-          <a class="status-item" href="#/page1">Exit</a>
-          <button class="btn-play">Play</button>
-        </div>
-        <div class="fire-container"></div>
-        <svg class="svg-fire">
-          <filter id="fire">
-            <feTurbulence x="0" y="0" baseFrequency="0.09" numOctaves="5" seed="2">
-              <animate attributeName="baseFrequency" dur="50s" values="0.02;0.003;0.02;" repeatCount="indefinite">
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" scale="30">
-          </filter>
-        </svg>
-        <div class="wrapper-canvas">
-          <canvas width="1920" height="1080" class="pumpkin-canvas"></canvas>
+      <div class="game-container">
+        <div class="game-area">
+          <div class="status-panel">
+            <a class="status-item" href="#/page1">Exit</a>
+            <button class="pumpkin-play">Play</button>
+            <span class="pumpkin-level">Level: <span class="pumpkin-level-number"></span></span>
+            <span class="pumpkin-score">Score: <span class="pumpkin-score-number"></span></span>
+            <button class="pumpkin-settings">
+              <img src=${require("../../../assets/img/icon-settings.svg")} class="pumpkin-settings-icon" alt="icon">
+            </button>
+          </div>
+          <div class="fire-container"></div>
+          <svg class="svg-fire">
+            <filter id="fire">
+              <feTurbulence x="0" y="0" baseFrequency="0.09" numOctaves="5" seed="2">
+                <animate attributeName="baseFrequency" dur="50s" values="0.02;0.003;0.02;" repeatCount="indefinite">
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" scale="30">
+            </filter>
+          </svg>
+          <div class="wrapper-canvas">
+            <canvas width="1920" height="1080" class="pumpkin-canvas"></canvas>
+          </div>
         </div>
       </div>
     `;
@@ -149,7 +156,7 @@ export default class PumpkinGame {
   }
 
   initGame(): void {
-    const btnPlay = <HTMLButtonElement>document.querySelector('.btn-play');
+    const btnPlay = <HTMLButtonElement>document.querySelector('.pumpkin-play');
 
     btnPlay.addEventListener('click', () => {
       btnPlay.disabled = true;

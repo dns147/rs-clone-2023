@@ -11,12 +11,16 @@ export default class AppController {
     this.getEventsClick = this.getEventsClick.bind(this);
     this.getEventsInput = this.getEventsInput.bind(this);
     this.getEventsMouse = this.getEventsMouse.bind(this);
+    this.getEventsMove = this.getEventsMove.bind(this);
+    this.getEventsOut = this.getEventsOut.bind(this);
     this.setKeyDown = this.setKeyDown.bind(this);
     this.setKeyUp = this.setKeyUp.bind(this);
 
     document.addEventListener('click', this.getEventsClick);
     document.addEventListener('input', this.getEventsInput);
     document.addEventListener('mousemove', this.getEventsMouse);
+    document.addEventListener('mouseover', this.getEventsMove);
+    document.addEventListener('mouseout', this.getEventsOut);
     document.addEventListener('keydown', this.setKeyDown);
     document.addEventListener('keyup', this.setKeyUp);
   }
@@ -32,7 +36,8 @@ export default class AppController {
       const userInfo = <HTMLElement>event.target.closest('.user-info');
       const userQuit = <HTMLElement>event.target.closest('.user-quit');
       const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
-      
+      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
+
       if (userIcon) {
         this.model.goToLoginContainer();
       }
@@ -68,6 +73,10 @@ export default class AppController {
       if (pumpkinCanvas) {
         this.model.shootPumpkin();
       }
+
+      if (pumpkinBtnSettings) {
+        this.model.showSettingsPumpkin();
+      }
     }
   }
 
@@ -87,7 +96,33 @@ export default class AppController {
   }
 
   getEventsMouse(event: MouseEvent): void {
-    this.model.rotatePlayer(event);
+    if (event.target instanceof Element) {
+      const pumpkinCanvasArea = <HTMLCanvasElement>event.target.closest('.pumpkin-canvas');
+
+      if (pumpkinCanvasArea) {
+        this.model.rotatePlayer(event);
+      }
+    }
+  }
+
+  getEventsMove(event: MouseEvent) {
+    if (event.target instanceof Element) {
+      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
+
+      if (pumpkinBtnSettings) {
+        this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+      }
+    }
+  }
+
+  getEventsOut(event: MouseEvent) {
+    if (event.target instanceof Element) {
+      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
+
+      if (pumpkinBtnSettings) {
+        this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+      }
+    }
   }
 
   setKeyDown(event: KeyboardEvent): void {
