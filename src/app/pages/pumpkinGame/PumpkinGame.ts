@@ -73,19 +73,26 @@ export default class PumpkinGame {
   render(): string {
     (<HTMLElement>document.querySelector('.header')).style.display = 'none';
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
-
+    //<a class="status-item" href="#/page1">Exit</a>
     return `
       <div class="game-container">
-        <div class="game-area">
-          <div class="status-panel">
-            <a class="status-item" href="#/page1">Exit</a>
-            <button class="pumpkin-play">Play</button>
-            <span class="pumpkin-level">Level: <span class="pumpkin-level-number"></span></span>
-            <span class="pumpkin-score">Score: <span class="pumpkin-score-number"></span></span>
-            <button class="pumpkin-settings">
-              <img src=${require("../../../assets/img/icon-settings.svg")} class="pumpkin-settings-icon" alt="icon">
-            </button>
+        <div class="status-panel">
+          <div class="wrapper-pumpkin-level">
+            <div class="pumpkin-level">
+              <span class="pumpkin-level-name">LVL</span>
+              <span class="pumpkin-level-number">0</span>
+            </div>
+            <div class="pumpkin-score">
+              <span class="pumpkin-score-name">Score</span>
+              <span class="pumpkin-score-number">0</span>
+            </div>
           </div>
+          <button class="pumpkin-settings">
+            <img src=${require("../../../assets/img/icon-settings.svg")} class="pumpkin-settings-icon" alt="icon">
+          </button>
+        </div>
+        <div class="game-area">
+          <button class="pumpkin-play">Play</button>
           <div class="fire-container"></div>
           <svg class="svg-fire">
             <filter id="fire">
@@ -159,7 +166,8 @@ export default class PumpkinGame {
     const btnPlay = <HTMLButtonElement>document.querySelector('.pumpkin-play');
 
     btnPlay.addEventListener('click', () => {
-      btnPlay.disabled = true;
+      btnPlay.style.display = 'none';
+      this.canvas?.classList.add('pumpkin-canvas-active');
       this.addEntities();
       this.reset();
       this.lastShoot = Date.now();
@@ -169,8 +177,6 @@ export default class PumpkinGame {
   }
 
   addEntities(): void {
-    console.log(getImage(this.images, this.imagesUrl[0]))
-
     this.player = {
       rotate: 0,
       pos: [0, 0],

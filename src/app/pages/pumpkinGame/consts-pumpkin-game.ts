@@ -10,7 +10,7 @@ const IMAGE_URL = [
 ];
 
 const PLAY_LIST_URL = [
-	'../../../assets/mp3/pumpkin-icon-settings.mp3',
+	'../../../assets/img/settings.mp3',
 ];
 
 const soundSettings = new Audio(PLAY_LIST_URL[0]);
