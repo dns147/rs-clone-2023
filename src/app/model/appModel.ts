@@ -3,7 +3,7 @@ import constsAuthForm from "../pages/authForm/const-auth-form";
 import { ControlKeys, MousePos } from '../../spa/coreTypes';
 import { Angle } from '../pages/pumpkinGame/types-pumpkin-game';
 import { getAngle } from '../pages/pumpkinGame/utils-pumpkin-game';
-import CONSTS_PUMPKIN_GAME from '../pages/pumpkinGame/consts-pumpkin-game';
+import CONSTS_PUMPKIN_GAME from '../../spa/coreConst';
 
 export default class AppModel {
   view: AppView;
@@ -80,33 +80,15 @@ export default class AppModel {
     
   }
 
-  soundSettingsPumpkin(btn: HTMLButtonElement) {
-    // const audio = new Audio('../../assets/mp3/settings.mp3');  
-    // //audio.type = 'audio/wav';
-  
-    // try {
-    //   await audio.play();
-    //   console.log('Playing...');
-    // } catch (err) {
-    //   console.log('Failed to play...' + err);
-    // }
-
-    const audio = new Audio();
-    audio.src = require('../../assets/mp3/settings.mp3');
-    audio.onload = () => {
-      audio.play();
-    };
+  soundSettingsPumpkin(btn: HTMLButtonElement): void {
+    if (btn.dataset.sound === 'play') {
+      btn.setAttribute('data-sound', 'stop');
+      CONSTS_PUMPKIN_GAME.soundSettings.pause();
+    } else {
+      btn.setAttribute('data-sound', 'play');
+      CONSTS_PUMPKIN_GAME.soundSettings.play();
+    }
   }
-
-  // soundSettingsPumpkin(btn: HTMLButtonElement): void {
-  //   if (btn.dataset.sound === 'play') {
-  //     btn.setAttribute('data-sound', 'stop');
-  //     CONSTS_PUMPKIN_GAME.soundSettings.pause();
-  //   } else {
-  //     btn.setAttribute('data-sound', 'play');
-  //     CONSTS_PUMPKIN_GAME.soundSettings.play();
-  //   }
-  // }
 
   setKeyDown(event: KeyboardEvent): void {
     const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
