@@ -3,7 +3,7 @@ import constsAuthForm from "../pages/authForm/const-auth-form";
 import { ControlKeys, MousePos } from '../../spa/coreTypes';
 import { Angle } from '../pages/pumpkinGame/types-pumpkin-game';
 import { getAngle } from '../pages/pumpkinGame/utils-pumpkin-game';
-import CONSTS_PUMPKIN_GAME from '../../spa/coreConst';
+import SOUND_PUMPKIN_GAME from '../../spa/coreConst';
 
 export default class AppModel {
   view: AppView;
@@ -83,10 +83,29 @@ export default class AppModel {
   soundSettingsPumpkin(btn: HTMLButtonElement): void {
     if (btn.dataset.sound === 'play') {
       btn.setAttribute('data-sound', 'stop');
-      CONSTS_PUMPKIN_GAME.soundSettings.pause();
+      SOUND_PUMPKIN_GAME.soundSettings.pause();
     } else {
       btn.setAttribute('data-sound', 'play');
-      CONSTS_PUMPKIN_GAME.soundSettings.play();
+      SOUND_PUMPKIN_GAME.soundSettings.play();
+    }
+  }
+
+  playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement, pumpkinBombIcon: HTMLElement): void {
+    SOUND_PUMPKIN_GAME.soundClick.play();
+
+    if (eventTarget === pumpkinShellsIcon && !pumpkinShellsIcon.classList.contains('select-weapon')) {
+      pumpkinShellsIcon.classList.add('select-weapon');
+      (<HTMLElement>document.querySelector('.pumpkin-electro-icon')).classList.remove('select-weapon');
+    }
+
+    if (eventTarget === pumpkinElectroIcon && !pumpkinElectroIcon.classList.contains('select-weapon')) {
+      pumpkinElectroIcon.classList.add('select-weapon');
+      (<HTMLElement>document.querySelector('.pumpkin-shells-icon')).classList.remove('select-weapon');
+    }
+
+    if (eventTarget === pumpkinBombIcon) {
+      pumpkinBombIcon.classList.add('select-weapon');
+      window.setTimeout(() => pumpkinBombIcon.classList.remove('select-weapon'), 1500);
     }
   }
 

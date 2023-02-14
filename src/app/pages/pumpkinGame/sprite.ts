@@ -17,6 +17,7 @@ export default class Sprite {
   once: boolean;
   rad: number;
   _index: number;
+  done: boolean;
 
   constructor(img: HTMLImageElement, pos: number[], size: number[], speed: number, frames: number[], dir: string | null, once: boolean, rad: number) {
     this.img = img;
@@ -28,6 +29,7 @@ export default class Sprite {
     this.once = once;
     this.rad = rad;
     this._index = 0;
+    this.done = false;
   }
 
   update(dt: number): void {
@@ -43,6 +45,7 @@ export default class Sprite {
       frame = this.frames[idx % max];
 
       if (this.once && idx >= max) {
+        this.done = true;
         return;
       }
     } else {

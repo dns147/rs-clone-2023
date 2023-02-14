@@ -35,6 +35,13 @@ export default class AppController {
       const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
       const userInfo = <HTMLElement>event.target.closest('.user-info');
       const userQuit = <HTMLElement>event.target.closest('.user-quit');
+      const playGamePumpkin = <HTMLElement>event.target.closest('.pumpkin-play');
+      const exitGamePumpkin = <HTMLElement>event.target.closest('.pumpkin-exit');
+      const pumpkinShellsIcon = <HTMLElement>event.target.closest('.pumpkin-shells-icon');
+      const pumpkinElectroIcon = <HTMLElement>event.target.closest('.pumpkin-electro-icon');
+      const pumpkinBombIcon = <HTMLElement>event.target.closest('.pumpkin-bomb-icon');
+      const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
+      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
 
       const card = <HTMLElement>event.target.closest('.card');
 
@@ -42,10 +49,6 @@ export default class AppController {
         this.model.cardGame(card);
       }
       
-      const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
-      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
-
-
       if (userIcon) {
         this.model.goToLoginContainer();
       }
@@ -85,6 +88,10 @@ export default class AppController {
       if (pumpkinBtnSettings) {
         this.model.showSettingsPumpkin();
       }
+
+      if (playGamePumpkin || exitGamePumpkin || pumpkinShellsIcon || pumpkinElectroIcon || pumpkinBombIcon || pumpkinBtnSettings) {
+        this.model.playSoundClick(event.target, pumpkinShellsIcon, pumpkinElectroIcon, pumpkinBombIcon);
+      }
     }
   }
 
@@ -118,7 +125,7 @@ export default class AppController {
       const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
 
       if (pumpkinBtnSettings) {
-        this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+        //this.model.soundSettingsPumpkin(pumpkinBtnSettings);
       }
     }
   }
@@ -128,7 +135,7 @@ export default class AppController {
       const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
 
       if (pumpkinBtnSettings) {
-        this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+        //this.model.soundSettingsPumpkin(pumpkinBtnSettings);
       }
     }
   }

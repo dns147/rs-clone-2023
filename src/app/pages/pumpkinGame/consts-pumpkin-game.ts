@@ -7,6 +7,8 @@ const IMAGE_URL = [
 	require('../../../assets/sprites/spider-walk1-back.png'),
 	require('../../../assets/sprites/spider-walk2-back.png'),
 	require('../../../assets/sprites/spider-walk3-back.png'),
+	require('../../../assets/sprites/boom1.png'),
+	require('../../../assets/sprites/smiley_pumpkin_big.png'),
 ];
 
 export default {
