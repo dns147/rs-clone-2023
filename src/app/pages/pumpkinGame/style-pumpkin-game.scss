@@ -37,6 +37,15 @@
   }
 }
 
+@keyframes AnimIconExit {
+  from {
+    transform: rotate(10deg);
+  }
+  to {
+    transform: rotate(-10deg);
+  }
+}
+
 @mixin btn-default {
   border: none;
   outline: none;
@@ -53,20 +62,19 @@ $heading-shadow: #f5f5f5;
 
   .status-panel {
     position: absolute;
-    width: 100px;
-    top: 25%;
-    left: 10px;
+    width: 77%;
+    top: 0;
     font-family: 'SecretMidnight', sans-serif;
     color: $heading-shadow;
     font-size: 22px;
     display: flex;
-    flex-direction: column;
-    row-gap: 48px;
+    justify-content: space-between;
     z-index: 1;
 
     .wrapper-pumpkin-level {
       display: flex;
-      flex-direction: column;
+      column-gap: 20px;
+      color: aquamarine;
 
       .pumpkin-level,
       .pumpkin-score {
@@ -86,16 +94,44 @@ $heading-shadow: #f5f5f5;
       }
     }
 
-    .pumpkin-settings {
-      @include btn-default;
+    .heart-life {
+      align-self: center;
+      display: flex;
 
-      img {
-        width: 28px;
+      .pumpkin-smiley-icon {
+        filter: grayscale(1);
+      }
+    }
+
+    .icon-list {
+      align-self: center;
+      display: flex;
+      column-gap: 10px;
+
+      .pumpkin-exit {
+        align-self: center;
+        color: white;
+        font-size: 26px;
+        transform: rotate(10deg);
       }
 
-      img:hover {
-        cursor: pointer;
-        animation: AnimIconSettings 3s infinite linear;
+      .pumpkin-exit:hover {
+        color: aquamarine;
+        animation: AnimIconExit 0.7s infinite alternate linear;
+      }
+
+      .pumpkin-settings {
+        @include btn-default;
+
+        img {
+          width: 28px;
+        }
+
+        img:hover {
+          cursor: pointer;
+          animation: AnimIconSettings 3s infinite linear;
+          filter: brightness(0) saturate(100%) invert(87%) sepia(94%) saturate(314%) hue-rotate(77deg) brightness(101%) contrast(101%);
+        }
       }
     }
   }
@@ -115,6 +151,7 @@ $heading-shadow: #f5f5f5;
       color: #ffeb3b;
       z-index: 10;
       position: absolute;
+      text-shadow: 0px 0px 39px #9c27b0;
     }
 
     .pumpkin-play:hover {

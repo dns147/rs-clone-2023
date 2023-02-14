@@ -76,22 +76,32 @@ export default class PumpkinGame {
     //<a class="status-item" href="#/page1">Exit</a>
     return `
       <div class="game-container">
-        <div class="status-panel">
-          <div class="wrapper-pumpkin-level">
-            <div class="pumpkin-level">
-              <span class="pumpkin-level-name">LVL</span>
-              <span class="pumpkin-level-number">0</span>
+        <div class="game-area">
+          <div class="status-panel">
+            <div class="wrapper-pumpkin-level">
+              <div class="pumpkin-level">
+                <span class="pumpkin-level-name">LVL</span>
+                <span class="pumpkin-level-number">0</span>
+              </div>
+              <div class="pumpkin-score">
+                <span class="pumpkin-score-name">Score</span>
+                <span class="pumpkin-score-number">0</span>
+              </div>
             </div>
-            <div class="pumpkin-score">
-              <span class="pumpkin-score-name">Score</span>
-              <span class="pumpkin-score-number">0</span>
+            <div class="heart-life">
+            <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
+            <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
+            <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
+            </div>
+            <div class="icon-list">
+              <button class="pumpkin-settings">             
+                <img src=${require("../../../assets/img/icon-settings.svg")} class="pumpkin-settings-icon" alt="icon">
+              </button>
+              <a class="pumpkin-exit" href="#/page1">
+                <i class="fa-solid fa-door-open"></i>
+              </a>
             </div>
           </div>
-          <button class="pumpkin-settings">
-            <img src=${require("../../../assets/img/icon-settings.svg")} class="pumpkin-settings-icon" alt="icon">
-          </button>
-        </div>
-        <div class="game-area">
           <button class="pumpkin-play">Play</button>
           <div class="fire-container"></div>
           <svg class="svg-fire">
