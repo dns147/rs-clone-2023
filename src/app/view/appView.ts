@@ -4,9 +4,9 @@ import Authorization from "../pages/authForm/authorization";
 import { hideUserMenu, showUserMenu } from "../utils-component";
 import { flipCard } from '../pages/page7/utils-page7';
 
+
 export default class AppView {
   container: HTMLElement;
-
   isValidEmail: boolean;
   isValidPassword: boolean;
 
