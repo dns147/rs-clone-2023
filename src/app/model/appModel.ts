@@ -100,6 +100,7 @@ export default class AppModel {
     const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
     controlKeys[event.code] = false;
     localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
+  }
 
   cardGame(card: HTMLElement): void {
     this.view.cardGame(card);
