@@ -2,7 +2,7 @@ import { MousePos } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
 import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
-import { boxCollides, getAngle, getFactor, getImage, getRandomInt } from './utils-pumpkin-game';
+import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 
 export default class PumpkinGame {
@@ -73,7 +73,7 @@ export default class PumpkinGame {
   render(): string {
     (<HTMLElement>document.querySelector('.header')).style.display = 'none';
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
-    //<a class="status-item" href="#/page1">Exit</a>
+
     return `
       <div class="game-container">
         <div class="game-area">
@@ -87,11 +87,14 @@ export default class PumpkinGame {
                 <span class="pumpkin-score-name">Score</span>
                 <span class="pumpkin-score-number">0</span>
               </div>
+              <div class="heart-life">
+                <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon active-icon" alt="icon">
+                <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
+                <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
+              </div>
             </div>
-            <div class="heart-life">
-            <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
-            <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
-            <img src=${require("../../../assets/img/smiley_pumpkin.png")} class="pumpkin-smiley-icon" alt="icon">
+            <div class="time-game-pumpkin">
+              <span class="time-pumpkin">00:00</span>
             </div>
             <div class="icon-list">
               <button class="pumpkin-settings">             
@@ -121,6 +124,7 @@ export default class PumpkinGame {
   }
 
   init(): void {
+    window.addEventListener('resize', () => document.location.reload());
     window.addEventListener('resize', this.resizeGameArea);
     this.resizeGameArea();
     this.canvas = <HTMLCanvasElement>document.querySelector('.pumpkin-canvas');
@@ -183,6 +187,8 @@ export default class PumpkinGame {
       this.lastShoot = Date.now();
       this.lastTime = Date.now();
       this.mainLoop();
+
+      this.makeTimer(2, 30, 1);
     });
   }
 
@@ -571,4 +577,29 @@ export default class PumpkinGame {
     btnPlay.disabled = false;
     //window.cancelAnimationFrame(this.timerId); 
  }
+
+  makeTimer(min: number, sec: number, level: number): void {
+    const gameLevel = <HTMLSpanElement>document.querySelector('.pumpkin-level-number');
+    gameLevel.textContent = `${level}`;
+
+    const time = <HTMLSpanElement>document.querySelector('.time-pumpkin');
+
+    setTimeout(function tick() {
+      time.textContent = normalize(min) + ":" + normalize(sec);
+      
+      if (min >= 0) {
+        setTimeout(tick, 1000);
+      } else {
+        //this.showNextLevel(level);
+        console.log('time is out')
+      }
+
+      sec -= 1;
+
+      if (sec === 0) {
+        min -= 1;
+        sec = 60;
+      }    
+    });
+  }
 }

@@ -28,3 +28,8 @@ export type Pumpkin = {
   height?: number;
   clickInfo: ClickInfo;
 };
+
+export type SettingsLevel = {
+  level: number;
+  time: number;
+};

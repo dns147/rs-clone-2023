@@ -95,3 +95,5 @@ export function boxCollides(pos1: number[], size1: number[], pos2: number[], siz
 export function collides(x: number, y: number, r: number, b: number, x2: number, y2: number, r2: number, b2: number) {
   return !(r <= x2 || x > r2 || b <= y2 || y > b2);
 }
+
+export const normalize = (num: number): string => ((num < 10) ? '0' : '') + num;
