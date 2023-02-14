@@ -2,6 +2,8 @@ import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/
 import constsAuthForm from "../pages/authForm/const-auth-form";
 import Authorization from "../pages/authForm/authorization";
 import { hideUserMenu, showUserMenu } from "../utils-component";
+import { flipCard } from '../pages/page7/utils-page7';
+
 export default class AppView {
   container: HTMLElement;
 
@@ -102,5 +104,9 @@ export default class AppView {
 
     this.isValidEmail = false;
     this.isValidPassword = false;
+  }
+
+  cardGame(card: HTMLElement): void {
+    flipCard(card);
   }
 }

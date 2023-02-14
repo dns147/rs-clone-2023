@@ -47,4 +47,8 @@ export default class AppModel {
   userSignOut(): void {
     this.view.userSignOut();
   }
+
+  cardGame(card: HTMLElement): void {
+    this.view.cardGame(card);
+  }
 }

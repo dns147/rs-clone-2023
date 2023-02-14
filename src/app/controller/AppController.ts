@@ -25,6 +25,12 @@ export default class AppController {
       const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
       const userInfo = <HTMLElement>event.target.closest('.user-info');
       const userQuit = <HTMLElement>event.target.closest('.user-quit');
+
+      const card = <HTMLElement>event.target.closest('.card');
+
+      if (card) {
+        this.model.cardGame(card);
+      }
       
       if (userIcon) {
         this.model.goToLoginContainer();
