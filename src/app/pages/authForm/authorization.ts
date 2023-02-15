@@ -15,7 +15,7 @@ export default class Authorization {
 				window.location.hash = '/page2';
         hideRegistrationForm();
 				setUserName(user.displayName);
-
+				localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// user.getIdToken().then((idToken) => {
 				// 	//setUserName(user.uid, idToken);
 				// })
@@ -34,6 +34,7 @@ export default class Authorization {
 		await createUserWithEmailAndPassword(myAuth, user.email, user.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
+				localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// localStorage.setItem('userInfo', JSON.stringify(user));
       	// localStorage.setItem('userId', user.uid);
 				window.location.hash = '/page2';
@@ -58,6 +59,7 @@ export default class Authorization {
 
   async userSignOut(): Promise<void> {
     signOut(myAuth).then(() => {
+			localStorage.removeItem('userName');
       // localStorage.removeItem('userInfo');
       // localStorage.removeItem('userId');
       window.location.hash = '#';

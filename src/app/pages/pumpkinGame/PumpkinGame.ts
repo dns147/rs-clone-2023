@@ -125,9 +125,10 @@ export default class PumpkinGame {
               <span class="time-pumpkin">00:00</span>
             </div>
             <div class="icon-list">
-              <button class="pumpkin-settings">             
-                <img src=${require("../../../assets/img/icon-settings.svg")} class="pumpkin-settings-icon" alt="icon">
-              </button>
+              <div class="user">
+                <img src=${require("../../../assets/img/user-solid.svg")} class="user-icon" alt="icon">
+                <span class="user-name"></span>
+              </div>
               <a class="pumpkin-exit" href="#/page1">
                 <i class="fa-solid fa-door-open"></i>
               </a>

@@ -26,9 +26,9 @@ export const Header = {
             </div>
           </div>
           <div class="user-menu">
-            <button class="user-menu-btn user-statistic">Статистика</button>
+            <button class="user-menu-btn user-statistic">Statistics</button>
             <div class="divider">
-              <button class="user-menu-btn user-quit">Выход</button>
+              <button class="user-menu-btn user-quit">Exit</button>
             </div>
           </div>
 				</div>
