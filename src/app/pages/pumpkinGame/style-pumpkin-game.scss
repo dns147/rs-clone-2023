@@ -86,14 +86,10 @@ $heading-shadow: #f5f5f5;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
 
         .pumpkin-level-name,
-        .pumpkin-score-name,
-        .pumpkin-heart-icon,
-        .pumpkin-shells-icon,
-        .pumpkin-electro-icon,
-        .pumpkin-bomb-icon {
+        .pumpkin-score-name {
           border-bottom: 1px solid;
         }
 
@@ -102,7 +98,7 @@ $heading-shadow: #f5f5f5;
         .pumpkin-life-number,
         .pumpkin-shells-number,
         .pumpkin-electro-number,
-        .pumpkin-shells-number {
+        .pumpkin-bomb-number {
           font-family: monospace;
         }
       }
@@ -111,19 +107,19 @@ $heading-shadow: #f5f5f5;
       .pumpkin-shells-icon,
       .pumpkin-electro-icon,
       .pumpkin-bomb-icon {
-        padding-bottom: 4px;
+        padding: 4px;
       }
 
       .pumpkin-shells-icon:hover,
       .pumpkin-electro-icon:hover,
       .pumpkin-bomb-icon:hover {
         cursor: pointer;
-        background: #8bc34a;
+        outline: 1px solid;
         border-radius: 10px;
       }
 
       .select-weapon {
-        background: #8bc34a;
+        outline: 1px solid;
         border-radius: 10px;
       }
     }
@@ -260,11 +256,10 @@ $heading-shadow: #f5f5f5;
       .pumpkin-canvas {
         width: 100%;
         height: 100%;
-        //cursor: url("../../../assets/img/cursor1.png"), pointer;
       }
 
       .pumpkin-canvas-active {
-        cursor: url("../../../assets/img/cursor1.png"), pointer;
+        cursor: url("../../../assets/img/aim4.png"), pointer;
       }
     }
   }
