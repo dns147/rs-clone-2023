@@ -117,11 +117,11 @@ export default class AppController {
 
   getEventsMove(event: MouseEvent) {
     if (event.target instanceof Element) {
-      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
+      // const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
 
-      if (pumpkinBtnSettings) {
-        //this.model.soundSettingsPumpkin(pumpkinBtnSettings);
-      }
+      // if (pumpkinBtnSettings) {
+      //   //this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+      // }
     }
   }
 

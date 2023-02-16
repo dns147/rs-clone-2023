@@ -13,6 +13,7 @@ const IMAGE_URL = [
 	require('../../../assets/sprites/boom3.png'), // 11
 	require('../../../assets/sprites/boom4.png'), // 12
 	require('../../../assets/sprites/boom5.png'), // 13
+	require('../../../assets/sprites/electro-ball.png'), // 14
 ];
 
 export default {

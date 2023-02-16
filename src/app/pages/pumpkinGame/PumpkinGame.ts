@@ -17,7 +17,7 @@ export default class PumpkinGame {
   windowInnerHeight: number;
   imagesUrl: string[];
   images: HTMLImageElement[];
-  pumpkins: Pumpkin[];
+  weapons: Pumpkin[];
   monsters1: Player[];
   monsters2: Player[];
   monsters3: Player[];
@@ -34,15 +34,17 @@ export default class PumpkinGame {
   enemySpeed: number;
   isGameOver: boolean;
   score: number;
-  idIntervalAddLifes1: number;
-  idIntervalAddLifes2: number;
+  // idIntervalAddLifes1: number;
+  // idIntervalAddLifes2: number;
   numberLifes: number;
   numberPumpkins: number;
   numberFire: number;
   numberBombs: number;
 
   player: Player | null;
-  shootPumpkin: Pumpkin | null;
+  pumpkinWeapon: Pumpkin | null;
+  electroWeapon: Pumpkin | null;
+  currentWeapon: Pumpkin | null;
   boom1: Player | null;
 
   constructor() {
@@ -57,7 +59,7 @@ export default class PumpkinGame {
     this.posCenterY = this.windowInnerHeight / 2;
     this.imagesUrl = [];
     this.images = [];
-    this.pumpkins = [];
+    this.weapons = [];
     this.monsters1 = [];
     this.monsters2 = [];
     this.monsters3 = [];
@@ -74,15 +76,17 @@ export default class PumpkinGame {
     this.enemySpeed = 30;
     this.isGameOver = true;
     this.score = 0;
-    this.idIntervalAddLifes1 = 0;
-    this.idIntervalAddLifes2 = 0;
+    // this.idIntervalAddLifes1 = 0;
+    // this.idIntervalAddLifes2 = 0;
     this.numberLifes = 1;
     this.numberPumpkins = 10;
     this.numberFire = 5;
     this.numberBombs = 1;
 
     this.player = null;
-    this.shootPumpkin = null;
+    this.pumpkinWeapon = null;
+    this.electroWeapon = null;
+    this.currentWeapon = null;
     this.boom1 = null;
 
     this.burstAllMonsters = this.burstAllMonsters.bind(this);
@@ -163,6 +167,8 @@ export default class PumpkinGame {
     const pumpkinBomb = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
     pumpkinBomb.addEventListener('click', this.burstAllMonsters);
 
+    localStorage.setItem('currentWeapon', 'pumpkin');
+
     window.addEventListener('resize', () => document.location.reload());
     window.addEventListener('resize', this.resizeGameArea);
     this.resizeGameArea();
@@ -240,7 +246,7 @@ export default class PumpkinGame {
       height: 97
     };
     
-    this.shootPumpkin = {
+    this.pumpkinWeapon = {
       rotate: 0,
       pos: [0, 0],
       sprite: new Sprite(getImage(this.images, this.imagesUrl[1]), [0, 0], [35, 28], 5, [5, 4, 3, 2, 1], null, false, 0),
@@ -255,15 +261,33 @@ export default class PumpkinGame {
         },
       }
     };
-      
-    this.boom1 = {
+
+    this.electroWeapon = {
       rotate: 0,
-      pos: [220, 500],
-      sprite: new Sprite(getImage(this.images, this.imagesUrl[10]), [0, 0], [83, 83], 6, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0),
-      //sprite: new Sprite(getImage(this.images, this.imagesUrl[11]), [0, 0], [200, 256], 6, [0, 1, 2, 3, 4, 5], null, false, 0),
-      width: 83,
-      height: 83
+      pos: [0, 0],
+      sprite: new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0),
+      width: 48,
+      height: 45,
+      clickInfo: {
+        pos: {},
+        distance: 0,
+        angle: {
+          rad: 0,
+          grad: 0
+        },
+      }
     };
+
+    this.currentWeapon = (localStorage['currentWeapon'] === 'electro') ? this.electroWeapon : this.pumpkinWeapon;
+      
+    // this.boom1 = {
+    //   rotate: 0,
+    //   pos: [220, 500],
+    //   sprite: new Sprite(getImage(this.images, this.imagesUrl[10]), [0, 0], [83, 83], 6, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0),
+    //   //sprite: new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [94, 94], 6, [0, 1, 2, 3, 4, 5], null, false, 0),
+    //   width: 83,
+    //   height: 83
+    // };
   }
 
   //--- Главный цикл игры ---
@@ -295,14 +319,18 @@ export default class PumpkinGame {
     this.addMonsters1();
     this.addMonsters2();
     this.addMonsters3();
-    this.addItems();
+
+    this.addLifes();
+    //window.setTimeout(() => this.addLifes, getRandomInt(200, 500));
+    //this.addLifes();
+
     this.checkCollisions(dt);
     this.riseScoreGame();
     this.riseLifesGame();
   }
 
   addMonsters1(): void {
-    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters1.length <= 5) {
+    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters1.length <= 3) {
       switch (getRandomInt(0, 4)) {
         case 0:	//left
           this.monsters1.push({
@@ -346,7 +374,7 @@ export default class PumpkinGame {
   }
 
   addMonsters2(): void {
-    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters2.length <= 5) {
+    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters2.length <= 3) {
       switch (getRandomInt(0, 4)) {
         case 0:	//left
           this.monsters2.push({
@@ -366,7 +394,7 @@ export default class PumpkinGame {
   }
 
   addMonsters3(): void {
-    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters3.length <= 5) {
+    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters3.length <= 3) {
       switch (getRandomInt(0, 4)) {
         case 0:	//left
           this.monsters3.push({
@@ -385,27 +413,27 @@ export default class PumpkinGame {
     }
   }
 
-  addItems(): void {
-    if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.numberLifes <= 5) {
+  addLifes(): void {
+    if (this.lifes.length === 2 || this.numberLifes >= 5) {
+      return;
+    }
+
+    if (Math.random() < 1 - Math.pow(0.9999, this.gameTime)) {
       switch (getRandomInt(0, 4)) {
         case 0:	//top
-          this.idIntervalAddLifes1 = window.setInterval(() => {
             this.lifes.push({
               pos: [Math.random() * this.canvasWidth, 0],
               sprite: new Sprite(getImage(this.images, this.imagesUrl[9]), [0, 0], [66, 66], 1, [0], null, false, 0),
             });
-
-            this.numberLifes += 1;
-          }, getRandomInt(8000, 15000));
           break;
       }
     }
   }
 
   reset(): void {
-    if (this.canvas && this.player && this.shootPumpkin) {
+    if (this.canvas && this.player && this.currentWeapon) {
       this.player.pos = [this.canvasWidth/2, this.canvasHeight/2];
-      this.shootPumpkin.pos = [this.canvasWidth/2, this.canvasHeight/2];
+      this.currentWeapon.pos = [this.canvasWidth/2, this.canvasHeight/2];
     }
 
     this.isGameOver = false;
@@ -416,7 +444,7 @@ export default class PumpkinGame {
   renderGame(): void {
     if (!this.isGameOver && this.player) {
       this.renderPlayer(this.player);
-      this.renderShootPumpkins(this.pumpkins);
+      this.renderShootPumpkins(this.weapons);
       this.renderMonsters(this.monsters1);
       this.renderMonsters(this.monsters2);
       this.renderMonsters(this.monsters3);
@@ -435,10 +463,10 @@ export default class PumpkinGame {
     obj.sprite.render(this.ctx);
   }
 
-  renderShootPumpkins(pumpkins: Pumpkin[]): void {
-    pumpkins.forEach((pumpkin: Pumpkin) => {
-      this.ctx?.translate(pumpkin.pos[0], pumpkin.pos[1]);
-      pumpkin.sprite.render(this.ctx);
+  renderShootPumpkins(weapons: Pumpkin[]): void {
+    weapons.forEach((weapon: Pumpkin) => {
+      this.ctx?.translate(weapon.pos[0], weapon.pos[1]);
+      weapon.sprite.render(this.ctx);
     });
   }
 
@@ -459,21 +487,31 @@ export default class PumpkinGame {
   }
 
   handleShoot(): void {
-    if (this.shootPumpkin && localStorage['isClick'] === 'true' && Date.now() - this.lastShoot > this.intervalShoot) {
+    if (this.currentWeapon && localStorage['isClick'] === 'true' && Date.now() - this.lastShoot > this.intervalShoot) {
       const clickInfo: ClickInfo = localStorage['clickInfo'] ? JSON.parse(localStorage['clickInfo']) : [];
       const mousePos: MousePos = clickInfo.pos;
       const angle: Angle = clickInfo.angle;    
       const distance: number = clickInfo.distance;
 
-      this.pumpkins.push({
+      const spriteWeapon: Sprite = (localStorage['currentWeapon'] === 'electro') 
+        ? new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0) 
+        : new Sprite(getImage(this.images, this.imagesUrl[1]), [0, 0], [35, 28], 7, [5, 4, 3, 2, 1], null, false, 0);
+
+      this.weapons.push({
         pos: [this.canvasWidth/2, this.canvasHeight/2],
-        sprite: new Sprite(getImage(this.images, this.imagesUrl[1]), [0, 0], [35, 28], 7, [5, 4, 3, 2, 1], null, false, 0),
+        sprite: spriteWeapon,
         clickInfo: {
           pos: mousePos,
           distance: distance,
           angle: angle,
         }
       });
+
+      if (localStorage['currentWeapon'] === 'electro') {
+        SOUND.soundFire.play();
+      } else {
+        SOUND.soundPumpkin.play();
+      }
 
       this.lastShoot = Date.now();
       localStorage.setItem('isClick', 'false');
@@ -568,8 +606,8 @@ export default class PumpkinGame {
   }
 
   updateShootPumpkin(dt: number): void {
-    for (let i = 0; i < this.pumpkins.length; i += 1) {
-      const pumpkin: Pumpkin = this.pumpkins[i];
+    for (let i = 0; i < this.weapons.length; i += 1) {
+      const pumpkin: Pumpkin = this.weapons[i];
       const mouseX: number = pumpkin.clickInfo.pos['x'];
       const mouseY: number = pumpkin.clickInfo.pos['y'];
       const distance: number = pumpkin.clickInfo.distance;
@@ -578,31 +616,32 @@ export default class PumpkinGame {
       const angleRad: number = angle.rad;
       const factorX: number = getFactor(angleGrad, angleRad).factorX;
       const factorY: number = getFactor(angleGrad, angleRad).factorY;
-      const pumpkinWidth = <number>this.shootPumpkin?.width;
-      const pumpkinHeight =  <number>this.shootPumpkin?.height;
+      const pumpkinWidth = <number>this.currentWeapon?.width;
+      const pumpkinHeight =  <number>this.currentWeapon?.height;
+      const speedWeapon: number = localStorage['currentWeapon'] === 'electro' ? 2.2 : 1; 
 
       if (angleGrad > 0 && angleGrad <= 90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX - pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY + pumpkinHeight) / distance;
       }
   
       if (angleGrad > 90 && angleGrad <= 180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX - pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX - pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY - pumpkinHeight) / distance;
       }
   
       if (angleGrad < 0 && angleGrad >= -90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY + pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX + pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY + pumpkinHeight) / distance;
       }
   
       if (angleGrad < -90 && angleGrad >= -180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * (mouseX - this.posCenterX + pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * (mouseY - this.posCenterY - pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX + pumpkinWidth) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY - pumpkinHeight) / distance;
       }
 
       if (pumpkin.pos[0] < 0 || pumpkin.pos[0] > this.canvasWidth || pumpkin.pos[1] < 0 || pumpkin.pos[1] > this.canvasHeight) {
-        this.pumpkins.splice(i, 1);
+        this.weapons.splice(i, 1);
         i -= 1;
       }
 
@@ -663,15 +702,15 @@ export default class PumpkinGame {
         }
 
         //--- обнаружение столкновений монстров и пуль ---
-        for (let j = 0; j < this.pumpkins.length; j += 1) {
-          const pos2 = this.pumpkins[j].pos;
-          const size2 = this.pumpkins[j].sprite.size;
+        for (let j = 0; j < this.weapons.length; j += 1) {
+          const pos2 = this.weapons[j].pos;
+          const size2 = this.weapons[j].sprite.size;
 
           if (boxCollides([pos1[0] - size1[0] / 2, pos1[1] - size1[1] / 2], size1, pos2, size2)) {
             monsters.splice(i, 1);
             this.addBurst(pos1);
             i -= 1;
-            this.pumpkins.splice(j, 1);
+            this.weapons.splice(j, 1);
             this.score += 1;
             break;
           }
@@ -693,16 +732,16 @@ export default class PumpkinGame {
       const size1 = lifes[i].sprite.size;
 
       //--- обнаружение столкновений жизней и пуль ---
-      for (let j = 0; j < this.pumpkins.length; j += 1) {
-        const pos2 = this.pumpkins[j].pos;
-        const size2 = this.pumpkins[j].sprite.size;
+      for (let j = 0; j < this.weapons.length; j += 1) {
+        const pos2 = this.weapons[j].pos;
+        const size2 = this.weapons[j].sprite.size;
 
         if (boxCollides([pos1[0] - size1[0] / 2, pos1[1] - size1[1] / 2], size1, pos2, size2)) {
           lifes.splice(i, 1);
           this.addBurstLifes(pos1);
           i -= 1;
-          this.pumpkins.splice(j, 1);
-          // this.numberLifes += 1;
+          this.weapons.splice(j, 1);
+          this.numberLifes += 1;
           break;
         }
       }
@@ -710,10 +749,17 @@ export default class PumpkinGame {
   }
 
   addBurst(pos1: number[]): void {
-    this.bursts.push({
-      pos: pos1,
-      sprite: new Sprite(getImage(this.images, this.imagesUrl[8]), [0, 0], [61, 61], 8, [0, 1, 2, 3], null, true, 0),
-    });
+    if (localStorage['currentWeapon'] === 'electro') {
+      this.bursts.push({
+        pos: pos1,
+        sprite: new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [94, 94], 8, [0, 1, 2, 3, 4, 5], null, true, 0),
+      });
+    } else {
+      this.bursts.push({
+        pos: pos1,
+        sprite: new Sprite(getImage(this.images, this.imagesUrl[8]), [0, 0], [61, 61], 8, [0, 1, 2, 3], null, true, 0),
+      });
+    }
 
     SOUND.soundPumpkinCrashes.play();
   }
@@ -730,7 +776,7 @@ export default class PumpkinGame {
   addBurstLifes(pos1: number[]): void {
     this.bursts.push({
       pos: pos1,
-      sprite: new Sprite(getImage(this.images, this.imagesUrl[13]), [0, 0], [95,95], 10, [0, 1, 2, 3, 4, 5, 6, 7], null, true, 0),
+      sprite: new Sprite(getImage(this.images, this.imagesUrl[13]), [0, 0], [69, 69], 10, [0, 1, 2, 3, 4, 5, 6, 7], null, true, 0),
     });
 
     SOUND.soundLife.play();
@@ -742,12 +788,12 @@ export default class PumpkinGame {
     this.monsters2 = [];
     this.monsters3 = [];
     this.monsters4 = [];
-    this.pumpkins = [];
+    this.weapons = [];
     this.numberLifes = 0;
     this.isGameOver = true;
 
-    window.clearInterval(this.idIntervalAddLifes1);
-    window.clearInterval(this.idIntervalAddLifes2);
+    // window.clearTimeout(this.idIntervalAddLifes1);
+    // window.clearTimeout(this.idIntervalAddLifes2);
     //window.cancelAnimationFrame(this.timerId); 
  }
 

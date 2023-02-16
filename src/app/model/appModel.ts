@@ -76,15 +76,15 @@ export default class AppModel {
     localStorage.setItem('isClick', 'true');
   }
 
-  soundSettingsPumpkin(btn: HTMLButtonElement): void {
-    if (btn.dataset.sound === 'play') {
-      btn.setAttribute('data-sound', 'stop');
-      SOUND.soundSettings.pause();
-    } else {
-      btn.setAttribute('data-sound', 'play');
-      SOUND.soundSettings.play();
-    }
-  }
+  // soundSettingsPumpkin(btn: HTMLButtonElement): void {
+  //   if (btn.dataset.sound === 'play') {
+  //     btn.setAttribute('data-sound', 'stop');
+  //     SOUND.soundSettings.pause();
+  //   } else {
+  //     btn.setAttribute('data-sound', 'play');
+  //     SOUND.soundSettings.play();
+  //   }
+  // }
 
   playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement, pumpkinBombIcon: HTMLElement): void {
     SOUND.soundClick.play();
@@ -92,11 +92,13 @@ export default class AppModel {
     if (eventTarget === pumpkinShellsIcon && !pumpkinShellsIcon.classList.contains('select-weapon')) {
       pumpkinShellsIcon.classList.add('select-weapon');
       (<HTMLElement>document.querySelector('.pumpkin-electro-icon')).classList.remove('select-weapon');
+      localStorage.setItem('currentWeapon', 'pumpkin');
     }
 
     if (eventTarget === pumpkinElectroIcon && !pumpkinElectroIcon.classList.contains('select-weapon')) {
       pumpkinElectroIcon.classList.add('select-weapon');
       (<HTMLElement>document.querySelector('.pumpkin-shells-icon')).classList.remove('select-weapon');
+      localStorage.setItem('currentWeapon', 'electro');
     }
   }
 
