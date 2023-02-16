@@ -44,7 +44,7 @@ export default class AppController {
       
       const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
       const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
-
+      const shooterGameCanvas = <HTMLElement>event.target.closest('.shooter-game');
 
       if (userIcon) {
         this.model.goToLoginContainer();
@@ -84,6 +84,10 @@ export default class AppController {
 
       if (pumpkinBtnSettings) {
         this.model.showSettingsPumpkin();
+      }
+
+      if (shooterGameCanvas) {
+        this.model.shooterGameSettings();
       }
     }
   }
