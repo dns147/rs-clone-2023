@@ -105,4 +105,15 @@ export default class AppModel {
   cardGame(card: HTMLElement): void {
     this.view.cardGame(card);
   }
+
+  shooterGameSettings(): void {
+    const shooterGameData = {
+      score: 0,
+      isGameOver: 0,
+    };
+
+    localStorage.setItem('shooterGameData', JSON.stringify(shooterGameData));
+    localStorage.setItem('isGameOverShooterGame', '0');
+    localStorage.setItem('scoreShooterGame', '0');
+  }
 }

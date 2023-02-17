@@ -7,9 +7,9 @@ export const Header = {
             <a class="header-item" href="#/page1">Page1</a>
 					  <a class="header-item" href="#/page2">Page2</a>
 						<a class="header-item" href="#/page3">Page3</a>
-					  <a class="header-item" href="#/page4">Page4</a>
+					  <a class="header-item" href="#/page4">test</a>
             <a class="header-item" href="#/pumpkinGame">Pumpkin Game</a>
-            <a class="header-item" href="#/page5">Page5</a>
+            <a class="header-item" href="#/shooterGame">Shooter Game</a>
 					  <a class="header-item" href="#/page6">Page6</a>
 						<a class="header-item" href="#/page7">Page7</a>
 					  <a class="header-item" href="#/page8">Page8</a>

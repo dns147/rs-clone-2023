@@ -49,11 +49,11 @@ module.exports = {
       },
 
       {
-        test: /\.(ogg|mp3|wav|mpe?g)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]'
-        }
+        test: /\.(mp3?|wav|ogg|mpe?g)$/i,
+        type: 'asset',
+        generator: {
+          filename: 'assets/audio/[name][hash][ext]',
+        },
       },
     ],
   },
