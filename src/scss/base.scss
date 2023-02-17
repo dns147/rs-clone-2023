@@ -11,7 +11,7 @@ body {
   font-size: 16px;
   line-height: 1.4;
   color: $text-color-light;
-  background-color: $accent3-color;
+  background: $gradient-1;
 }
 
 a {
@@ -47,8 +47,12 @@ a:active {
   border-radius: $border-radius;
   padding: 5px 10px;
   min-width: 100px;
-  background-color: $accent1-color;
-  color: $text-color-light;
+  background-color: $accent6-color;
+  color: $text-color;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: lowercase;
   height: 30px;
   cursor: pointer;
   transition: 0.3s;
@@ -87,20 +91,28 @@ a:active {
 .btn--col-7 {
   background-color: $accent7-color;
   color: $text-color;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .btn:hover,
 .btn:focus {
-  background-color: $accent2-color;
+  background: $gradient-4;
+  background-color: $accent6-color;
   color: $text-color;
+}
+
+.btn--col-3:hover {
+  background: $gradient-5;
+  background-color: $accent3-color;
+  color: $text-color-light;
 }
 
 .btn--col-5:hover,
 .btn--col-7:hover {
   background-color: $accent9-color;
-  color: $text-color-light;
+  color: $text-color;
 }
+
 .btn--transp:hover {
   border: none;
   background-color: $accent9-color;
