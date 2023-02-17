@@ -1,7 +1,8 @@
 import './style-shooter-game.scss';
 import { Raven, Explosion, Particle } from './utils-shooter-game';
-import AUDIO_CONST from '../../../spa/coreConst';
 import Music from '../../../utils/Music';
+import musicRavensSrc from '../../../assets/audio/music/strashnye-zvuki-vorony.mp3';
+import soundGameOverSrc from '../../../assets/audio/effects/fail-wha-wha.mp3';
 
 export default class ShooterGame {
   canvas: HTMLCanvasElement | null;
@@ -34,7 +35,8 @@ export default class ShooterGame {
     this.particles = []; //birds tail-particles
     this.score = 0;
 
-    this.musicGameSrc = AUDIO_CONST.PLAY_LIST.music[0]; //strashnye-zvuki-vorony.mp3'
+    // this.musicGameSrc = AUDIO_CONST.PLAY_LIST.music[0]; //strashnye-zvuki-vorony.mp3'
+    this.musicGameSrc = musicRavensSrc;
     this.music = new Music(this.musicGameSrc);
   }
 
@@ -97,18 +99,13 @@ export default class ShooterGame {
   soundGameOver() {
     const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
     const soundGameOver = new Audio();
-    soundGameOver.src = AUDIO_CONST.PLAY_LIST.soundEffects[2]; // fail-wha-wha.mp3
+    soundGameOver.src = soundGameOverSrc;
     if (isSoundEffects) soundGameOver.play();
   }
 
   handlerGame(event: MouseEvent) {
-    //используем цвет для определения области, на которую кликнули => значит удалить птицу с таким же цветом
-    //addEventListner click на Canvas не работает, поэтому используем эту технику с цветом и getImageData()
-    //используем второй холст collisionCtx, т.к. при клике на область мы получаем уник.цвет, даже если кликнем по черной птице
-    //если же использовать тот же холст, на котором птицы, то при клике на саму птицу - цвет будет черный
-
     if (this.collisionCtx) {
-      const detectPixelColor: ImageData = this.collisionCtx.getImageData(event.x, event.y, 1, 1); //ImageData{data: Uint8ClampedArray(rgba цвет!!!), width: 1, height: 1, colorSpace: 'srgb'}
+      const detectPixelColor: ImageData = this.collisionCtx.getImageData(event.x, event.y, 1, 1); //ImageData{data: Uint8ClampedArray(rgba color!!!), width: 1, height: 1, colorSpace: 'srgb'}
       const pc: Uint8ClampedArray = detectPixelColor.data;
 
       this.ravens.forEach((raven) => {
@@ -162,16 +159,17 @@ export default class ShooterGame {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //clear field canvas before next animate
       this.collisionCtx.clearRect(0, 0, this.canvas.width, this.canvas.height); //clear field canvas before next animate
 
-      const deltatime: number = timestamp - this.lastTime; //частота смена кадров в браузере на ПК пользователя, создается новый фрэйм
+      const deltatime: number = timestamp - this.lastTime; //browser frame speed on the user PC, new image created
+
       this.lastTime = timestamp;
       this.timeToNextRaven += deltatime;
-      // console.log("timestamp: ", timestamp);
-      // console.log("deltatime: ", deltatime); //16.66mc в основном, НО в начале больше!!!
-      //create each bird every 500mc  (ravelInterval = 500), будет одинково работать на мощных и слабых ПК
+      //console.log("timestamp: ", timestamp);
+      //console.log("deltatime: ", deltatime); //16.66mc mostly
+      //create each bird every 500mc  (ravelInterval = 500), will work alone on powerful and weak PCs
       if (this.timeToNextRaven > this.ravelInterval) {
         this.ravens.push(new Raven(this.canvas, this.ctx, this.collisionCtx));
         this.timeToNextRaven = 0;
-        this.ravens.sort((a, b) => a.width - b.width); //сортиурем птиц по ширине, чтобы вначале отрисововались большие питцы (они будут на переденм фоне и перекрывать последующих птиц), а затем маленькие
+        this.ravens.sort((a, b) => a.width - b.width); // bird sorts by width (large birds will be on a changing background and cover subsequent birds)
       }
       this.drawScore();
 

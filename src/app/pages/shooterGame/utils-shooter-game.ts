@@ -1,6 +1,5 @@
 import ravenImg from '../../../assets/shooter-game/raven-dark-left.png';
-import AUDIO_CONST from '../../../spa/coreConst';
-// import soundBoom from '../../../assets/audio/effects/ice-boom.wav';
+import soundBoomSrc from '../../../assets/audio/effects/ice-boom.wav';
 
 export class Raven {
   spriteWidth: number;
@@ -46,7 +45,7 @@ export class Raven {
     this.frame = 0;
     this.maxFrame = 7;
     this.timeSinceFlap = 0;
-    this.flapInterval = Math.random() * 50 + 50; //скорость смены кадров у птицы (50-100), т.е. скорось аинмации птицы
+    this.flapInterval = Math.random() * 50 + 50; //bird frame rate (50-100), the animation speed
     this.randomColors = [
       Math.floor(Math.random() * 255),
       Math.floor(Math.random() * 255),
@@ -136,7 +135,7 @@ export class Explosion {
     this.size = size;
     this.ctx = ctx;
     this.sound = new Audio();
-    this.sound.src = AUDIO_CONST.PLAY_LIST.soundEffects[0]; //ice-boom.mp3
+    this.sound.src = soundBoomSrc;
     this.timeSinceLastFrame = 0;
     this.frameInterval = 200;
     this.markedForDeletion = false;
