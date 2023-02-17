@@ -8,6 +8,7 @@ const PUMPKIN_LIST_URL = [
 	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/sound-fire1.mp3', // 6
 	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/life.mp3', // 7
 	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/food-pumpkin-smash.mp3', // 8
+	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/freezing.mp3', // 9
 ];
 
 const soundSettings = new Audio(PUMPKIN_LIST_URL[0]);
@@ -19,6 +20,7 @@ const soundMonsterDead2= new Audio(PUMPKIN_LIST_URL[5]);
 const soundFire = new Audio(PUMPKIN_LIST_URL[6]);
 const soundLife = new Audio(PUMPKIN_LIST_URL[7]);
 const soundPumpkin = new Audio(PUMPKIN_LIST_URL[8]);
+const soundFreesing = new Audio(PUMPKIN_LIST_URL[9]);
 
 export default {
 	PUMPKIN_LIST_URL,
@@ -31,4 +33,5 @@ export default {
 	soundFire,
 	soundLife,
 	soundPumpkin,
+	soundFreesing,
 };

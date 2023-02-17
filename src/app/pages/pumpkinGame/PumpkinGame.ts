@@ -23,23 +23,24 @@ export default class PumpkinGame {
   monsters3: Player[];
   monsters4: Player[];
   bursts: Player[];
-  lifes: Player[];
+  freezers: Player[];
+  bombs: Player[];
+  electrons:Player[];
 
   lastTime: number;
   lastShoot: number;
-  timerId: number;
+  //timerId: number;
   gameTime: number;
   pumpkinSpeed: number;
   intervalShoot: number;
   enemySpeed: number;
   isGameOver: boolean;
+  isMonsterStop: boolean;
   score: number;
-  // idIntervalAddLifes1: number;
-  // idIntervalAddLifes2: number;
-  numberLifes: number;
   numberPumpkins: number;
-  numberFire: number;
+  numberElectrons: number;
   numberBombs: number;
+  numberFreezers: number;
 
   player: Player | null;
   pumpkinWeapon: Pumpkin | null;
@@ -65,23 +66,23 @@ export default class PumpkinGame {
     this.monsters3 = [];
     this.monsters4 = [];
     this.bursts = [];
-    this.lifes = [];
+    this.freezers = [];
+    this.bombs = [];
+    this.electrons = [];
 
     this.lastTime = 0;
     this.lastShoot = 0;
-    this.timerId = 0;
     this.gameTime = 0;
     this.pumpkinSpeed = 1000;
     this.intervalShoot = 800;
     this.enemySpeed = 30;
     this.isGameOver = true;
+    this.isMonsterStop = false
     this.score = 0;
-    // this.idIntervalAddLifes1 = 0;
-    // this.idIntervalAddLifes2 = 0;
-    this.numberLifes = 1;
     this.numberPumpkins = 10;
-    this.numberFire = 5;
+    this.numberElectrons = 10;
     this.numberBombs = 1;
+    this.numberFreezers = 1;
 
     this.player = null;
     this.pumpkinWeapon = null;
@@ -89,6 +90,7 @@ export default class PumpkinGame {
     this.currentWeapon = null;
     this.boom1 = null;
 
+    this.freezMonsters = this.freezMonsters.bind(this);
     this.burstAllMonsters = this.burstAllMonsters.bind(this);
     this.mainLoop = this.mainLoop.bind(this);
     this.update = this.update.bind(this);
@@ -115,20 +117,20 @@ export default class PumpkinGame {
                 <span class="pumpkin-score-name">Score</span>
                 <span class="pumpkin-score-number">0</span>
               </div>
-              <div class="heart-life">
-                <img src=${require("../../../assets/img/heart-icon.png")} class="pumpkin-heart-icon" alt="icon">
-                <span class="pumpkin-life-number">${this.numberLifes}</span>
-              </div>
               <div class="shells">
-                <img src=${require("../../../assets/img/pumpkin-icon.png")} class="pumpkin-shells-icon weapon select-weapon" alt="icon">
-                <span class="pumpkin-shells-number">${this.numberPumpkins}</span>
+                <img src=${require("../../../assets/img/pumpkin-icon.png")} class="pumpkin-shells-icon select-weapon" alt="icon">
+                <span class="pumpkin-shells-number">∞</span>
               </div>
               <div class="electo-ball">
-                <img src=${require("../../../assets/img/electro-ball.png")} class="pumpkin-electro-icon weapon" alt="icon">
-                <span class="pumpkin-electro-number">${this.numberFire}</span>
+                <img src=${require("../../../assets/img/electro-ball.png")} class="pumpkin-electro-icon" alt="icon">
+                <span class="pumpkin-electro-number">${this.numberElectrons}</span>
+              </div>
+              <div class="freezing">
+                <img src=${require("../../../assets/img/freezing.png")} class="pumpkin-freezing-icon" alt="icon">
+                <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
               </div>
               <div class="bomb">
-                <img src=${require("../../../assets/img/pumpkin-bomb.png")} class="pumpkin-bomb-icon weapon" alt="icon">
+                <img src=${require("../../../assets/img/pumpkin-bomb.png")} class="pumpkin-bomb-icon" alt="icon">
                 <span class="pumpkin-bomb-number">${this.numberBombs}</span>
               </div>
             </div>
@@ -164,6 +166,9 @@ export default class PumpkinGame {
   }
 
   init(): void {
+    const pumpkinFreezing = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
+    pumpkinFreezing.addEventListener('click', this.freezMonsters);
+
     const pumpkinBomb = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
     pumpkinBomb.addEventListener('click', this.burstAllMonsters);
 
@@ -301,7 +306,7 @@ export default class PumpkinGame {
     this.lastTime = now;
 
     if (!this.isGameOver) {
-      this.timerId = requestAnimationFrame(this.mainLoop);
+      requestAnimationFrame(this.mainLoop);
     }
   }
 
@@ -320,13 +325,14 @@ export default class PumpkinGame {
     this.addMonsters2();
     this.addMonsters3();
 
-    this.addLifes();
-    //window.setTimeout(() => this.addLifes, getRandomInt(200, 500));
-    //this.addLifes();
+    this.addItems();
+    //this.addFreezers();
+    //this.addBombs();
 
     this.checkCollisions(dt);
-    this.riseScoreGame();
-    this.riseLifesGame();
+    // this.riseScoreGame();
+    // this.riseFreezers();
+    // this.riseBombs();
   }
 
   addMonsters1(): void {
@@ -413,19 +419,35 @@ export default class PumpkinGame {
     }
   }
 
-  addLifes(): void {
-    if (this.lifes.length === 2 || this.numberLifes >= 5) {
+  addItems(): void {
+    if (this.freezers.length === 2
+      || this.bombs.length === 2
+      || this.electrons.length === 2) {
       return;
     }
 
-    if (Math.random() < 1 - Math.pow(0.9999, this.gameTime)) {
+    if (Math.random() < 1 - Math.pow(0.999, this.gameTime)) {
       switch (getRandomInt(0, 4)) {
-        case 0:	//top
-            this.lifes.push({
-              pos: [Math.random() * this.canvasWidth, 0],
-              sprite: new Sprite(getImage(this.images, this.imagesUrl[9]), [0, 0], [66, 66], 1, [0], null, false, 0),
-            });
+        case 0:
+          this.freezers.push({
+            pos: [Math.random() * this.canvasWidth - 10, 0],
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[15]), [0, 0], [53, 53], 1, [0], null, false, 0),
+          });
           break;
+
+        case 1:
+          this.bombs.push({
+            pos: [Math.random() * this.canvasWidth - 10, 0],
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[9]), [0, 0], [49, 46], 1, [0], null, false, 0),
+          });
+        break;
+
+        case 2:
+          this.electrons.push({
+            pos: [Math.random() * this.canvasWidth - 10, 0],
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0),
+          });
+        break;
       }
     }
   }
@@ -438,19 +460,33 @@ export default class PumpkinGame {
 
     this.isGameOver = false;
     this.score = 0;
+
+    this.monsters1 = [];
+    this.monsters2 = [];
+    this.monsters3 = [];
+    this.monsters4 = [];
     this.bursts = [];
+    this.weapons = [];
+    this.freezers = [];
+    this.bombs = [];
+    this.electrons = [];
+    this.numberFreezers = 1;
+    this.numberBombs = 1;
+    this.numberElectrons = 10;
   }
 
   renderGame(): void {
     if (!this.isGameOver && this.player) {
       this.renderPlayer(this.player);
       this.renderShootPumpkins(this.weapons);
-      this.renderMonsters(this.monsters1);
-      this.renderMonsters(this.monsters2);
-      this.renderMonsters(this.monsters3);
-      //this.renderMonsters(this.monsters4);
-      this.renderMonsters(this.lifes);
-      this.renderMonsters(this.bursts);
+      this.renderEntities(this.monsters1);
+      this.renderEntities(this.monsters2);
+      this.renderEntities(this.monsters3);
+      //this.renderEntities(this.monsters4);
+      this.renderEntities(this.freezers);
+      this.renderEntities(this.bombs);
+      this.renderEntities(this.electrons);
+      this.renderEntities(this.bursts);
     }
 
     if (this.boom1) {
@@ -470,10 +506,10 @@ export default class PumpkinGame {
     });
   }
 
-  renderMonsters(monsters: Player[]): void {
-    monsters.forEach((monster: Player) => {
-      this.ctx?.translate(monster.pos[0], monster.pos[1]);
-      monster.sprite.render(this.ctx);
+  renderEntities(entities: Player[]): void {
+    entities.forEach((entity: Player) => {
+      this.ctx?.translate(entity.pos[0], entity.pos[1]);
+      entity.sprite.render(this.ctx);
     });
   }
 
@@ -493,23 +529,37 @@ export default class PumpkinGame {
       const angle: Angle = clickInfo.angle;    
       const distance: number = clickInfo.distance;
 
-      const spriteWeapon: Sprite = (localStorage['currentWeapon'] === 'electro') 
-        ? new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0) 
-        : new Sprite(getImage(this.images, this.imagesUrl[1]), [0, 0], [35, 28], 7, [5, 4, 3, 2, 1], null, false, 0);
+      if (localStorage['currentWeapon'] === 'electro' && this.numberElectrons > 0) {
+        const spriteWeapon: Sprite = new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0);
 
-      this.weapons.push({
-        pos: [this.canvasWidth/2, this.canvasHeight/2],
-        sprite: spriteWeapon,
-        clickInfo: {
-          pos: mousePos,
-          distance: distance,
-          angle: angle,
-        }
-      });
+        this.weapons.push({
+          pos: [this.canvasWidth/2, this.canvasHeight/2],
+          sprite: spriteWeapon,
+          clickInfo: {
+            pos: mousePos,
+            distance: distance,
+            angle: angle,
+          }
+        });
 
-      if (localStorage['currentWeapon'] === 'electro') {
         SOUND.soundFire.play();
-      } else {
+        this.numberElectrons = this.numberElectrons <= 0 ? 0 : this.numberElectrons - 1;
+        this.changeNumberElectrons();
+      }
+
+      if (localStorage['currentWeapon'] === 'pumpkin') {
+        const spriteWeapon: Sprite = new Sprite(getImage(this.images, this.imagesUrl[1]), [0, 0], [35, 28], 7, [5, 4, 3, 2, 1], null, false, 0);
+
+        this.weapons.push({
+          pos: [this.canvasWidth/2, this.canvasHeight/2],
+          sprite: spriteWeapon,
+          clickInfo: {
+            pos: mousePos,
+            distance: distance,
+            angle: angle,
+          }
+        });
+
         SOUND.soundPumpkin.play();
       }
 
@@ -552,11 +602,17 @@ export default class PumpkinGame {
    this.updatePlayer(dt);
    this.updateShootPumpkin(dt);
    this.updateSpiders(dt);
-   this.updateMonsters(this.monsters1, dt, 1);
-   this.updateMonsters(this.monsters2, dt, 2);
-   this.updateMonsters(this.monsters3, dt, 2.5);
-   //this.updateMonsters(this.monsters4, dt, 2);
-   this.updateLifes(dt);
+
+   if (!this.isMonsterStop) {
+    this.updateMonsters(this.monsters1, dt, 1);
+    this.updateMonsters(this.monsters2, dt, 2);
+    this.updateMonsters(this.monsters3, dt, 2.5);
+    //this.updateMonsters(this.monsters4, dt, 2);
+   } 
+
+   this.updateItems(dt, this.freezers);
+   this.updateItems(dt, this.bombs);
+   this.updateItems(dt, this.electrons);
    this.updateBurst(dt);
   }
 
@@ -583,23 +639,18 @@ export default class PumpkinGame {
       monster.pos[1] += this.enemySpeed * dt * gainSpeed * (y1 - y0) / distance;
       
       monster.sprite.update(dt);
-
-      if (monster.pos[0] < 0 || monster.pos[0] > this.canvasWidth || monster.pos[1] < 0 || monster.pos[1] > this.canvasHeight) {
-        monsters.splice(i, 1);
-        i -= 1;
-      }
     }
   }
 
-  updateLifes(dt: number): void {
-    for (let i = 0; i < this.lifes.length; i += 1) {
-      const life: Player = this.lifes[i];
+  updateItems(dt: number, items: Player[]): void {
+    for (let i = 0; i < items.length; i += 1) {
+      const item: Player = items[i];
 
-      life.pos[1] += this.enemySpeed * dt;
-      life.sprite.update(dt);
+      item.pos[1] += this.enemySpeed * dt;
+      item.sprite.update(dt);
 
-      if (life.pos[0] < 0 || life.pos[0] > this.canvasWidth || life.pos[1] < 0 || life.pos[1] > this.canvasHeight) {
-        this.lifes.splice(i, 1);
+      if (item.pos[0] < 0 || item.pos[0] > this.canvasWidth || item.pos[1] < 0 || item.pos[1] > this.canvasHeight) {
+        items.splice(i, 1);
         i -= 1;
       }
     }
@@ -665,7 +716,9 @@ export default class PumpkinGame {
     this.checkCollisionsMonsters(dt, this.monsters2);
     this.checkCollisionsMonsters(dt, this.monsters3);
     //this.checkCollisionsMonsters(dt, this.monsters2);
-    this.checkCollisionsLifes(dt, this.lifes);
+    this.checkCollisionsItems(this.freezers, 'freezer');
+    this.checkCollisionsItems(this.bombs, 'bomb');
+    this.checkCollisionsItems(this.electrons, 'electron');
   }
 
   checkCollisionsMonsters(dt: number, monsters: Player[]): void {
@@ -712,6 +765,7 @@ export default class PumpkinGame {
             i -= 1;
             this.weapons.splice(j, 1);
             this.score += 1;
+            this.changeScoreGame();
             break;
           }
         }
@@ -720,28 +774,42 @@ export default class PumpkinGame {
         if (boxCollides([pos1[0] + size1[0] / 4, pos1[1] + size1[1] / 4], 
                             [size1[0] / 2, size1[1] / 2], 
                             this.player.pos, this.player.sprite.size)) {
-          this.gameOver();         
+          this.gameOver();
         }
       }
     }
   }
 
-  checkCollisionsLifes(dt: number, lifes: Player[]): void {
-    for (let i = 0; i < lifes.length; i += 1) {
-      const pos1 = lifes[i].pos;
-      const size1 = lifes[i].sprite.size;
+  checkCollisionsItems(items: Player[], nameItem: string): void {
+    for (let i = 0; i < items.length; i += 1) {
+      const pos1 = items[i].pos;
+      const size1 = items[i].sprite.size;
 
-      //--- обнаружение столкновений жизней и пуль ---
       for (let j = 0; j < this.weapons.length; j += 1) {
         const pos2 = this.weapons[j].pos;
         const size2 = this.weapons[j].sprite.size;
 
         if (boxCollides([pos1[0] - size1[0] / 2, pos1[1] - size1[1] / 2], size1, pos2, size2)) {
-          lifes.splice(i, 1);
-          this.addBurstLifes(pos1);
+          items.splice(i, 1);
+          this.addBurstItem(pos1);
           i -= 1;
           this.weapons.splice(j, 1);
-          this.numberLifes += 1;
+
+          if (nameItem === 'freezer') {
+            this.numberFreezers += 1;
+            this.changeNumberFreezers();
+          }
+
+          if (nameItem === 'bomb') {
+            this.numberBombs += 1;
+            this.changeNumberBombs();
+          }
+
+          if (nameItem === 'electron') {
+            this.numberElectrons += 1;
+            this.changeNumberElectrons();
+          }
+
           break;
         }
       }
@@ -764,7 +832,7 @@ export default class PumpkinGame {
     SOUND.soundPumpkinCrashes.play();
   }
 
-  addBoomb(pos1: number[]): void {
+  addExplosion(pos1: number[]): void {
     this.bursts.push({
       pos: pos1,
       sprite: new Sprite(getImage(this.images, this.imagesUrl[11]), [0, 0], [250, 256], 6, [0, 1, 2, 3, 4, 5], null, true, 0),
@@ -773,7 +841,7 @@ export default class PumpkinGame {
     SOUND.soundExplosion.play();
   }
 
-  addBurstLifes(pos1: number[]): void {
+  addBurstItem(pos1: number[]): void {
     this.bursts.push({
       pos: pos1,
       sprite: new Sprite(getImage(this.images, this.imagesUrl[13]), [0, 0], [69, 69], 10, [0, 1, 2, 3, 4, 5, 6, 7], null, true, 0),
@@ -784,17 +852,19 @@ export default class PumpkinGame {
 
   gameOver() {
     this.gameTime = 0;
+    this.isGameOver = true;
     this.monsters1 = [];
     this.monsters2 = [];
     this.monsters3 = [];
     this.monsters4 = [];
+    this.bursts = [];
     this.weapons = [];
-    this.numberLifes = 0;
-    this.isGameOver = true;
-
-    // window.clearTimeout(this.idIntervalAddLifes1);
-    // window.clearTimeout(this.idIntervalAddLifes2);
-    //window.cancelAnimationFrame(this.timerId); 
+    this.freezers = [];
+    this.bombs = [];
+    this.electrons = [];
+    this.numberFreezers = 1;
+    this.numberBombs = 1;
+    this.numberElectrons = 10;
  }
 
   makeTimer(min: number, sec: number, level: number): void {
@@ -822,33 +892,57 @@ export default class PumpkinGame {
     });
   }
 
-  burstAllMonsters(): void {
-    this.useBomb(this.monsters1);
-    this.useBomb(this.monsters2);
-    this.useBomb(this.monsters3);
+  freezMonsters(): void {
+    if (this.numberFreezers > 0) {
+      this.isMonsterStop = true;
+      window.setTimeout(() => this.isMonsterStop = false, 5000);
 
-    this.numberBombs = this.numberBombs <= 0 ? 0 : this.numberBombs - 1;
-    const bombNumber = <HTMLSpanElement>document.querySelector('.pumpkin-bomb-number');
-    bombNumber.textContent = `${this.numberBombs}`;
+      SOUND.soundFreesing.play();
+
+      this.numberFreezers = this.numberFreezers <= 0 ? 0 : this.numberFreezers - 1;
+      this.changeNumberFreezers();
+    }
+  }
+
+  burstAllMonsters(): void {
+    if (this.numberBombs > 0) {
+      this.useBomb(this.monsters1);
+      this.useBomb(this.monsters2);
+      this.useBomb(this.monsters3);
+
+      this.numberBombs = this.numberBombs <= 0 ? 0 : this.numberBombs - 1;
+      this.changeNumberBombs();
+    }
   }
 
   useBomb(monsters: Player[]): void {
     for (let i = 0; i < monsters.length; i += 1) {
       const pos = monsters[i].pos;
       monsters.splice(i, 1);
-      this.addBoomb(pos);
+      this.addExplosion(pos);
       i -= 1;
       this.score += 1;
+      this.changeScoreGame();
     }
   }
 
-  riseScoreGame(): void {
+  changeScoreGame(): void {
     const scoreGame = <HTMLSpanElement>document.querySelector('.pumpkin-score-number');
     scoreGame.textContent = `${this.score}`;
   }
 
-  riseLifesGame(): void {
-    const lifesGame = <HTMLSpanElement>document.querySelector('.pumpkin-life-number');
-    lifesGame.textContent = `${this.numberLifes}`;
+  changeNumberFreezers(): void {
+    const numberFreezing = <HTMLSpanElement>document.querySelector('.pumpkin-freezing-number');
+    numberFreezing.textContent = `${this.numberFreezers}`;
+  }
+
+  changeNumberBombs(): void {
+    const numberBombs = <HTMLSpanElement>document.querySelector('.pumpkin-bomb-number');
+    numberBombs.textContent = `${this.numberBombs}`;
+  }
+
+  changeNumberElectrons(): void {
+    const numberElectroDoom = <HTMLSpanElement>document.querySelector('.pumpkin-electro-number');
+    numberElectroDoom.textContent = `${this.numberElectrons}`;
   }
 }

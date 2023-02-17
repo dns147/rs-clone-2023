@@ -86,7 +86,7 @@ export default class AppModel {
   //   }
   // }
 
-  playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement, pumpkinBombIcon: HTMLElement): void {
+  playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement): void {
     SOUND.soundClick.play();
 
     if (eventTarget === pumpkinShellsIcon && !pumpkinShellsIcon.classList.contains('select-weapon')) {

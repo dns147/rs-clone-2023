@@ -40,6 +40,7 @@ export default class AppController {
       const pumpkinShellsIcon = <HTMLElement>event.target.closest('.pumpkin-shells-icon');
       const pumpkinElectroIcon = <HTMLElement>event.target.closest('.pumpkin-electro-icon');
       const pumpkinBombIcon = <HTMLElement>event.target.closest('.pumpkin-bomb-icon');
+      const pumpkinFreezingIcon = <HTMLElement>event.target.closest('.pumpkin-freezing-icon');
       const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
 
       const card = <HTMLElement>event.target.closest('.card');
@@ -84,8 +85,8 @@ export default class AppController {
         this.model.shootPumpkin();
       }
 
-      if (playGamePumpkin || exitGamePumpkin || pumpkinShellsIcon || pumpkinElectroIcon || pumpkinBombIcon) {
-        this.model.playSoundClick(event.target, pumpkinShellsIcon, pumpkinElectroIcon, pumpkinBombIcon);
+      if (playGamePumpkin || exitGamePumpkin || pumpkinShellsIcon || pumpkinElectroIcon || pumpkinBombIcon || pumpkinFreezingIcon) {
+        this.model.playSoundClick(event.target, pumpkinShellsIcon, pumpkinElectroIcon);
       }
     }
   }
