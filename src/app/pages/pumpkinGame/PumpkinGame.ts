@@ -5,6 +5,7 @@ import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
 import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 import SOUND from '../../../spa/coreConst';
+import Modal from '../modal/modal';
 
 export default class PumpkinGame {
   canvas: HTMLCanvasElement | null;
@@ -41,6 +42,7 @@ export default class PumpkinGame {
   numberElectrons: number;
   numberBombs: number;
   numberFreezers: number;
+  gameLevel: number;
 
   player: Player | null;
   pumpkinWeapon: Pumpkin | null;
@@ -83,6 +85,7 @@ export default class PumpkinGame {
     this.numberElectrons = 10;
     this.numberBombs = 1;
     this.numberFreezers = 1;
+    this.gameLevel = 1;
 
     this.player = null;
     this.pumpkinWeapon = null;
@@ -98,6 +101,7 @@ export default class PumpkinGame {
     this.renderPlayer = this.renderPlayer.bind(this);
     this.handleMouse = this.handleMouse.bind(this);
     this.updateEntities = this.updateEntities.bind(this);
+    this.setRoundName = this.setRoundName.bind(this);
   }
 
   render(): string {
@@ -148,6 +152,9 @@ export default class PumpkinGame {
             </div>
           </div>
           <button class="pumpkin-play">Play</button>
+          <div class="round-number-wrapper">
+            Level <span class="round-number">1</span>
+          </div>
           <div class="fire-container"></div>
           <svg class="svg-fire">
             <filter id="fire">
@@ -171,6 +178,12 @@ export default class PumpkinGame {
 
     const pumpkinBomb = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
     pumpkinBomb.addEventListener('click', this.burstAllMonsters);
+
+    const pumpkinExit = <HTMLElement>document.querySelector('.pumpkin-exit');
+    pumpkinExit.addEventListener('click', () => {
+      this.gameTime = 0;
+      this.isGameOver = true;
+    });
 
     localStorage.setItem('currentWeapon', 'pumpkin');
 
@@ -198,7 +211,7 @@ export default class PumpkinGame {
 
   checkLoadImages(countImages: number, imagesLength: number): void {
     if (countImages === imagesLength) {
-      this.initGame();
+      this.preInitGame();
     }
   }
 
@@ -226,20 +239,49 @@ export default class PumpkinGame {
     this.canvasHeight = newHeight;
   }
 
-  initGame(): void {
+  preInitGame(): void {
     const btnPlay = <HTMLButtonElement>document.querySelector('.pumpkin-play');
 
     btnPlay.addEventListener('click', () => {
       btnPlay.style.display = 'none';
       this.canvas?.classList.add('pumpkin-canvas-active');
-      this.addEntities();
-      this.reset();
-      this.lastShoot = Date.now();
-      this.lastTime = Date.now();
-      this.mainLoop();
 
-      this.makeTimer(2, 30, 1);
+      this.setRoundName();
     });
+  }
+
+  setRoundName(): void {
+    const popup = <HTMLElement>document.querySelector('.popup');
+    popup?.remove();
+
+    const time = <HTMLSpanElement>document.querySelector('.time-pumpkin');
+    time.textContent = normalize(0) + ":" + normalize(0);
+
+    const gameLevel = <HTMLSpanElement>document.querySelector('.pumpkin-level-number');
+    gameLevel.textContent = `${this.gameLevel}`;
+
+    const roundNumber = <HTMLElement>document.querySelector('.round-number');
+    const roundNumberWrapper = <HTMLElement>document.querySelector('.round-number-wrapper');
+    roundNumber.textContent = `${this.gameLevel}`;
+    roundNumberWrapper.style.visibility = 'visible';
+
+    const idTimerRoundName1 = window.setInterval(() => roundNumberWrapper.style.visibility = 'hidden', 500);
+    const idTimerRoundName2 = window.setInterval(() => roundNumberWrapper.style.visibility = 'visible', 1000);
+    window.setTimeout(() => {
+      window.clearInterval(idTimerRoundName1);
+      window.clearInterval(idTimerRoundName2);
+      roundNumberWrapper.style.visibility = 'hidden';
+      this.initGame();
+    }, 3500);
+  }
+
+  initGame(): void {
+    this.addEntities();
+    this.reset();
+    this.lastShoot = Date.now();
+    this.lastTime = Date.now();
+    this.mainLoop();
+    this.makeTimer(1, 30);
   }
 
   addEntities(): void {
@@ -324,15 +366,8 @@ export default class PumpkinGame {
     this.addMonsters1();
     this.addMonsters2();
     this.addMonsters3();
-
     this.addItems();
-    //this.addFreezers();
-    //this.addBombs();
-
     this.checkCollisions(dt);
-    // this.riseScoreGame();
-    // this.riseFreezers();
-    // this.riseBombs();
   }
 
   addMonsters1(): void {
@@ -430,21 +465,21 @@ export default class PumpkinGame {
       switch (getRandomInt(0, 4)) {
         case 0:
           this.freezers.push({
-            pos: [Math.random() * this.canvasWidth - 10, 0],
+            pos: [Math.random() * this.canvasWidth - 15, 0],
             sprite: new Sprite(getImage(this.images, this.imagesUrl[15]), [0, 0], [53, 53], 1, [0], null, false, 0),
           });
           break;
 
         case 1:
           this.bombs.push({
-            pos: [Math.random() * this.canvasWidth - 10, 0],
+            pos: [Math.random() * this.canvasWidth - 15, 0],
             sprite: new Sprite(getImage(this.images, this.imagesUrl[9]), [0, 0], [49, 46], 1, [0], null, false, 0),
           });
         break;
 
         case 2:
           this.electrons.push({
-            pos: [Math.random() * this.canvasWidth - 10, 0],
+            pos: [Math.random() * this.canvasWidth - 15, 0],
             sprite: new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0),
           });
         break;
@@ -459,20 +494,6 @@ export default class PumpkinGame {
     }
 
     this.isGameOver = false;
-    this.score = 0;
-
-    this.monsters1 = [];
-    this.monsters2 = [];
-    this.monsters3 = [];
-    this.monsters4 = [];
-    this.bursts = [];
-    this.weapons = [];
-    this.freezers = [];
-    this.bombs = [];
-    this.electrons = [];
-    this.numberFreezers = 1;
-    this.numberBombs = 1;
-    this.numberElectrons = 10;
   }
 
   renderGame(): void {
@@ -865,22 +886,30 @@ export default class PumpkinGame {
     this.numberFreezers = 1;
     this.numberBombs = 1;
     this.numberElectrons = 10;
+    this.gameLevel = 1;
+
+    const modal = new Modal();
+    modal.drawModalWithoutClose(CONSTS.gameOverModalTemplate);
+
+    const pumpkinRestart = <HTMLElement>document.querySelector('.pumpkin-restart');
+    pumpkinRestart.addEventListener('click', this.setRoundName);
  }
 
-  makeTimer(min: number, sec: number, level: number): void {
-    const gameLevel = <HTMLSpanElement>document.querySelector('.pumpkin-level-number');
-    gameLevel.textContent = `${level}`;
-
+  makeTimer(min: number, sec: number): void {
+    const that = this;
     const time = <HTMLSpanElement>document.querySelector('.time-pumpkin');
 
     setTimeout(function tick() {
       time.textContent = normalize(min) + ":" + normalize(sec);
       
-      if (min >= 0) {
+      if (min >= 0 && !that.isGameOver) {
         setTimeout(tick, 1000);
-      } else {
-        //this.showNextLevel(level);
-        console.log('time is out')
+      } 
+      
+      if (min < 0) {
+        time.textContent = normalize(0) + ":" + normalize(0);
+        that.gameLevel += 1;
+        that.nextLevel();
       }
 
       sec -= 1;
@@ -888,8 +917,27 @@ export default class PumpkinGame {
       if (sec === 0) {
         min -= 1;
         sec = 60;
-      }    
+      }
     });
+  }
+
+  nextLevel(): void {
+    this.isGameOver = true;
+    this.monsters1 = [];
+    this.monsters2 = [];
+    this.monsters3 = [];
+    // this.monsters4 = [];
+    this.bursts = [];
+    this.weapons = [];
+    this.freezers = [];
+    this.bombs = [];
+    this.electrons = [];
+
+    const modal = new Modal();
+    modal.drawModalWithoutClose(CONSTS.gameNextLevelModalTemplate);
+
+    const pumpkinNextLevel = <HTMLElement>document.querySelector('.pumpkin-next-level');
+    pumpkinNextLevel.addEventListener('click', this.setRoundName);
   }
 
   freezMonsters(): void {
