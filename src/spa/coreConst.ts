@@ -9,6 +9,11 @@ const PUMPKIN_LIST_URL = [
 	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/life.mp3', // 7
 	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/food-pumpkin-smash.mp3', // 8
 	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/freezing.mp3', // 9
+	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/game-win.mp3', // 10
+	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/game-over.mp3', // 11
+	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/time-over.mp3', // 12
+	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/pumpkin-bg3.mp3', // 13
+	'https://github.com/dns147/mp3-rs-clone-2023/raw/main/mp3/pumpkin-bg2.mp3', // 14
 ];
 
 const soundSettings = new Audio(PUMPKIN_LIST_URL[0]);
@@ -21,6 +26,11 @@ const soundFire = new Audio(PUMPKIN_LIST_URL[6]);
 const soundLife = new Audio(PUMPKIN_LIST_URL[7]);
 const soundPumpkin = new Audio(PUMPKIN_LIST_URL[8]);
 const soundFreesing = new Audio(PUMPKIN_LIST_URL[9]);
+const soundGameWin = new Audio(PUMPKIN_LIST_URL[10]);
+const soundGameOver = new Audio(PUMPKIN_LIST_URL[11]);
+const timeOver = new Audio(PUMPKIN_LIST_URL[12]);
+const pumpkinMusic1 = new Audio(PUMPKIN_LIST_URL[13]);
+const pumpkinMusic2 = new Audio(PUMPKIN_LIST_URL[14]);
 
 export default {
 	PUMPKIN_LIST_URL,
@@ -34,4 +44,9 @@ export default {
 	soundLife,
 	soundPumpkin,
 	soundFreesing,
+	soundGameWin,
+	soundGameOver,
+	timeOver,
+	pumpkinMusic1,
+	pumpkinMusic2,
 };
