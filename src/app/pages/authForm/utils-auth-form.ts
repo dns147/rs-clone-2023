@@ -51,14 +51,9 @@ export function showLoginError(msg: string) {
 }
 
 export function setUserName(name: string | null): void {
-  const userName = <HTMLSpanElement>document.querySelector('.user-name');
+  const userName = <HTMLSpanElement>document.querySelector('.main-user-name');
   userName.textContent = name;
-
-  const userIcon = <HTMLButtonElement>document.querySelector('.user-icon');
-  userIcon.classList.add('user-icon-auth');
-  userIcon.disabled = true;
-
-  (<HTMLDivElement>document.querySelector('.user-info')).style.display = 'block';
+  localStorage.setItem('userName', JSON.stringify(name));
 }
 
 export function hideRegistrationForm(): void {
@@ -80,12 +75,20 @@ export function hideRegistrationForm(): void {
 }
 
 export function removeUserInfo(): void {
-  const userInfo = <HTMLDivElement>document.querySelector('.user-info');
-  const userMenu = <HTMLDivElement>document.querySelector('.user-menu');
-  const userIcon = <HTMLButtonElement>document.querySelector('.user-icon');
-  userInfo.style.display = 'none';
-  userMenu.style.display = 'none';
-  hideUserMenu(userMenu);
-  userIcon.classList.remove('user-icon-auth');
-  userIcon.disabled = false;
+	const userName = <HTMLSpanElement>document.querySelector('.main-user-name');
+  userName.textContent = '';
+	localStorage.removeItem('userName');
+}
+
+export function changeSignInButton(isSignIn: boolean): void {
+	const userSignInBtn = <HTMLElement>document.querySelector('.user-sign-in');
+	const userSignInText = <HTMLElement>document.querySelector('.user-sign-in-text');
+
+	if (isSignIn) {
+		userSignInBtn.classList.add('signin-active');
+		userSignInText.textContent = 'sign out';
+	} else {
+		userSignInBtn.classList.remove('signin-active');
+		userSignInText.textContent = 'sign in';
+	}
 }

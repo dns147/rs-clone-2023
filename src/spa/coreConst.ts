@@ -35,6 +35,11 @@ const pumpkinMusic2 = new Audio(PUMPKIN_LIST_URL[14]);
 localStorage.setItem('isMusic', JSON.stringify(true));
 localStorage.setItem('isSoundEffects', JSON.stringify(true));
 
+const userTemplate = `
+	<div class="main-user-icon"></div>
+	<span class="main-user-name"></span>
+`;
+
 export default {
 	PUMPKIN_LIST_URL,
 	soundSettings,
@@ -52,4 +57,5 @@ export default {
 	timeOver,
 	pumpkinMusic1,
 	pumpkinMusic2,
+	userTemplate,
 };

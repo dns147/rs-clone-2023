@@ -1,21 +1,22 @@
 import { IUser } from "./types-auth-form";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from "firebase/auth";
 import { myAuth } from "../../firebase";
-import { hideRegistrationForm, removeUserInfo, setUserName, showForm, showLoginError } from "./utils-auth-form";
+import { changeSignInButton, hideRegistrationForm, removeUserInfo, setUserName, showForm, showLoginError } from "./utils-auth-form";
 
 export default class Authorization {
 	async loginUser(user: IUser): Promise<void> {
-		console.log(user)
+		//console.log(user)
 		await signInWithEmailAndPassword(myAuth, user.email, user.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
 				// localStorage.setItem('userInfo', JSON.stringify(user));
       	// localStorage.setItem('userId', user.uid);
-				console.log(user)
-				window.location.hash = '/page2';
+				//console.log(user)
+				//window.location.hash = '/page1';
         hideRegistrationForm();
 				setUserName(user.displayName);
-				localStorage.setItem('userName', JSON.stringify(user.displayName));
+				changeSignInButton(true);
+				//localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// user.getIdToken().then((idToken) => {
 				// 	//setUserName(user.uid, idToken);
 				// })
@@ -26,7 +27,7 @@ export default class Authorization {
 			.catch((error) => {
 				console.log(error.message);
 				showForm();
-      	showLoginError('Неправильный e-mail или пароль');
+      	showLoginError('Wrong e-mail or password');
 			});
   }
 
@@ -34,16 +35,16 @@ export default class Authorization {
 		await createUserWithEmailAndPassword(myAuth, user.email, user.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				localStorage.setItem('userName', JSON.stringify(user.displayName));
+				//localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// localStorage.setItem('userInfo', JSON.stringify(user));
       	// localStorage.setItem('userId', user.uid);
-				window.location.hash = '/page2';
+				//window.location.hash = '/page1';
         hideRegistrationForm();
 			})
 			.catch((error) => {
 				console.log(error.message);
 				showForm();
-      	showLoginError('Ошибка в e-mail или он уже занят');
+      	showLoginError('Error in e-mail or it is already taken');
 			});
 
 		if (myAuth.currentUser !== null) {
@@ -59,11 +60,12 @@ export default class Authorization {
 
   async userSignOut(): Promise<void> {
     signOut(myAuth).then(() => {
-			localStorage.removeItem('userName');
+			//localStorage.removeItem('userName');
       // localStorage.removeItem('userInfo');
       // localStorage.removeItem('userId');
-      window.location.hash = '#';
-      removeUserInfo();
+      //window.location.hash = '/page1';
+      // removeUserInfo();
+			// changeSignInButton(false);
     }).catch((error) => {
       console.log(error.message);
     });

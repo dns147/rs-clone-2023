@@ -26,7 +26,7 @@ export default class AuthForm {
                 <span>The field is filled incorrectly!</span>
               </div>
               <div class="pwd-field field">
-                <input type="password" id="password" name="password" required placeholder="Password*" minlength="8">
+                <input type="password" id="password" name="password" required placeholder="Password*" minlength="6">
                 <span>Min password length - 6 symbols</span>
               </div>
             </div>

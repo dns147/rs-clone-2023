@@ -133,6 +133,8 @@ export default class PumpkinGame {
     (<HTMLElement>document.querySelector('.header')).style.display = 'none';
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
 
+    const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
+
     return `
       <div class="game-container">
         <div class="game-area">
@@ -169,7 +171,7 @@ export default class PumpkinGame {
             <div class="icon-list">
               <div class="user">
                 <img src=${require("../../../assets/img/user-solid.svg")} class="user-icon" alt="icon">
-                <span class="user-name"></span>
+                <span class="user-name">${userName}</span>
               </div>
               <a class="pumpkin-exit" href="#/page1">
                 <i class="fa-solid fa-door-open"></i>
@@ -393,7 +395,7 @@ export default class PumpkinGame {
     this.monsterGame2 = new Sprite(getImage(this.images, this.imagesUrl[3]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
     this.monsterGame3 = new Sprite(getImage(this.images, this.imagesUrl[5]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
     this.monsterGame4 = new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
-    this.monsterGame5 = new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0);
+    this.monsterGame5 = new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 1, [0, 1, 2, 3, 4, 5], null, false, 0);
     this.monsterGame6 = new Sprite(getImage(this.images, this.imagesUrl[16]), [0, 0], [87, 50], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
     this.monsterGame7 = new Sprite(getImage(this.images, this.imagesUrl[18]), [0, 0], [75, 83], 5, [0, 1, 2, 3, 4, 5, 4, 3, 2, 1], null, false, 0);
     this.monsterGame8 = new Sprite(getImage(this.images, this.imagesUrl[20]), [0, 0], [82, 50], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
@@ -972,8 +974,9 @@ export default class PumpkinGame {
   }
 
   gameOver() {
-    SOUND.soundGameOver.play();
-    SOUND.timeOver.pause();
+    SOUND.pumpkinMusic1.pause();
+    SOUND.pumpkinMusic1.currentTime = 0;
+    SOUND.soundGameOver.play(); 
 
     this.gameTime = 0;
     this.isGameOver = true;
@@ -1007,12 +1010,11 @@ export default class PumpkinGame {
       pumpkinFreezer.textContent = `${this.numberFreezers}`;
       pumpkinBomb.textContent = `${this.numberBombs}`;
 
-      this.setRoundName();
-    });
+      SOUND.soundGameOver.pause();
+      SOUND.soundGameOver.currentTime = 0;
+      SOUND.pumpkinMusic1.play();
 
-    const pumpkinExit = <HTMLElement>document.querySelector('.pumpkin-exit');
-    pumpkinExit.addEventListener('click', () => {
-      SOUND.pumpkinMusic1.pause();
+      this.setRoundName();
     });
  }
 
@@ -1048,6 +1050,11 @@ export default class PumpkinGame {
       if (min === 0 && sec < 10) {
         SOUND.timeOver.play();
         SOUND.timeOver.volume = 0.5;
+      }
+
+      if (that.isGameOver) {
+        SOUND.timeOver.pause();
+        SOUND.timeOver.currentTime = 0;
       }
     });
   }

@@ -27,14 +27,11 @@ export default class AppController {
 
   getEventsClick(event: Event): void {
     if (event.target instanceof Element) {
-      const userIcon = <HTMLElement>event.target.closest('.user-icon');
       const btnAuthorization = <HTMLElement>event.target.closest('.authorization-btn');
       const regLink = <HTMLElement>event.target.closest('.reg-link');
       const loginLink = <HTMLElement>event.target.closest('.login-link');
       const btnRegistration = <HTMLElement>event.target.closest('.registration-btn');
       const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
-      const userInfo = <HTMLElement>event.target.closest('.user-info');
-      const userQuit = <HTMLElement>event.target.closest('.user-quit');
       const playGamePumpkin = <HTMLElement>event.target.closest('.pumpkin-play');
       const exitGamePumpkin = <HTMLElement>event.target.closest('.pumpkin-exit');
       const pumpkinShellsIcon = <HTMLElement>event.target.closest('.pumpkin-shells-icon');
@@ -44,13 +41,19 @@ export default class AppController {
       const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
       const shooterGameCanvas = <HTMLElement>event.target.closest('.shooter-game');
       const card = <HTMLElement>event.target.closest('.card');
+      const userSignIn = <HTMLElement>event.target.closest('.user-sign-in');
 
       if (card) {
         this.model.cardGame(card);
       }
 
-      if (userIcon) {
-        this.model.goToLoginContainer();
+      if (userSignIn) {
+        console.log(userSignIn)
+        if (userSignIn.classList.contains('signin-active')) {
+          this.model.userSignOut();
+        } else {
+          this.model.goToLoginContainer();
+        }
       }
       
       if (btnAuthorization) {
@@ -71,14 +74,6 @@ export default class AppController {
 
       if (closeRegistrationForm) {
         this.model.closeRegistrationForm();
-      }
-
-      if (userInfo) {
-        this.model.goToUserMenu();
-      }
-
-      if (userQuit) {
-        this.model.userSignOut();
       }
 
       if (pumpkinCanvas) {
