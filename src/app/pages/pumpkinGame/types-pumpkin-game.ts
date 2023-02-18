@@ -29,7 +29,10 @@ export type Pumpkin = {
   clickInfo: ClickInfo;
 };
 
-export type SettingsLevel = {
+export type ResultGame = {
+  userName: string;
+  nameGame: string;
   level: number;
-  time: number;
+  score: number;
+  time?: number;
 };

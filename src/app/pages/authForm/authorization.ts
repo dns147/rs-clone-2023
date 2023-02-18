@@ -5,18 +5,12 @@ import { changeSignInButton, hideRegistrationForm, removeUserInfo, setUserName, 
 
 export default class Authorization {
 	async loginUser(user: IUser): Promise<void> {
-		//console.log(user)
 		await signInWithEmailAndPassword(myAuth, user.email, user.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				// localStorage.setItem('userInfo', JSON.stringify(user));
-      	// localStorage.setItem('userId', user.uid);
-				//console.log(user)
-				//window.location.hash = '/page1';
         hideRegistrationForm();
 				setUserName(user.displayName);
 				changeSignInButton(true);
-				//localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// user.getIdToken().then((idToken) => {
 				// 	//setUserName(user.uid, idToken);
 				// })
@@ -38,8 +32,8 @@ export default class Authorization {
 				//localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// localStorage.setItem('userInfo', JSON.stringify(user));
       	// localStorage.setItem('userId', user.uid);
-				//window.location.hash = '/page1';
         hideRegistrationForm();
+				changeSignInButton(true);
 			})
 			.catch((error) => {
 				console.log(error.message);
@@ -60,12 +54,6 @@ export default class Authorization {
 
   async userSignOut(): Promise<void> {
     signOut(myAuth).then(() => {
-			//localStorage.removeItem('userName');
-      // localStorage.removeItem('userInfo');
-      // localStorage.removeItem('userId');
-      //window.location.hash = '/page1';
-      // removeUserInfo();
-			// changeSignInButton(false);
     }).catch((error) => {
       console.log(error.message);
     });

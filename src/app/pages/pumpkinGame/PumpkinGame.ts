@@ -1,7 +1,7 @@
 import { MousePos } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
-import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
+import { Angle, ClickInfo, Player, Pumpkin, ResultGame } from './types-pumpkin-game';
 import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 import SOUND from '../../../spa/coreConst';
@@ -26,7 +26,8 @@ export default class PumpkinGame {
   bursts: Player[];
   freezers: Player[];
   bombs: Player[];
-  electrons:Player[];
+  electrons: Player[];
+  resultGame: ResultGame;
 
   lastTime: number;
   lastShoot: number;
@@ -42,6 +43,7 @@ export default class PumpkinGame {
   numberBombs: number;
   numberFreezers: number;
   gameLevel: number;
+  userName: string;
 
   player: Player | null;
   pumpkinWeapon: Pumpkin | null;
@@ -83,6 +85,12 @@ export default class PumpkinGame {
     this.freezers = [];
     this.bombs = [];
     this.electrons = [];
+    this.resultGame = {
+      userName: '',
+      nameGame: '',
+      score: 0,
+      level: 0,
+    };
 
     this.lastTime = 0;
     this.lastShoot = 0;
@@ -98,6 +106,7 @@ export default class PumpkinGame {
     this.numberBombs = 1;
     this.numberFreezers = 1;
     this.gameLevel = 1;
+    this.userName = '';
 
     this.player = null;
     this.pumpkinWeapon = null;
@@ -134,6 +143,8 @@ export default class PumpkinGame {
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
 
     const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
+    this.resultGame.userName = userName;
+    this.resultGame.nameGame = 'Save Pumpkin';
 
     return `
       <div class="game-container">
@@ -976,7 +987,10 @@ export default class PumpkinGame {
   gameOver() {
     SOUND.pumpkinMusic1.pause();
     SOUND.pumpkinMusic1.currentTime = 0;
-    SOUND.soundGameOver.play(); 
+    SOUND.soundGameOver.play();
+
+    this.resultGame.level = this.gameLevel;
+    this.saveResultGame();
 
     this.gameTime = 0;
     this.isGameOver = true;
@@ -1063,6 +1077,9 @@ export default class PumpkinGame {
     SOUND.soundGameWin.play();
     SOUND.soundGameWin.volume = 0.6;
 
+    this.resultGame.level = this.gameLevel;
+    this.saveResultGame();
+
     this.isGameOver = true;
     this.monsters1 = [];
     this.monsters2 = [];
@@ -1127,6 +1144,7 @@ export default class PumpkinGame {
   changeScoreGame(): void {
     const scoreGame = <HTMLSpanElement>document.querySelector('.pumpkin-score-number');
     scoreGame.textContent = `${this.score}`;
+    this.resultGame.score = this.score;
   }
 
   changeNumberFreezers(): void {
@@ -1142,5 +1160,9 @@ export default class PumpkinGame {
   changeNumberElectrons(): void {
     const numberElectroDoom = <HTMLSpanElement>document.querySelector('.pumpkin-electro-number');
     numberElectroDoom.textContent = `${this.numberElectrons}`;
+  }
+
+  saveResultGame(): void {
+    console.log(this.resultGame);
   }
 }

@@ -26,7 +26,6 @@ export function showLoader(): void {
 	const formContent = <HTMLDivElement>document.querySelector('.form-content');
 	
 	formContent.style.display = 'none';
-	formRegistration.style.height = '345px';
 	formRegistration.insertAdjacentHTML('afterbegin', `
 		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
 	`);
@@ -60,9 +59,11 @@ export function hideRegistrationForm(): void {
   const registrationContainer = <HTMLDivElement>document.querySelector('.registration-container');
   registrationContainer.style.display = 'none';
 
+	const userName = <HTMLInputElement>document.querySelector('#name');
   const userEmail = <HTMLInputElement>document.querySelector('#email');
   const userPassword = <HTMLInputElement>document.querySelector('#password');
-  userEmail.value = '';
+  userName.value = '';
+	userEmail.value = '';
   userPassword.value = '';
 
   (<HTMLDivElement>document.querySelector('.form-content')).style.display = 'block';
