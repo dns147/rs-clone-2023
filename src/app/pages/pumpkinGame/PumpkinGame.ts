@@ -48,6 +48,21 @@ export default class PumpkinGame {
   pumpkinWeapon: Pumpkin | null;
   electroWeapon: Pumpkin | null;
   currentWeapon: Pumpkin | null;
+  monsterGame1: Sprite | null;
+  monsterGame2: Sprite | null;
+  monsterGame3: Sprite | null;
+  monsterGame4: Sprite | null;
+  monsterGame5: Sprite | null;
+  monsterGame6: Sprite | null;
+  monsterGame7: Sprite | null;
+  monsterGame8: Sprite | null;
+  monsterGame9: Sprite | null;
+  monsterGame10: Sprite | null;
+  monsterGame11: Sprite | null;
+  monsterGame12: Sprite | null;
+  monsterGame13: Sprite | null;
+  monsterGame14: Sprite | null;
+
   boom1: Player | null;
 
   constructor() {
@@ -91,6 +106,21 @@ export default class PumpkinGame {
     this.pumpkinWeapon = null;
     this.electroWeapon = null;
     this.currentWeapon = null;
+    this.monsterGame1 = null;
+    this.monsterGame2 = null;
+    this.monsterGame3 = null;
+    this.monsterGame4 = null;
+    this.monsterGame5 = null;
+    this.monsterGame6 = null;
+    this.monsterGame7 = null;
+    this.monsterGame8 = null;
+    this.monsterGame9 = null;
+    this.monsterGame10 = null;
+    this.monsterGame11 = null;
+    this.monsterGame12 = null;
+    this.monsterGame13 = null;
+    this.monsterGame14 = null;
+
     this.boom1 = null;
 
     this.freezMonsters = this.freezMonsters.bind(this);
@@ -281,7 +311,7 @@ export default class PumpkinGame {
     this.lastShoot = Date.now();
     this.lastTime = Date.now();
     this.mainLoop();
-    this.makeTimer(1, 30);
+    this.makeTimer(0, 30);
   }
 
   addEntities(): void {
@@ -330,11 +360,27 @@ export default class PumpkinGame {
     // this.boom1 = {
     //   rotate: 0,
     //   pos: [220, 500],
-    //   sprite: new Sprite(getImage(this.images, this.imagesUrl[10]), [0, 0], [83, 83], 6, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0),
-    //   //sprite: new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [94, 94], 6, [0, 1, 2, 3, 4, 5], null, false, 0),
+    //   //sprite: new Sprite(getImage(this.images, this.imagesUrl[20]), [0, 0], [82, 50], 5, [3, 2, 1, 0, 1, 2], null, false, 0),
+    //   sprite: new Sprite(getImage(this.images, this.imagesUrl[26]), [0, 0], [164, 99], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0),
     //   width: 83,
     //   height: 83
     // };
+
+    this.monsterGame1 = new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
+    this.monsterGame2 = new Sprite(getImage(this.images, this.imagesUrl[3]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
+    this.monsterGame3 = new Sprite(getImage(this.images, this.imagesUrl[5]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
+    this.monsterGame4 = new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
+    this.monsterGame5 = new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0);
+    this.monsterGame6 = new Sprite(getImage(this.images, this.imagesUrl[16]), [0, 0], [87, 50], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
+    this.monsterGame7 = new Sprite(getImage(this.images, this.imagesUrl[18]), [0, 0], [75, 83], 5, [0, 1, 2, 3, 4, 5, 4, 3, 2, 1], null, false, 0);
+    this.monsterGame8 = new Sprite(getImage(this.images, this.imagesUrl[20]), [0, 0], [82, 50], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
+    this.monsterGame9 = new Sprite(getImage(this.images, this.imagesUrl[22]), [0, 0], [75, 83], 5, [5, 4, 3, 2, 1, 0, 1, 2, 3, 4], null, false, 0);
+    this.monsterGame10 = new Sprite(getImage(this.images, this.imagesUrl[27]), [0, 0], [95, 52], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
+    this.monsterGame11 = new Sprite(getImage(this.images, this.imagesUrl[28]), [0, 0], [96, 52], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
+    this.monsterGame12 = new Sprite(getImage(this.images, this.imagesUrl[25]), [0, 0], [162, 94], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
+    this.monsterGame13 = new Sprite(getImage(this.images, this.imagesUrl[26]), [0, 0], [164, 99], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
+    // this.monsterGame14
+    // this.monsterGame15
   }
 
   //--- Главный цикл игры ---
@@ -363,91 +409,103 @@ export default class PumpkinGame {
     this.handleMouse();
     this.handleShoot();
     this.updateEntities(dt);
-    this.addMonsters1();
-    this.addMonsters2();
-    this.addMonsters3();
+
+    if (this.monsterGame1 
+      && this.monsterGame2 
+      && this.monsterGame3 
+      && this.monsterGame4 
+      && this.monsterGame5
+      && this.monsterGame6
+      && this.monsterGame7
+      && this.monsterGame8
+      && this.monsterGame9
+      && this.monsterGame10
+      && this.monsterGame11
+      && this.monsterGame12
+      && this.monsterGame13) {
+      switch(this.gameLevel) {
+        case 1:
+          this.addMonsters1(this.monsterGame1, this.monsterGame2, this.monsterGame3, this.monsterGame4);
+          this.addMonsters2(this.monsterGame2, this.monsterGame4);
+          this.addMonsters3(this.monsterGame5, this.monsterGame5);
+          break;
+
+        case 2:
+          this.addMonsters1(this.monsterGame6, this.monsterGame7, this.monsterGame8, this.monsterGame9);
+          this.addMonsters2(this.monsterGame10, this.monsterGame11);
+          this.addMonsters3(this.monsterGame12, this.monsterGame13);
+          break;
+      }
+    }
+   
     this.addItems();
     this.checkCollisions(dt);
   }
 
-  addMonsters1(): void {
+  addMonsters1(monster1: Sprite, monster2: Sprite, monster3: Sprite, monster4: Sprite): void {
     if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters1.length <= 3) {
       switch (getRandomInt(0, 4)) {
         case 0:	//left
           this.monsters1.push({
             pos: [0, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+            sprite: monster1
           });
 
           this.monsters1.push({
             pos: [0, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[3]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0)
+            sprite: monster2
           });
           break;
-
-        // case 1:	//top
-        //   this.monsters.push({
-        //     pos: [Math.random() * this.canvasWidth, 0],
-        //     sprite: new Sprite(getImage(this.images, this.imagesUrl[2]), [0, 0], [105, 67], 3, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
-        //   });
-        //   break;
-
-        // case 2:	//bottom
-        //   this.monsters.push({
-        //     pos: [Math.random() * this.canvasWidth, this.canvasHeight - 30],
-        //     sprite: new Sprite(getImage(this.images, this.imagesUrl[7]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0)
-        //   });
-        //   break;
 
         default: //right
           this.monsters1.push({
             pos: [this.canvasWidth, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[5]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0)
+            sprite: monster3
           });
 
           this.monsters1.push({
             pos: [this.canvasWidth, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0)
+            sprite: monster4
           });
           break;
       }
     }
   }
 
-  addMonsters2(): void {
+  addMonsters2(monster1: Sprite, monster2: Sprite): void {
     if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters2.length <= 3) {
       switch (getRandomInt(0, 4)) {
         case 0:	//left
           this.monsters2.push({
             pos: [0, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[3]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0)
+            sprite: monster1
           });
           break;
 
         default: //right
           this.monsters2.push({
             pos: [this.canvasWidth, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0)
+            sprite: monster2
           });
           break;
       }
     }
   }
 
-  addMonsters3(): void {
+  addMonsters3(monster1: Sprite, monster2: Sprite): void {
     if (Math.random() < 1 - Math.pow(0.999, this.gameTime) && this.monsters3.length <= 3) {
       switch (getRandomInt(0, 4)) {
         case 0:	//left
           this.monsters3.push({
             pos: [0, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0),
+            sprite: monster1,
           });
           break;
 
         default: //right
           this.monsters3.push({
             pos: [this.canvasWidth, Math.random() * (this.canvasHeight - 30)],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 3, [0, 1, 2, 3, 4, 5], null, false, 0),
+            sprite: monster2,
           });
           break;
       }
@@ -887,6 +945,7 @@ export default class PumpkinGame {
     this.numberBombs = 1;
     this.numberElectrons = 10;
     this.gameLevel = 1;
+    this.score = 0;
 
     const modal = new Modal();
     modal.drawModalWithoutClose(CONSTS.gameOverModalTemplate);

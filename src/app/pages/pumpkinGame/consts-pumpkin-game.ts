@@ -1,3 +1,6 @@
+import Sprite from "./sprite";
+import { getImage } from "./utils-pumpkin-game";
+
 const IMAGE_URL = [
 	require('../../../assets/sprites/pumpkin-good1.png'), // 0
 	require('../../../assets/sprites/pumpkin-fly1.png'), // 1
@@ -15,6 +18,21 @@ const IMAGE_URL = [
 	require('../../../assets/sprites/boom5.png'), // 13
 	require('../../../assets/sprites/electro-ball.png'), // 14
 	require('../../../assets/sprites/freezer.png'), // 15
+	require('../../../assets/sprites/bat1.png'), // 16
+	require('../../../assets/sprites/bat1-died.png'), // 17
+	require('../../../assets/sprites/bat2.png'), // 18
+	require('../../../assets/sprites/bat2-died.png'), // 19
+	require('../../../assets/sprites/bat1-back.png'), // 20
+	require('../../../assets/sprites/bat1-died-back.png'), // 21
+	require('../../../assets/sprites/bat2-back.png'), // 22
+	require('../../../assets/sprites/bat2-died-back.png'), // 23
+	require('../../../assets/sprites/worm.png'), // 24
+	require('../../../assets/sprites/bat3.png'), // 25
+	require('../../../assets/sprites/bat3-back.png'), // 26
+	require('../../../assets/sprites/casper.png'), // 27
+	require('../../../assets/sprites/casper-back.png'), // 28
+	require('../../../assets/sprites/skelet.png'), // 29
+	require('../../../assets/sprites/skelet-back.png'), // 30
 ];
 
 const gameOverModalTemplate = `
