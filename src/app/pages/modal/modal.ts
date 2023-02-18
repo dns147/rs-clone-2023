@@ -15,6 +15,18 @@ export default class Modal {
     });
   }
 
+  drawModalWithoutClose(myModalTemplate: string) {
+    const popup = createElem('div', 'popup', document.body);
+    popup.innerHTML = this.render(myModalTemplate);
+
+    popup.addEventListener('click', (e) => {
+      const clickedElem = e.target as HTMLElement;
+      if (clickedElem.classList.contains('exit')) {
+        popup.remove();
+      }
+    });
+  }
+
   render(modalTemplate: string): string {
     return `
       <div class="popup__content">

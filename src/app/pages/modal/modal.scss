@@ -22,4 +22,23 @@
     border-radius: $border-radius;
     color: $text-color;
   }
+
+  .pumpkin-modal {
+    text-align: center;
+    color: #bb07df;
+    text-transform: uppercase;
+    font-size: 40px;
+  }
+
+  .pumpkin-next-level,
+  .pumpkin-exit,
+  .pumpkin-restart {
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+    
+    .exit {
+      color: black;
+    }
+  }
 }

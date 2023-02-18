@@ -1,4 +1,4 @@
-import AppModel from '../model/AppModel';
+import AppModel from '../model/appModel';
 
 export default class AppController {
   model: AppModel;
@@ -35,16 +35,19 @@ export default class AppController {
       const closeRegistrationForm = <HTMLElement>event.target.closest('.close-registration-form');
       const userInfo = <HTMLElement>event.target.closest('.user-info');
       const userQuit = <HTMLElement>event.target.closest('.user-quit');
-
+      const playGamePumpkin = <HTMLElement>event.target.closest('.pumpkin-play');
+      const exitGamePumpkin = <HTMLElement>event.target.closest('.pumpkin-exit');
+      const pumpkinShellsIcon = <HTMLElement>event.target.closest('.pumpkin-shells-icon');
+      const pumpkinElectroIcon = <HTMLElement>event.target.closest('.pumpkin-electro-icon');
+      const pumpkinBombIcon = <HTMLElement>event.target.closest('.pumpkin-bomb-icon');
+      const pumpkinFreezingIcon = <HTMLElement>event.target.closest('.pumpkin-freezing-icon');
+      const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
+      const shooterGameCanvas = <HTMLElement>event.target.closest('.shooter-game');
       const card = <HTMLElement>event.target.closest('.card');
 
       if (card) {
         this.model.cardGame(card);
       }
-      
-      const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
-      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
-      const shooterGameCanvas = <HTMLElement>event.target.closest('.shooter-game');
 
       if (userIcon) {
         this.model.goToLoginContainer();
@@ -82,8 +85,8 @@ export default class AppController {
         this.model.shootPumpkin();
       }
 
-      if (pumpkinBtnSettings) {
-        this.model.showSettingsPumpkin();
+      if (playGamePumpkin || exitGamePumpkin || pumpkinShellsIcon || pumpkinElectroIcon || pumpkinBombIcon || pumpkinFreezingIcon) {
+        this.model.playSoundClick(event.target, pumpkinShellsIcon, pumpkinElectroIcon);
       }
 
       if (shooterGameCanvas) {
@@ -119,11 +122,11 @@ export default class AppController {
 
   getEventsMove(event: MouseEvent) {
     if (event.target instanceof Element) {
-      const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
+      // const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
 
-      if (pumpkinBtnSettings) {
-        this.model.soundSettingsPumpkin(pumpkinBtnSettings);
-      }
+      // if (pumpkinBtnSettings) {
+      //   //this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+      // }
     }
   }
 
@@ -132,7 +135,7 @@ export default class AppController {
       const pumpkinBtnSettings = <HTMLButtonElement>event.target.closest('.pumpkin-settings-icon');
 
       if (pumpkinBtnSettings) {
-        this.model.soundSettingsPumpkin(pumpkinBtnSettings);
+        //this.model.soundSettingsPumpkin(pumpkinBtnSettings);
       }
     }
   }
