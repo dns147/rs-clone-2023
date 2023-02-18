@@ -1,0 +1,30 @@
+@import './../../../scss/constants.scss';
+
+.shooter-game {
+  background:
+  url(./../../../assets/bg/bg-full-moon-trees.jpg) center center no-repeat,
+  $gradient-1;
+  
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.shooter-game canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+#canvas-collision{
+  opacity: 0;
+}
+
+/* ================ */
+.block-settings {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+}

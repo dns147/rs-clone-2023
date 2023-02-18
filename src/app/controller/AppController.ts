@@ -1,4 +1,4 @@
-import AppModel from '../model/AppModel';
+import AppModel from '../model/appModel';
 
 export default class AppController {
   model: AppModel;
@@ -42,13 +42,13 @@ export default class AppController {
       const pumpkinBombIcon = <HTMLElement>event.target.closest('.pumpkin-bomb-icon');
       const pumpkinFreezingIcon = <HTMLElement>event.target.closest('.pumpkin-freezing-icon');
       const pumpkinCanvas = <HTMLElement>event.target.closest('.pumpkin-canvas');
-
+      const shooterGameCanvas = <HTMLElement>event.target.closest('.shooter-game');
       const card = <HTMLElement>event.target.closest('.card');
 
       if (card) {
         this.model.cardGame(card);
       }
-      
+
       if (userIcon) {
         this.model.goToLoginContainer();
       }
@@ -87,6 +87,10 @@ export default class AppController {
 
       if (playGamePumpkin || exitGamePumpkin || pumpkinShellsIcon || pumpkinElectroIcon || pumpkinBombIcon || pumpkinFreezingIcon) {
         this.model.playSoundClick(event.target, pumpkinShellsIcon, pumpkinElectroIcon);
+      }
+
+      if (shooterGameCanvas) {
+        this.model.shooterGameSettings();
       }
     }
   }

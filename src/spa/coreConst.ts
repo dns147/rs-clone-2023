@@ -32,6 +32,9 @@ const timeOver = new Audio(PUMPKIN_LIST_URL[12]);
 const pumpkinMusic1 = new Audio(PUMPKIN_LIST_URL[13]);
 const pumpkinMusic2 = new Audio(PUMPKIN_LIST_URL[14]);
 
+localStorage.setItem('isMusic', JSON.stringify(true));
+localStorage.setItem('isSoundEffects', JSON.stringify(true));
+
 export default {
 	PUMPKIN_LIST_URL,
 	soundSettings,

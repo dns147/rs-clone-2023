@@ -5,7 +5,7 @@ import Page3 from './pages/page3/Page3';
 import Page4 from './pages/page4/Page4';
 import Spa from '../spa/spa';
 import PumpkinGame from './pages/pumpkinGame/PumpkinGame';
-import Page5 from './pages/page5/Page5';
+import ShooterGame from './pages/shooterGame/shooterGame';
 import Page6 from './pages/page6/Page6';
 import Page7 from './pages/page7/Page7';
 import Page8 from './pages/page8/Page8';
@@ -34,7 +34,7 @@ export default class App {
       page3: Page3,
       page4: Page4,
       pumpkinGame: PumpkinGame,
-      page5: Page5,
+      shooterGame: ShooterGame,
       page6: Page6,
       page7: Page7,
       page8: Page8,
