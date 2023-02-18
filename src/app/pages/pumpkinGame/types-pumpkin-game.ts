@@ -28,11 +28,3 @@ export type Pumpkin = {
   height?: number;
   clickInfo: ClickInfo;
 };
-
-export type ResultGame = {
-  userName: string;
-  nameGame: string;
-  level: number;
-  score: number;
-  time?: number;
-};

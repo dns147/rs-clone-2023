@@ -48,7 +48,6 @@ export default class AppController {
       }
 
       if (userSignIn) {
-        console.log(userSignIn)
         if (userSignIn.classList.contains('signin-active')) {
           this.model.userSignOut();
         } else {

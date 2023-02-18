@@ -1,11 +1,12 @@
-import { MousePos } from '../../../spa/coreTypes';
+import { MousePos, ResultGame } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
-import { Angle, ClickInfo, Player, Pumpkin, ResultGame } from './types-pumpkin-game';
+import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
 import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 import SOUND from '../../../spa/coreConst';
 import Modal from '../modal/modal';
+import DataBase from '../../../utils/dataBase';
 
 export default class PumpkinGame {
   canvas: HTMLCanvasElement | null;
@@ -86,8 +87,9 @@ export default class PumpkinGame {
     this.bombs = [];
     this.electrons = [];
     this.resultGame = {
-      userName: '',
-      nameGame: '',
+      id: '',
+      name: '',
+      game: '',
       score: 0,
       level: 0,
     };
@@ -143,8 +145,11 @@ export default class PumpkinGame {
     (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
 
     const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
-    this.resultGame.userName = userName;
-    this.resultGame.nameGame = 'Save Pumpkin';
+    const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
+    this.resultGame.name = userName;
+    this.resultGame.id = userId;
+    this.resultGame.game = 'Save Pumpkin';
+    this.resultGame.time = 0;
 
     return `
       <div class="game-container">
@@ -990,7 +995,7 @@ export default class PumpkinGame {
     SOUND.soundGameOver.play();
 
     this.resultGame.level = this.gameLevel;
-    this.saveResultGame();
+    this.saveResultGameToStorage();
 
     this.gameTime = 0;
     this.isGameOver = true;
@@ -1077,8 +1082,11 @@ export default class PumpkinGame {
     SOUND.soundGameWin.play();
     SOUND.soundGameWin.volume = 0.6;
 
+    SOUND.pumpkinMusic1.pause();
+    SOUND.pumpkinMusic1.currentTime = 0;
+
     this.resultGame.level = this.gameLevel;
-    this.saveResultGame();
+    this.saveResultGameToStorage();
 
     this.isGameOver = true;
     this.monsters1 = [];
@@ -1095,6 +1103,8 @@ export default class PumpkinGame {
 
     const pumpkinNextLevel = <HTMLElement>document.querySelector('.pumpkin-next-level');
     pumpkinNextLevel.addEventListener('click', this.setRoundName);
+
+    this.getResultsFromStorage();
   }
 
   freezMonsters(): void {
@@ -1162,7 +1172,18 @@ export default class PumpkinGame {
     numberElectroDoom.textContent = `${this.numberElectrons}`;
   }
 
-  saveResultGame(): void {
-    console.log(this.resultGame);
+  saveResultGameToStorage(): void {
+    const db = new DataBase;
+    db.saveToStorage(this.resultGame);
+  }
+
+  getResultsFromStorage(): void {
+    const db = new DataBase;
+    db.getFromStorage();
+
+    setTimeout(() => {
+      const data = JSON.parse(localStorage['dataFromDb']);
+      console.log(data);
+    }, 3500);
   }
 }

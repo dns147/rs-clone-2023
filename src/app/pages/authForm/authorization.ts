@@ -8,6 +8,7 @@ export default class Authorization {
 		await signInWithEmailAndPassword(myAuth, user.email, user.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
+				localStorage.setItem('userId', JSON.stringify(user.uid));
         hideRegistrationForm();
 				setUserName(user.displayName);
 				changeSignInButton(true);
@@ -31,7 +32,7 @@ export default class Authorization {
 				const user = userCredential.user;
 				//localStorage.setItem('userName', JSON.stringify(user.displayName));
 				// localStorage.setItem('userInfo', JSON.stringify(user));
-      	// localStorage.setItem('userId', user.uid);
+      	localStorage.setItem('userId', JSON.stringify(user.uid));
         hideRegistrationForm();
 				changeSignInButton(true);
 			})

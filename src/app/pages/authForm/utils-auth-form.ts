@@ -78,6 +78,7 @@ export function hideRegistrationForm(): void {
 export function removeUserInfo(): void {
 	const userName = <HTMLSpanElement>document.querySelector('.main-user-name');
   userName.textContent = '';
+	localStorage.removeItem('userId');
 	localStorage.removeItem('userName');
 }
 
