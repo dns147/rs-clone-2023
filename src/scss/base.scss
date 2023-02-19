@@ -1,5 +1,15 @@
 @import './constants.scss';
 
+// @font-face {
+//   font-family: 'SecretMidnight';
+//   src: url(../assets/fonts/SecretMidnight-518n8.otf);
+// }
+
+// @font-face {
+//   font-family: 'HennyPenny';
+//   src: url(../assets/fonts/HennyPenny-Regular.otf);
+// }
+
 html,
 body {
   height: 100%;
@@ -11,7 +21,7 @@ body {
   font-size: 16px;
   line-height: 1.4;
   color: $text-color-light;
-  background: $gradient-1;
+  background: $gradient-20;
 }
 
 a {
@@ -45,20 +55,27 @@ a:active {
 
 .btn {
   border-radius: $border-radius;
-  padding: 5px 10px;
+  padding: 10px 15px;
   min-width: 100px;
-  background-color: $accent6-color;
+  background-color: $accent2-color;
   color: $text-color;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: lowercase;
-  height: 30px;
+  // height: 30px;
   cursor: pointer;
   transition: 0.3s;
 }
 
+.btn--transp {
+  background-color: transparent;
+}
+
 .btn--round {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 30px;
   width: 30px;
   height: 30px;
@@ -73,7 +90,7 @@ a:active {
 .btn--mini {
   min-width: auto;
 }
-.btn--transp {
+.btn--border {
   background-color: transparent;
   border: 1px solid $text-color-light;
 }
@@ -94,11 +111,51 @@ a:active {
   font-weight: 700;
 }
 
+.btn--fixed-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//for use:
+//import  font-family: "HennyPenny";
+//for container-game: position: relative;
+.btn--start-game {
+  font-family: 'HennyPenny';
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-color;
+
+  border-radius: $border-radius-big;
+  padding: 26px 22px;
+  height: auto;
+}
+
+.accent-font {
+  font-family: 'HennyPenny';
+  letter-spacing: 2px;
+  height: auto;
+}
+.accent-font-upper {
+  font-family: 'HennyPenny';
+  letter-spacing: 2px;
+  height: auto;
+  text-transform: uppercase;
+}
+
 .btn:hover,
 .btn:focus {
   background: $gradient-4;
   background-color: $accent6-color;
   color: $text-color;
+}
+.btn--transp:hover,
+.btn--transp:focus {
+  background: inherit;
+  background-color: transparent;
 }
 
 .btn--col-3:hover {
@@ -113,7 +170,7 @@ a:active {
   color: $text-color;
 }
 
-.btn--transp:hover {
+.btn--border:hover {
   border: none;
   background-color: $accent9-color;
   color: $text-color-light;
@@ -126,7 +183,7 @@ a:active {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $accent1-color;
+  background-color: $accent3-color;
   border-radius: 10px;
   border: 2px solid $gray-color-light;
 }

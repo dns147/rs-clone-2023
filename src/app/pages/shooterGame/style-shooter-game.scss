@@ -1,11 +1,17 @@
 @import './../../../scss/constants.scss';
 
 .shooter-game {
-  background:
-  url(./../../../assets/bg/bg-full-moon-trees.jpg) center center no-repeat,
-  $gradient-1;
-  
-  background-size: cover;
+  position: absolute;
+
+  // background:
+  // url(./../../../assets/bg/bg-full-moon-trees.jpg) center center no-repeat,
+  // $gradient-20;
+  // background-size: cover;
+
+  background: url(./../../../assets/png/tree-min.png) 50% 0/80% auto no-repeat, $gradient-20;
+
+  top: 0;
+  bottom: 0;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -18,13 +24,111 @@
   height: 100%;
   width: 100%;
 }
-#canvas-collision{
+#canvas-collision {
   opacity: 0;
 }
 
 /* ================ */
-.block-settings {
+.block-info {
+  position: relative;
+  z-index: 5;
+}
+
+.score-title {
   position: absolute;
-  z-index: 100;
-  right: 0;
+  z-index: 5;
+  top: 30px;
+  left: 30px;
+  font-size: 22px;
+  line-height: 1;
+  background: $gradient-4;
+}
+
+.score-title span {
+}
+
+.btn--settings {
+  position: absolute;
+  z-index: 5;
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  background: url(../../../assets/icons/icon-settings-1.png) no-repeat;
+  background-size: contain;
+  transition: 0.3s;
+}
+
+.btn--settings:hover,
+.btn--settings:focus {
+  transform: rotate(15deg);
+}
+
+// ====== modal-Settings
+.settings {
+  &__container {
+    align-items: center;
+  }
+
+  &__title {
+    margin: 0 0 20px 0;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: none;
+    min-width: 200px;
+    width: 200px;
+    margin: 0 auto 10px;
+  }
+
+  &__btn span {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 20px 0 0;
+  }
+
+  &__btn--sound,
+  &__btn--music {
+    width: auto;
+  }
+
+  &__btn--sound:hover,
+  &__btn--music:hover,
+  &__btn--sound:focus,
+  &__btn--music:focus {
+    background: none;
+    background-color: transparent;
+  }
+  &__btn--sound span {
+    background-image: url(../../../assets/icons/icon-speaker-audio-1.png);
+    transform: scale(1.15);
+  }
+  &__btn--music span {
+    background-image: url(../../../assets/icons/icon-music-alt-1.png);
+  }
+
+  &__btn span:after {
+    position: absolute;
+    content: '';
+    top: -6px;
+    left: 15px;
+    display: inline-block;
+    opacity: 0;
+    width: 3px;
+    height: 40px;
+    border-radius: $border-radius;
+    background-color: #fff;
+    transform: rotate(30deg);
+  }
+  &__btn.off span:after {
+    opacity: 1;
+  }
 }

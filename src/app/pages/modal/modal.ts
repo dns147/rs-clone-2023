@@ -1,5 +1,6 @@
 import { createElem } from '../../../utils/createElem';
 import './modal.scss';
+import soundSettingsSrc from '../../../assets/audio/effects/settings-1.mp3';
 
 export default class Modal {
   drawModal(myModalTemplate: string) {
@@ -9,9 +10,18 @@ export default class Modal {
     //close modal-window on click on dark area
     popup.addEventListener('click', (e) => {
       const clickedElem = e.target as HTMLElement;
-      if (clickedElem.classList.contains('popup')) {
+      if (clickedElem.classList.contains('popup') || clickedElem.classList.contains('popup__close-btn')) {
+        const soundSettings = new Audio();
+        soundSettings.src = soundSettingsSrc;
+        soundSettings.play();
+
         popup.remove();
       }
+    });
+
+    window.addEventListener('hashchange', () => {
+      console.log('The hash has changed!');
+      popup.remove();
     });
   }
 
@@ -31,6 +41,7 @@ export default class Modal {
     return `
       <div class="popup__content">
         ${modalTemplate}
+        <div class="popup__close-btn btn btn--round">X<div>
       </div>
     `;
   }

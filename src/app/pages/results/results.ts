@@ -1,4 +1,4 @@
-export default class Page6 {
+export default class Results {
   constructor() {}
 
   render(): string {
