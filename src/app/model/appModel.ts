@@ -76,18 +76,10 @@ export default class AppModel {
     localStorage.setItem('isClick', 'true');
   }
 
-  // soundSettingsPumpkin(btn: HTMLButtonElement): void {
-  //   if (btn.dataset.sound === 'play') {
-  //     btn.setAttribute('data-sound', 'stop');
-  //     SOUND.soundSettings.pause();
-  //   } else {
-  //     btn.setAttribute('data-sound', 'play');
-  //     SOUND.soundSettings.play();
-  //   }
-  // }
-
   playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement): void {
-    SOUND.soundClick.play();
+    if (localStorage['isSoundEffects'] === 'true') {
+      SOUND.soundClick.play();
+    }
 
     if (eventTarget === pumpkinShellsIcon && !pumpkinShellsIcon.classList.contains('select-weapon')) {
       pumpkinShellsIcon.classList.add('select-weapon');
@@ -103,15 +95,48 @@ export default class AppModel {
   }
 
   setKeyDown(event: KeyboardEvent): void {
-    const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
-    controlKeys[event.code] = true;
-    localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
+    // const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
+    // controlKeys[event.code] = true;
+    // localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
   }
 
   setKeyUp(event: KeyboardEvent): void {
-    const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
-    controlKeys[event.code] = false;
-    localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
+    // const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
+    // controlKeys[event.code] = false;
+    // localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
+
+    if (localStorage['isSoundEffects'] === 'true') {
+      SOUND.soundClick.play();
+    }
+
+    const pumpkinIcon = <HTMLElement>document.querySelector('.pumpkin-shells-icon');
+    const electronIcon = <HTMLElement>document.querySelector('.pumpkin-electro-icon');
+    const freezIcon = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
+    const bombIcon = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
+
+    if (event.code === 'Digit1' && !pumpkinIcon.classList.contains('select-weapon')) {
+      pumpkinIcon.classList.add('select-weapon');
+      electronIcon.classList.remove('select-weapon');
+      localStorage.setItem('currentWeapon', 'pumpkin');
+    }
+
+    if (event.code === 'Digit2' && !electronIcon.classList.contains('select-weapon')) {
+      electronIcon.classList.add('select-weapon');
+      pumpkinIcon.classList.remove('select-weapon');
+      localStorage.setItem('currentWeapon', 'electro');
+    }
+
+    if (event.code === 'Digit3') {
+      freezIcon.classList.add('select-weapon');
+      window.setTimeout(() => freezIcon.classList.remove('select-weapon'), 200);
+      localStorage.setItem('isFreez', 'true');
+    }
+
+    if (event.code === 'Digit4') {
+      bombIcon.classList.add('select-weapon');
+      window.setTimeout(() => bombIcon.classList.remove('select-weapon'), 200);
+      localStorage.setItem('isBomb', 'true');
+    }
   }
 
   cardGame(card: HTMLElement): void {
