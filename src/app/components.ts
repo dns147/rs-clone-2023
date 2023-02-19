@@ -18,19 +18,6 @@ export const Header = {
 						<a class="header-item" href="#/page11">Page11</a>
 					  <a class="header-item" href="#/page12">Page12</a>
           </nav>
-          <div class="user">
-            <button class="user-icon"></button>
-            <div class="user-info">
-              <span class="user-name"></span>
-              <span class="dropdown-caret"></span>
-            </div>
-          </div>
-          <div class="user-menu">
-            <button class="user-menu-btn user-statistic">Statistics</button>
-            <div class="divider">
-              <button class="user-menu-btn user-quit">Exit</button>
-            </div>
-          </div>
 				</div>
 			</header>
     `;

@@ -1,4 +1,4 @@
-import { checkSubmitButtonsStatus, isValidateEmail, showLoader } from "../pages/authForm/utils-auth-form";
+import { changeSignInButton, checkSubmitButtonsStatus, isValidateEmail, removeUserInfo, showLoader } from "../pages/authForm/utils-auth-form";
 import constsAuthForm from "../pages/authForm/const-auth-form";
 import Authorization from "../pages/authForm/authorization";
 import { hideUserMenu, showUserMenu } from "../utils-component";
@@ -101,6 +101,9 @@ export default class AppView {
   userSignOut(): void {
     const authUser = new Authorization();
 	  authUser.userSignOut();
+
+    removeUserInfo();
+		changeSignInButton(false);
 
     this.isValidEmail = false;
     this.isValidPassword = false;

@@ -13,7 +13,7 @@ export class Router {
     const hashPageName: string = window.location.hash.slice(2);
 
     if (hashPageName.length > 0) {
-      routeName = hashPageName in routes ? hashPageName : 'page1';
+      routeName = hashPageName in routes ? hashPageName : 'error';
     }
 
     window.document.title = routeName;

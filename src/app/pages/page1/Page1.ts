@@ -1,9 +1,14 @@
+import { createElem } from '../../../utils/createElem';
 import './style-page1.scss';
+import CONSTS from '../../../spa/coreConst';
+import { changeSignInButton } from '../authForm/utils-auth-form';
 
 export default class Page1 {
   constructor() {}
 
   render(): string {
+    const signInButtonStatus: string = localStorage['userName'] ? 'sign out' : 'sign in';
+
     return `<div class="home">
 
       <div class="home-sky">
@@ -72,13 +77,13 @@ export default class Page1 {
             </span>
             <span class="home-button__text">play</span>
           </a>
-          <a class="home-button" href="##">
+          <button class="home-button user-sign-in">
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
             </span>
-            <span class="home-button__text">sign in</span>
-          </a>
+            <span class="home-button__text user-sign-in-text">${signInButtonStatus}</span>
+          </button>
           <a class="home-button" href="##">
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
@@ -100,5 +105,16 @@ export default class Page1 {
     </div>`;
   }
 
-  init(): void {}
+  init(): void {
+    const mainUser = createElem('div', 'main-user', '.main');
+    mainUser.innerHTML = CONSTS.userTemplate;
+
+    const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
+    const userNameTag = <HTMLSpanElement>document.querySelector('.main-user-name');
+    userNameTag.textContent = userName;
+
+    if (localStorage['userName']) {
+      changeSignInButton(true);
+    }
+  }
 }

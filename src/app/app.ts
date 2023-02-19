@@ -13,6 +13,7 @@ import Page9 from './pages/page9/Page9';
 import Page10 from './pages/page10/Page10';
 import Page11 from './pages/page11/Page11';
 import Page12 from './pages/page12/Page12';
+import ErrorPage from './pages/errorPage/ErrorPage';
 
 export default class App {
   spa: Spa;
@@ -42,6 +43,7 @@ export default class App {
       page10: Page10,
       page11: Page11,
       page12: Page12,
+      error: ErrorPage,
     };
 
     window.addEventListener('DOMContentLoaded', () => {

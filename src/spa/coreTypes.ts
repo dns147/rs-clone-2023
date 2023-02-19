@@ -18,3 +18,14 @@ export interface ISpa {
   routes: Routes;
   components: Components;
 }
+
+export type ResultGame = {
+  id: string;
+  name: string;
+  game: string;
+  score: number;
+  level?: number;
+  time?: number;
+};
+
+export type DataFromDb = { [key: string]: ResultGame };
