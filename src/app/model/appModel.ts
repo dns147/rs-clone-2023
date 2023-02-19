@@ -1,6 +1,6 @@
 import AppView from '../view/AppView';
 import constsAuthForm from "../pages/authForm/const-auth-form";
-import { ControlKeys, MousePos } from '../../spa/coreTypes';
+import { MousePos } from '../../spa/coreTypes';
 import { Angle } from '../pages/pumpkinGame/types-pumpkin-game';
 import { getAngle } from '../pages/pumpkinGame/utils-pumpkin-game';
 import SOUND from '../../spa/coreConst';
@@ -94,17 +94,7 @@ export default class AppModel {
     }
   }
 
-  setKeyDown(event: KeyboardEvent): void {
-    // const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
-    // controlKeys[event.code] = true;
-    // localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
-  }
-
   setKeyUp(event: KeyboardEvent): void {
-    // const controlKeys: ControlKeys = localStorage['controlKeys'] ? JSON.parse(localStorage['controlKeys']) : {};
-    // controlKeys[event.code] = false;
-    // localStorage.setItem('controlKeys', JSON.stringify(controlKeys));
-
     if (localStorage['isSoundEffects'] === 'true') {
       SOUND.soundClick.play();
     }

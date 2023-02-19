@@ -1,50 +1,9 @@
+import { myDatabase } from '../../firebase';
+import { ref, onValue } from "firebase/database";
 import './style-results.scss';
 import Music from '../../../utils/Music';
 import musicChildSongSrc from '../../../assets/audio/music/strashnye-zvuki-child-song.mp3';
-
-// TODO test, заменить Денису
-//!testData, удалить позже
-interface IGameObj {
-  id: string; // берется из localstorage, userId
-  name: string; // берется из localstorage, userName
-  game: string;
-  score: number;
-  level?: number;
-  time?: number;
-}
-
-const gameObj: IGameObj = {
-  id: '1',
-  name: 'Denis',
-  game: 'Save Pumpkin',
-  score: 50,
-  level: 1,
-  time: 123,
-};
-const arrGameResultsTest: IGameObj[] = [
-  {
-    id: '1',
-    name: 'Denis',
-    game: 'Save Pumpkin',
-    score: 50,
-    level: 1,
-    time: 123,
-  },
-  {
-    id: '2',
-    name: 'Anna',
-    game: 'Ravens',
-    score: 101,
-    time: 0,
-  },
-  {
-    id: '3',
-    name: 'Tanya',
-    game: 'Cemetery',
-    score: 0,
-    time: 85,
-  },
-];
+import { DataFromDb, DataFromDbInner, ResultGame } from '../../../spa/coreTypes';
 
 export default class Results {
   musicResultsSrc: string;
@@ -62,7 +21,7 @@ export default class Results {
           <div class="block-info">
             <button class="btn--settings settings-btn"></button>
           </div>
-          ${this.templateTableResults(arrGameResultsTest)}
+          ${this.templateTableResults()}
           <div class="animation-field">
             <div class="walk-ghost"></div>
           </div>
@@ -71,11 +30,9 @@ export default class Results {
     `;
   }
 
-  templateTableResults(arrGameResults: IGameObj[]): string {
-    // const arrGameResults: IGameObj[] = JSON.parse(localStorage.getItem('?') || '[]');
-    // ${this.templateTableResultsItem(gameObj)}
-
+  templateTableResults(): string {
     return `
+      <div class="result-loader"></div>
       <table class="results__table table" id="table">
         <thead class="table__head">
           <tr>
@@ -87,28 +44,70 @@ export default class Results {
             <th>Time</th>
           </tr>
         </thead>
-        <tbody class="table__body" id="table-body">
-              ${arrGameResults.map((gameResultItem: IGameObj) => {
-                return this.templateTableResultsItem(gameResultItem);
-              })}
-        </tbody>
-    </table>
+        <tbody class="table__body" id="table-body"></tbody>
+      </table>
     `;
   }
 
-  templateTableResultsItem(gameObj: IGameObj): string {
-    return `
-    <tr>
-      <td class="table__num-str">1</td>
-      <td>
-        ${gameObj.name}
-      </td>
-      <td>${gameObj.game || '?'}</td>
-      <td>${gameObj.score || '?'}</td>
-      <td>${gameObj.level || '-'}</td>
-      <td>${gameObj.time || '-'}</td>
-    </tr>
-    `;
+  init(): void {
+    this.music.playMusic();
+    this.startLoader();
+    this.getFromStorage();
+  }
+
+  startLoader(): void {
+    const loader = <HTMLElement>document.querySelector('.result-loader');
+    const loaderTxt = ["L", "o", "a", "d", "i", "n", "g", ".", ".", "."]
+    const spanLoader = [];
+
+    for (let index = 0; index < loaderTxt.length; index += 1) {
+      const spani = document.createElement('span');
+      spani.setAttribute('style', `--i:${index + 1}`);
+      spani.innerHTML = loaderTxt[index];
+      spanLoader.push(spani);
+    }
+
+    loader.append(...spanLoader);  
+  }
+
+  getFromStorage(): void {
+    const that = this;
+    const dataFromDb = ref(myDatabase, 'users/');
+
+    onValue(dataFromDb, function(snapshot) {
+      const resultData = snapshot.val();
+      that.removeLoader();
+      that.makeTable(resultData);
+      that.updateNumResultItemByOrder();
+    });
+  }
+
+  makeTable(resultData: DataFromDb): void {
+    const tableBody = <HTMLElement>document.querySelector('.table__body');
+
+    for (let key1 in resultData) {
+      const infoPlayer: DataFromDbInner = resultData[key1];
+
+      for (let key2 in infoPlayer) {
+        const infoGamePlayer: ResultGame = infoPlayer[key2];
+        const userName = infoGamePlayer.name;
+        const userGame = infoGamePlayer.game;
+        const userScore = infoGamePlayer.score;
+        const userLevel = infoGamePlayer.level;
+        const userTime = infoGamePlayer.time;
+
+        tableBody.insertAdjacentHTML('afterbegin', `
+          <tr>
+            <td class="table__num-str">1</td>
+            <td>${userName || '-'}</td>
+            <td>${userGame || '-'}</td>
+            <td>${userScore || '-'}</td>
+            <td>${userLevel || '-'}</td>
+            <td>${userTime || '-'}</td>
+          </tr>
+        `);
+      }
+    }
   }
 
   updateNumResultItemByOrder = (): void => {
@@ -118,8 +117,8 @@ export default class Results {
     });
   };
 
-  init(): void {
-    this.updateNumResultItemByOrder();
-    this.music.playMusic();
+  removeLoader(): void {
+    const loader = <HTMLElement>document.querySelector('.result-loader');
+    loader.innerHTML = '';
   }
 }

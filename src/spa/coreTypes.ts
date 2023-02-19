@@ -28,4 +28,5 @@ export type ResultGame = {
   time?: number;
 };
 
-export type DataFromDb = { [key: string]: ResultGame };
+export type DataFromDbInner = { [key: string]: ResultGame };
+export type DataFromDb = { [key: string]: DataFromDbInner };

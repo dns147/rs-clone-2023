@@ -1163,8 +1163,6 @@ export default class PumpkinGame {
 
     const pumpkinNextLevel = <HTMLElement>document.querySelector('.pumpkin-next-level');
     pumpkinNextLevel.addEventListener('click', this.setRoundName);
-
-    this.getResultsFromStorage();
   }
 
   freezMonsters(): void {
@@ -1237,15 +1235,5 @@ export default class PumpkinGame {
   saveResultGameToStorage(): void {
     const db = new DataBase;
     db.saveToStorage(this.resultGame);
-  }
-
-  getResultsFromStorage(): void {
-    const db = new DataBase;
-    db.getFromStorage();
-
-    setTimeout(() => {
-      const data = JSON.parse(localStorage['dataFromDb']);
-      console.log(data);
-    }, 3500);
   }
 }
