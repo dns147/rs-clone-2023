@@ -1,9 +1,9 @@
 import { createElem } from '../../../utils/createElem';
-import './style-page1.scss';
+import './style-main-page.scss';
 import CONSTS from '../../../spa/coreConst';
 import { changeSignInButton } from '../authForm/utils-auth-form';
 
-export default class Page1 {
+export default class MainPage {
   constructor() {}
 
   render(): string {
