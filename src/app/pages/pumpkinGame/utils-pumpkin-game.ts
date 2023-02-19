@@ -97,3 +97,20 @@ export function collides(x: number, y: number, r: number, b: number, x2: number,
 }
 
 export const normalize = (num: number): string => ((num < 10) ? '0' : '') + num;
+
+export function playAudio(audio: HTMLAudioElement, volume?: number, attribute?: string): void {
+  audio.play();
+
+  if (volume) {
+    audio.volume = volume;
+  }
+  
+  if (attribute) {
+    audio.setAttribute(attribute, attribute);
+  }
+}
+
+export function stopAudio(audio: HTMLAudioElement): void {
+  audio.pause();
+  audio.currentTime = 0;
+}

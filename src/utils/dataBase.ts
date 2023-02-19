@@ -20,13 +20,13 @@ export default class DataBase {
         time: time
       })
       .then(() => {
-        console.log("Пользователь добавлен в коллецию Records");
+        console.log('Data saved successfully!');
       })
       .catch((error) => {
-        console.error("Ошибка добавления пользователя: ", error);
+        console.error('The write failed: ', error);
       });
     } else {
-      console.log('Пользователь не зарегистрирован');
+      console.log('User not registered');
     }
   }
 
