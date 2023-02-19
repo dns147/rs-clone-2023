@@ -29,13 +29,4 @@ export default class DataBase {
       console.log('User not registered');
     }
   }
-
-  getFromStorage(): void {
-    const dataFromDb = ref(myDatabase, 'users/');
-
-    onValue(dataFromDb, function(snapshot) {
-      const resultData = snapshot.val();
-      localStorage.setItem('dataFromDb', JSON.stringify(resultData));
-    });
-  }
 }

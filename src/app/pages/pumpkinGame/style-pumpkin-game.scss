@@ -96,7 +96,7 @@ $heading-shadow: #f5f5f5;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
 
         .pumpkin-level-name,
         .pumpkin-score-name {
@@ -162,13 +162,13 @@ $heading-shadow: #f5f5f5;
         display: flex;
         
         .user-icon {
-          filter: invert(1);
+          filter: brightness(0) saturate(100%) invert(82%) sepia(57%) saturate(315%) hue-rotate(94deg) brightness(99%) contrast(105%);
           width: 22px;
         }
 
         .user-name {
           width: 100px;
-          color: white;
+          color: aquamarine;
           font-family: monospace;
           align-self: center;
           margin-left: 10px;
@@ -178,13 +178,13 @@ $heading-shadow: #f5f5f5;
 
       .pumpkin-exit {
         align-self: center;
-        color: white;
+        color: aquamarine;
         font-size: 24px;
         transform: rotate(10deg);
       }
 
       .pumpkin-exit:hover {
-        color: aquamarine;
+        color: orange;
         animation: AnimIconExit 0.7s infinite alternate linear;
       }
     }

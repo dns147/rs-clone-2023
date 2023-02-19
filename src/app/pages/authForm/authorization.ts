@@ -12,12 +12,6 @@ export default class Authorization {
         hideRegistrationForm();
 				setUserName(user.displayName);
 				changeSignInButton(true);
-				// user.getIdToken().then((idToken) => {
-				// 	//setUserName(user.uid, idToken);
-				// })
-				// .catch((error) => {
-				// 	//return getErrorMessage(error);
-				// });
 			})
 			.catch((error) => {
 				console.log(error.message);
@@ -30,8 +24,6 @@ export default class Authorization {
 		await createUserWithEmailAndPassword(myAuth, user.email, user.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				//localStorage.setItem('userName', JSON.stringify(user.displayName));
-				// localStorage.setItem('userInfo', JSON.stringify(user));
       	localStorage.setItem('userId', JSON.stringify(user.uid));
         hideRegistrationForm();
 				changeSignInButton(true);

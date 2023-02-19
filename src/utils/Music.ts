@@ -9,7 +9,10 @@ export default class Music {
   }
   playMusic() {
     this.updateIsMusic();
-    if (this.isMusic) this.music.play();
+    if (this.isMusic) {
+      this.music.play();
+      this.music.volume = 0.2;
+    }
   }
   stopMusic() {
     this.updateIsMusic();

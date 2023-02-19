@@ -75,7 +75,6 @@ export default class AppView {
   switchMode(mode: string): void {
     const isLogin = (mode === constsAuthForm.LOGIN) ? 'flex' : 'none';
     const isReg = (mode === constsAuthForm.REGISTRATION) ? 'flex' : 'none';
-    
     const loginBlocks = this.container.querySelectorAll('.authorization-block') as NodeListOf<HTMLElement>;
     
     loginBlocks.forEach((loginElem: HTMLElement) => {

@@ -171,18 +171,22 @@ export default class PumpkinGame {
                 <span class="pumpkin-score-number">0</span>
               </div>
               <div class="shells">
+                <img src=${require("../../../assets/img/key1.png")} class="keyboard-key" alt="icon">
                 <img src=${require("../../../assets/img/pumpkin-icon.png")} class="pumpkin-shells-icon select-weapon" alt="icon">
                 <span class="pumpkin-shells-number">∞</span>
               </div>
               <div class="electo-ball">
+                <img src=${require("../../../assets/img/key2.png")} class="keyboard-key" alt="icon">
                 <img src=${require("../../../assets/img/electro-ball.png")} class="pumpkin-electro-icon" alt="icon">
                 <span class="pumpkin-electro-number">${this.numberElectrons}</span>
               </div>
               <div class="freezing">
+                <img src=${require("../../../assets/img/key3.png")} class="keyboard-key" alt="icon">
                 <img src=${require("../../../assets/img/freezing.png")} class="pumpkin-freezing-icon" alt="icon">
                 <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
               </div>
               <div class="bomb">
+                <img src=${require("../../../assets/img/key4.png")} class="keyboard-key" alt="icon">
                 <img src=${require("../../../assets/img/pumpkin-bomb.png")} class="pumpkin-bomb-icon" alt="icon">
                 <span class="pumpkin-bomb-number">${this.numberBombs}</span>
               </div>
@@ -723,6 +727,16 @@ export default class PumpkinGame {
       this.lastShoot = Date.now();
       localStorage.setItem('isClick', 'false');
     }
+
+    if (localStorage['isFreez'] === 'true') {
+      this.freezMonsters();
+      localStorage.setItem('isFreez', 'false');
+    }
+
+    if (localStorage['isBomb'] === 'true') {
+      this.burstAllMonsters();
+      localStorage.setItem('isBomb', 'false');
+    }
   }
 
   rotatePlayer(angleGrad: number, player: Player): void {
@@ -1149,8 +1163,6 @@ export default class PumpkinGame {
 
     const pumpkinNextLevel = <HTMLElement>document.querySelector('.pumpkin-next-level');
     pumpkinNextLevel.addEventListener('click', this.setRoundName);
-
-    this.getResultsFromStorage();
   }
 
   freezMonsters(): void {
@@ -1223,15 +1235,5 @@ export default class PumpkinGame {
   saveResultGameToStorage(): void {
     const db = new DataBase;
     db.saveToStorage(this.resultGame);
-  }
-
-  getResultsFromStorage(): void {
-    const db = new DataBase;
-    db.getFromStorage();
-
-    setTimeout(() => {
-      const data = JSON.parse(localStorage['dataFromDb']);
-      console.log(data);
-    }, 3500);
   }
 }
