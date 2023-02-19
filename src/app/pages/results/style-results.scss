@@ -1,0 +1,104 @@
+@import './../../../scss/constants.scss';
+
+.results-page {
+  position: absolute;
+  background: url(../../../assets/bg/bg-old-house.png) 50% 50% / cover no-repeat, $gradient-20;
+
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ==== animation-field + walk-ghost======= */
+.animation-field {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25vh;
+  overflow: hidden;
+}
+
+.walk-ghost {
+  position: absolute;
+  top: -250px;
+  right: -110px; //441px*0.25 = 110px
+  transform: translate(0, 0) scale(0.25);
+  width: 441px;
+  height: 601px;
+
+  background: transparent url(../../../assets/results-page/doll-ghost.png) 0 0 no-repeat;
+  margin: 2rem auto;
+  animation: run-ghost 1s steps(30) infinite, walk 6s linear alternate infinite, reverse-ghost 12s steps(3) infinite;
+}
+
+@keyframes run-ghost {
+  100% {
+    background-position: -13230px 0px;
+  }
+}
+
+@keyframes walk {
+  0% {
+    right: calc(0% - 110px);
+  }
+  20% {
+    right: 20%;
+  }
+  40% {
+    right: 20%;
+  }
+  60% {
+    right: 60%;
+  }
+  80% {
+    right: 60%;
+  }
+  100% {
+    right: calc(100% - 300px);
+  }
+}
+
+@keyframes reverse-ghost {
+  0% {
+    transform: translate(0, 0) scale(0.25) rotateY(0deg);
+  }
+  49.99% {
+    transform: translate(0, 0) scale(0.25) rotateY(0deg);
+  }
+  50% {
+    transform: translate(0, 0) scale(0.25) rotateY(180deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(0.25) rotateY(180deg);
+  }
+}
+
+// ==== table-styles ====
+.table {
+  width: 60%;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  border-collapse: collapse;
+
+  border-radius: $border-radius-big;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  overflow: hidden;
+  margin: 100px auto 20px;
+}
+
+.table__head {
+  font-family: 'HennyPenny';
+  color: $text-color;
+  background: $gradient-4;
+}
+
+.table td,
+.table th {
+  padding: 6px;
+  border-bottom: 1px solid $gray-color;
+}
