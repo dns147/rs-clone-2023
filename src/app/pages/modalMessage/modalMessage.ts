@@ -2,17 +2,19 @@ import { createElem } from '../../../utils/createElem';
 import './modalMessage.scss';
 
 export default class ModalMessage {
-  drawModalMessage(myMessage: string, toPage?: string) {
+  drawModalMessage(myMessage: string, destroy = true, toPage?: string) {
     const modalMessage = createElem('div', 'popup popup-message', document.body);
     modalMessage.innerHTML = this.render(myMessage);
 
-    setTimeout(() => {
-      modalMessage.remove();
+    if (destroy) {
+      setTimeout(() => {
+        modalMessage.remove();
 
-      if (toPage) {
-        window.location.hash = `/${toPage}`;
-      }
-    }, 3000);
+        if (toPage) {
+          window.location.hash = `/${toPage}`;
+        }
+      }, 3000);
+    }
   }
 
   render(message: string): string {

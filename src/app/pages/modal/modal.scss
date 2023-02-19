@@ -2,6 +2,8 @@
 
 // ===== popup ======
 .popup {
+  z-index: 15;
+
   position: absolute;
   top: 0;
   bottom: 0;
@@ -14,12 +16,39 @@
   background-color: rgba(0, 0, 0, 0.8);
 
   &__content {
+    position: relative;
     width: 80%;
     margin: 0 auto;
     max-width: 440px;
-    background-color: $light-color-2;
-    padding: 20px;
-    border-radius: $border-radius;
+    border-radius: $border-radius-big;
+    background-color: $accent3-color;
+    padding: 30px 22px;
     color: $text-color;
+    text-align: center;
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+  }
+
+  .title-message {
+    font-family: 'HennyPenny';
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: $text-color-light;
+    font-weight: 700;
+    text-align: center;
+
+    text-transform: none;
+    letter-spacing: 2.8px;
+    font-size: 32px;
+  }
+
+  .score-message {
+    font-weight: 700;
+    font-size: 22px;
+    color: $accent6-color;
   }
 }

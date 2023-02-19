@@ -1,20 +1,41 @@
-@import './../../../scss/constants.scss';
+@import "./../../../scss/constants.scss";
+
+@font-face {
+  font-family: 'HennyPenny';
+  src: url(../../../assets/fonts/HennyPenny-Regular.otf);
+}
 
 .popup-message {
-  z-index: 15;
+  z-index: 14;
 
   &__content {
     width: 60%;
     margin: 0 auto;
     max-width: 300px;
     background-color: $accent5-color;
-    padding: 20px;
-    border-radius: $border-radius;
+    padding: 30px 22px;
+    border-radius: $border-radius-big;
   }
 
   &__message-info {
     color: $text-color-light;
     font-size: 18px;
     text-align: center;
+  }
+
+  .title-message {
+    font-family: 'HennyPenny';
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: $text-color-light;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .score-message {
+    font-weight: 700;
+    font-size: 22px;
+    color: $accent6-color;
   }
 }
