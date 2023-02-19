@@ -1,6 +1,6 @@
-import './style-page3.scss';
+import './style-choose-games.scss';
 
-export default class Page3 {
+export default class ChooseGames {
   constructor() {}
 
   render(): string {

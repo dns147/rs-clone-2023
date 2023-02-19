@@ -4,19 +4,17 @@ export const Header = {
 			<header class="header">
 				<div class="header-container">
           <nav class="header-list">
-            <a class="header-item" href="#/page1">Page1</a>
-					  <a class="header-item" href="#/page2">Page2</a>
-						<a class="header-item" href="#/page3">Page3</a>
+            <a class="header-item" href="#/mainPage">Main Page</a>
+						<a class="header-item" href="#/chooseGames">Play games</a>
+            <a class="header-item" href="#/pumpkinGame">Save pumpkin</a>
+            <a class="header-item" href="#/shooterGame">Ravens hunting</a>
+						<a class="header-item" href="#/cemeteryGame">Cemetery</a>
+					  <a class="header-item" href="#/zombieGame">Zombie walk</a>
+					  <a class="header-item" href="#/results">Results</a>
+					  <a class="header-item" href="#/about">About</a>
+					  <a class="header-item" href="#/page2">page2</a>
 					  <a class="header-item" href="#/page4">test</a>
-            <a class="header-item" href="#/pumpkinGame">Pumpkin Game</a>
-            <a class="header-item" href="#/shooterGame">Shooter Game</a>
-					  <a class="header-item" href="#/results">results</a>
-						<a class="header-item" href="#/page7">Page7</a>
-					  <a class="header-item" href="#/page8">Page8</a>
-            <a class="header-item" href="#/page9">Page9</a>
-					  <a class="header-item" href="#/page10">Page10</a>
-						<a class="header-item" href="#/page11">Page11</a>
-					  <a class="header-item" href="#/page12">Page12</a>
+            <a class="header-item" href="#/settings">settings</a>
           </nav>
 				</div>
 			</header>
