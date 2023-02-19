@@ -12,7 +12,7 @@ export default class DataBase {
     const { id, name, game, score, level, time } = result;
 
     if (localStorage['userName']) {
-      set(ref(myDatabase, 'users/' + id), {
+      set(ref(myDatabase, `users/${id}/${game}/`), {
         name: name,
         game: game,
         score: score,

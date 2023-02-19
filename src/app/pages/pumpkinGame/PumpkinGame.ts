@@ -148,7 +148,7 @@ export default class PumpkinGame {
     const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
     this.resultGame.name = userName;
     this.resultGame.id = userId;
-    this.resultGame.game = 'Save Pumpkin';
+    this.resultGame.game = 'Pumpkin Game';
     this.resultGame.time = 0;
 
     return `
@@ -411,7 +411,7 @@ export default class PumpkinGame {
     this.monsterGame2 = new Sprite(getImage(this.images, this.imagesUrl[3]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
     this.monsterGame3 = new Sprite(getImage(this.images, this.imagesUrl[5]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
     this.monsterGame4 = new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
-    this.monsterGame5 = new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 1, [0, 1, 2, 3, 4, 5], null, false, 0);
+    this.monsterGame5 = new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 2, [0, 1, 2, 3, 4, 5], null, false, 0);
     this.monsterGame6 = new Sprite(getImage(this.images, this.imagesUrl[16]), [0, 0], [87, 50], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
     this.monsterGame7 = new Sprite(getImage(this.images, this.imagesUrl[18]), [0, 0], [75, 83], 5, [0, 1, 2, 3, 4, 5, 4, 3, 2, 1], null, false, 0);
     this.monsterGame8 = new Sprite(getImage(this.images, this.imagesUrl[20]), [0, 0], [82, 50], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
@@ -1174,6 +1174,9 @@ export default class PumpkinGame {
 
   saveResultGameToStorage(): void {
     const db = new DataBase;
+    db.saveToStorage(this.resultGame);
+
+    this.resultGame.game = 'Shooter Game';
     db.saveToStorage(this.resultGame);
   }
 
