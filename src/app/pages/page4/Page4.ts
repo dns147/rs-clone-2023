@@ -17,6 +17,7 @@ export default class Page4 {
           <p>In 3 seconds, switch to page 3 or close!</p>  
           <button class="btn">Кнопка-auto-width</button>  
         `,
+        true,
         'page3'
       );
     });
@@ -44,10 +45,15 @@ export default class Page4 {
             <button class="btn btn--big">Кнопка 4 big</button>
             <button class="btn btn--col-7">Кнопка btn--col-7 </button>
             <button class="btn btn--col-5">Кнопка btn--col-5</button>
-            <button class="btn btn--col-3">Кнопка btn--col-3</button>
-            <button class="btn btn--transp">Кнопка btn--transp</button><br><br>  
+            <button class="btn btn--col-3">Button btn--col-3</button>
+            <button class="btn btn--transp">Кнопка btn--border</button><br><br>  
             <button class="btn btn--col-7 test-modal-message">Test ModalMessage</button>
-            <button class="btn btn--col-5 test-modal">Test modal</button>
+            <button class="btn btn--col-5 accent-font test-modal">Test modal</button>
+
+            <button class="btn btn--start-game btn--fixed-center start-game-btn ">Start Game</button>
+            <button class="btn accent-font">Music on/off</button>
+            <button class="btn music-btn btn--start-game">Music on/off</button>
+            <button class="btn sound-btn btn--col-3 accent-font">Sound effects on/off</button>
       </div>
     `;
   }
