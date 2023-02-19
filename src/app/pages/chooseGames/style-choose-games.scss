@@ -1,0 +1,557 @@
+$main-background: linear-gradient(to top, #3584A7 0%, #0a1425 100%);
+$ground-color: #000000;
+$moon-color: #eeeeee;
+$crater-color: #aaaaaa;
+$crater-shadow: #777777;
+$moonlight-start: rgba(255, 255, 255, 0.5);
+$moonlight-end: rgba(255, 255, 255, 0.75);
+$moon-shadow: rgba(50, 50, 50, 0.75);
+
+@mixin img-props {
+  display: block;
+  width: 100%;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: $main-background;
+  overflow: hidden;
+}
+
+.map-caslte {
+  z-index: 20;
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 55%;
+
+  .map-castle__img {
+    @include img-props;
+    object-fit: cover;
+  }
+}
+
+.ground {
+  z-index: 15;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: none;
+  height: 120px;
+  width: 100%;
+  background-color: $ground-color;
+}
+
+.location-ghost {
+  position: absolute;
+  cursor: pointer;
+
+  .location-ghost__img {
+    @include img-props;
+  }
+}
+
+#location-ghost-one {
+  bottom: 2%;
+  left: 25%;
+  width: 16%;
+  transform: rotate(-12deg);
+  animation: floating 7s infinite ease-in-out;
+}
+
+#location-ghost-two {
+  width: 14%;
+  bottom: 8%;
+  left: 75%;
+  transform: rotate(-12deg);
+  animation: floating 9s infinite ease-in-out;
+}
+
+#location-ghost-three {
+  width: 12%;
+  bottom: 23%;
+  left: 52%;
+  transform: rotate(12deg);
+  animation: floating 11s infinite ease-in-out;
+}
+
+@keyframes floating {
+  50% {
+    transform: translateY(-10%) scale(1.15);
+  }
+}
+
+.hero {
+  z-index: 25;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 23%;
+
+  .hero__img {
+    @include img-props;
+  }
+}
+
+.mountain {
+  z-index: 5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  animation: mountain 4.5s ease-in;
+
+  .mountain__img {
+    @include img-props;
+    filter: brightness(190%);
+  }
+}
+
+
+@keyframes mountain {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+.graves {
+  z-index: 15;
+  position: absolute;
+  bottom: -170px;
+  left: 0;
+  width: 60%;
+
+  .graves__img {
+    @include img-props;
+  }
+}
+
+.forest {
+  z-index: 10;
+  position: absolute;
+  bottom: -90px;
+  left: 0;
+  width: 90%;
+  animation: forest 3s ease-in;
+
+  .forest__img{
+    @include img-props;
+    filter: brightness(90%);
+  }
+}
+
+@keyframes forest {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: -90px;
+  }
+}
+
+.sky {
+  position: relative;
+  height: 250px;
+}
+
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cloud {
+  z-index: 3;
+  position: absolute;
+  height: fit-content;
+  animation-name: clouds;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.cloud__img {
+  @include img-props;
+  opacity: 0.8;
+}
+
+.cloud-front-center-slow {
+  left: 30%;
+  width: 10%;
+  animation-duration: 140s;
+  filter: brightness(70%);
+}
+
+.cloud-front-center-very-slow {
+  left: 0;
+  width: 7%;
+  animation-duration: 180s;
+}
+
+.cloud-front-center-fast {
+  left: 50%;
+  width: 7%;
+  animation-duration: 100s;
+}
+
+.cloud-front-bottom-fast {
+  left: 60%;
+  bottom: 0;
+  width: 10%;
+  animation-duration: 50s;
+}
+
+.cloud-front-bottom-slow {
+  left: 40%;
+  bottom: 0;
+  width: 10%;
+  animation-duration: 70s;
+}
+
+.cloud-front-bottom-very-slow {
+  left: 0;
+  bottom: 0;
+  width: 12%;
+  animation-duration: 140s;
+}
+
+.cloud-front-bottom-slow .cloud__img {
+  filter: brightness(150%);
+}
+
+.cloud-front-bottom-fast .cloud__img {
+  filter: brightness(120%);
+}
+
+@keyframes clouds {
+  0% {
+    margin-left: -10%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 100%;
+  }
+  100% {
+    margin-left: 110%;
+  }
+}
+
+.moon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: $moon-color;
+  animation: moonlight 5s alternate infinite, moon 1.5s ease-in;
+}
+
+.moon-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .moon-wrapper__crater {
+    position: absolute;
+    list-style: none;
+    background: $crater-color;
+    border-radius: 50%;
+    box-shadow: inset 0.6em -0.08em 0.15em $crater-shadow;
+  }
+
+  .moon-wrapper__crater:nth-child(1) {
+    top: 14.4%;
+    left: 18%;
+    height: 10.8%;
+    width: 10.8%;
+  }
+
+  .moon-wrapper__crater:nth-child(2) {
+    top: 15.2%;
+    left: 45.6%;
+    height: 18%;
+    width: 18%;
+  }
+
+  .moon-wrapper__crater:nth-child(3) {
+    top: 43.2%;
+    left: 16%;
+    height: 25.2%;
+    width: 25.2%;
+  }
+
+  .moon-wrapper__crater:nth-child(4) {
+    top: 43.2%;
+    left: 46.8%;
+    height: 7.2%;
+    width: 7.2%;
+  }
+
+  .moon-wrapper__crater:nth-child(5) {
+    top: 50.4%;
+    left: 59.2%;
+    height: 32.4%;
+    width: 32.4%;
+  }
+
+  .moon-wrapper__crater:nth-child(6) {
+    top: 79.6%;
+    left: 36%;
+    height: 18%;
+    width: 18%;
+  }
+}
+
+@keyframes moonlight{
+  0% {
+    box-shadow:
+        inset -5px -4px 0px 0px $moon-shadow,
+        0px 0px 20px $moonlight-start;
+  } 
+  100% {
+    box-shadow:
+        inset -5px -4px 0px 0px $moon-shadow,
+        0px 0px 40px $moonlight-end;
+  }
+}
+
+@keyframes moon {
+  0% {
+    top: -100%;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+@media(max-width: 1440px) {
+  .map-caslte {
+    width: 65%;
+  }
+}
+
+@media(max-width: 1200px) {
+  .map-caslte {
+    width: 75%;
+  }
+
+  .graves {
+    width: 70%;
+    bottom: -120px;
+  }
+
+  .forest {
+    bottom: -50px;
+  }
+
+  @keyframes forest {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: -50px;
+    }
+  }
+
+  .mountain {
+    bottom: 50px;
+  }
+
+  @keyframes mountain {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: 50px;
+    }
+  }
+}
+
+@media(max-width: 1024px) {
+  .map-caslte {
+    width: 90%;
+  }
+
+  .death {
+    display: none;
+  }
+
+  .forest {
+    bottom: -40px;
+  }
+
+  @keyframes forest {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: -40px;
+    }
+  }
+
+  .cloud-front-center-slow {
+    width: 20%;
+  }
+  
+  .cloud-front-center-very-slow {
+    width: 14%;
+  }
+  
+  .cloud-front-center-fast {
+    width: 14%;
+  }
+  
+  .cloud-front-bottom-fast {
+    width: 20%;
+  }
+  
+  .cloud-front-bottom-slow {
+    width: 20%;
+  }
+  
+  .cloud-front-bottom-very-slow {
+    width: 24%;
+  }
+}
+
+@media(max-width: 900px) {
+  .map-caslte {
+    width: 100%;
+    bottom: -15px;
+  }
+
+  .graves {
+    display: none;
+  }
+
+  .forest {
+    bottom: -37px;
+  }
+
+  @keyframes forest {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: -37px;
+    }
+  }
+
+  .mountain {
+    bottom: 90px;
+  }
+
+  @keyframes mountain {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: 90px;
+    }
+  }
+}
+
+@media(max-width: 768px) {
+  .map-caslte {
+    bottom: 100px;
+    width: 107%;
+    left: -5%;
+    right: -2%;
+  }
+
+  .ground {
+    display: block;
+  }
+
+  .forest {
+    bottom: 100px;
+  }
+
+  @keyframes forest {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: 100px;
+    }
+  }
+
+  .mountain {
+    bottom: 180px;
+  }
+
+  @keyframes mountain {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: 180px;
+    }
+  }
+}
+
+@media(max-width: 500px) {
+  .sky {
+    height: 140px;
+  }
+
+  .moon {
+    width: 110px;
+    height: 110px;
+  }
+
+  .moon-wrapper__crater {
+    box-shadow: inset 0.4em -0.05em 0.1em $crater-shadow;
+  }
+
+  .moon-wrapper__crater:nth-child(5) {
+    left: 57%;
+  }
+  
+  .moon-wrapper__crater:nth-child(6) {
+    top: 78%;
+  }
+
+  .map-caslte {
+    bottom: 150px;
+    width: 114%;
+    left: -12%;
+    right: -2%;
+  }
+
+  .ground {
+    height: 200px;
+  }
+
+  .forest {
+    bottom: 150px;
+  }
+
+  @keyframes forest {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: 150px;
+    }
+  }
+
+  .mountain {
+    bottom: 190px;
+  }
+
+  @keyframes mountain {
+    0% {
+      bottom: -100%;
+    }
+    100% {
+      bottom: 190px;
+    }
+  }
+}

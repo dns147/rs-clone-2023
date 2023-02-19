@@ -1,8 +1,8 @@
-export default class Page9 {
+export default class Settings {
   constructor() {}
 
   render(): string {
-    return `Page9`;
+    return `Settings`;
   }
 
   init(): void {}

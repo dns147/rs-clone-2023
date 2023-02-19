@@ -199,7 +199,7 @@ export default class PumpkinGame {
                 <img src=${require("../../../assets/img/user-solid.svg")} class="user-icon" alt="icon">
                 <span class="user-name">${userName}</span>
               </div>
-              <a class="pumpkin-exit" href="#/page1">
+              <a class="pumpkin-exit" href="#">
                 <i class="fa-solid fa-door-open"></i>
               </a>
             </div>

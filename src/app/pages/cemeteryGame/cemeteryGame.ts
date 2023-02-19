@@ -1,5 +1,5 @@
-import './style-page7.scss';
-import { showMoves, createElem, createRandomArr } from './utils-page7';
+import './style-cemetery-game.scss';
+import { showMoves, createElem, createRandomArr } from './utils-cemetery-game';
 
 export default class Page7 {
   constructor() {}

@@ -153,7 +153,7 @@ export default class ShooterGame {
         musicGameBtn.classList.add('off');
       } else {
         localStorage.setItem('isMusic', JSON.stringify(true));
-        this.music.playMusic();
+        // this.music.playMusic();
         musicGameBtn.classList.remove('off');
       }
     }
@@ -182,8 +182,8 @@ export default class ShooterGame {
           <button class="settings__btn settings__btn--sound btn btn--col-3 accent-font sound-btn"><span></span> Sound effects on/off</button>
         </div>
           <button class="settings__btn settings__btn--music btn btn--col-3 accent-font music-btn"><span></span> Music on/off</button>
-          <a href="#/page1" class="settings__btn btn accent-font-upper">On main page</a>
-          <a href="#/page3" class="settings__btn btn accent-font-upper">choose games</a>
+          <a href="#" class="settings__btn btn accent-font-upper">On main page</a>
+          <a href="#/chooseGames" class="settings__btn btn accent-font-upper">play games</a>
         </div>
       </div>
     `;

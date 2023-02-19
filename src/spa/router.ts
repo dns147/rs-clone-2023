@@ -9,7 +9,7 @@ export class Router {
 
   loadRoute(routes: Routes, container: HTMLElement): void {
     const contentContainer = container.querySelector('.main') as HTMLElement;
-    let routeName = 'page1';
+    let routeName = 'mainPage';
     const hashPageName: string = window.location.hash.slice(2);
 
     if (hashPageName.length > 0) {

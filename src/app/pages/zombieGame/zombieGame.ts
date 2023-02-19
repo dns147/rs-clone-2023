@@ -1,6 +1,6 @@
-import './style-page8.scss';
+import './style-zombie-game.scss';
 
-import { createBackground, createPlayer, setCanvas, animate, timer } from './utils-page8';
+import { createBackground, createPlayer, setCanvas, animate, timer } from './utils-zombie-game';
 
 export default class Page8 {
   constructor() {}

@@ -1,9 +1,14 @@
-import { changeSignInButton, checkSubmitButtonsStatus, isValidateEmail, removeUserInfo, showLoader } from "../pages/authForm/utils-auth-form";
-import constsAuthForm from "../pages/authForm/const-auth-form";
-import Authorization from "../pages/authForm/authorization";
-import { hideUserMenu, showUserMenu } from "../utils-component";
-import { flipCard } from '../pages/page7/utils-page7';
-
+import {
+  changeSignInButton,
+  checkSubmitButtonsStatus,
+  isValidateEmail,
+  removeUserInfo,
+  showLoader,
+} from '../pages/authForm/utils-auth-form';
+import constsAuthForm from '../pages/authForm/const-auth-form';
+import Authorization from '../pages/authForm/authorization';
+import { hideUserMenu, showUserMenu } from '../utils-component';
+import { flipCard } from '../pages/cemeteryGame/utils-cemetery-game';
 
 export default class AppView {
   container: HTMLElement;
