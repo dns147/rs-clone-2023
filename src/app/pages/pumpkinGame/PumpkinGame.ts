@@ -47,6 +47,7 @@ export default class PumpkinGame {
   userName: string;
   isMusic: boolean;
   isSound: boolean;
+  currentMusic: HTMLAudioElement | null;
 
   player: Player | null;
   pumpkinWeapon: Pumpkin | null;
@@ -113,6 +114,7 @@ export default class PumpkinGame {
     this.userName = '';
     this.isMusic = localStorage['isMusic'] === 'true';
     this.isSound = localStorage['isSoundEffects'] === 'true';
+    this.currentMusic = null;
 
     this.player = null;
     this.pumpkinWeapon = null;
@@ -229,7 +231,7 @@ export default class PumpkinGame {
     const pumpkinExit = <HTMLElement>document.querySelector('.pumpkin-exit');
     pumpkinExit.addEventListener('click', () => {
       if (this.isMusic) {
-        stopAudio(SOUND.pumpkinLevel1);
+        stopAudio(this.currentMusic);
       }
 
       if (this.isSound) {
@@ -300,11 +302,6 @@ export default class PumpkinGame {
     btnPlay.addEventListener('click', () => {
       btnPlay.style.display = 'none';
       this.canvas?.classList.add('pumpkin-canvas-active');
-
-      if (this.isMusic) {
-        playAudio(SOUND.pumpkinLevel1, 0.9);
-      }
-
       this.setRoundName();
     });
   }
@@ -360,15 +357,31 @@ export default class PumpkinGame {
     switch (this.gameLevel) {
       case 1:
         this.makeTimer(1, 30);
+        if (this.isMusic) {
+          this.currentMusic = SOUND.pumpkinLevel1;
+          playAudio(this.currentMusic, 0.9);
+        }
         break;
       case 2:
         this.makeTimer(1, 30);
+        if (this.isMusic) {
+          this.currentMusic = SOUND.pumpkinLevel2;
+          playAudio(this.currentMusic, 0.3);
+        }
         break;
       case 3:
         this.makeTimer(0, 60);
+        if (this.isMusic) {
+          this.currentMusic = SOUND.pumpkinLevel3;
+          playAudio(this.currentMusic, 0.8);
+        }
         break;
       case 4:
         this.makeTimer(0, 0);
+        if (this.isMusic) {
+          this.currentMusic = SOUND.pumpkinLevel4;
+          playAudio(this.currentMusic, 0.3, 'loop');
+        }
         break;
     }
   }
@@ -1011,7 +1024,7 @@ export default class PumpkinGame {
 
   gameOver() {
     if (this.isMusic) {
-      stopAudio(SOUND.pumpkinLevel1);
+      stopAudio(this.currentMusic);
     }
 
     if (this.isSound) {
@@ -1058,7 +1071,8 @@ export default class PumpkinGame {
       }
 
       if (this.isMusic) {
-        playAudio(SOUND.pumpkinLevel1);
+        this.currentMusic = SOUND.pumpkinLevel1;
+        playAudio(this.currentMusic);
       }
 
       this.setRoundName();
@@ -1114,7 +1128,7 @@ export default class PumpkinGame {
     }
 
     if (this.isMusic) {
-      stopAudio(SOUND.pumpkinLevel1);
+      stopAudio(this.currentMusic);
     }
 
     this.resultGame.level = this.gameLevel - 1;
@@ -1208,9 +1222,6 @@ export default class PumpkinGame {
 
   saveResultGameToStorage(): void {
     const db = new DataBase;
-    db.saveToStorage(this.resultGame);
-
-    this.resultGame.game = 'Shooter Game';
     db.saveToStorage(this.resultGame);
   }
 
