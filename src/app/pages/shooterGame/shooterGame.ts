@@ -3,6 +3,9 @@ import { Raven, Explosion, Particle } from './utils-shooter-game';
 import Music from '../../../utils/Music';
 import musicRavensSrc from '../../../assets/audio/music/strashnye-zvuki-vorony.mp3';
 import soundGameOverSrc from '../../../assets/audio/effects/fail-wha-wha.mp3';
+import soundSettingsSrc from '../../../assets/audio/effects/settings-1.mp3';
+import ModalMessage from '../modalMessage/modalMessage';
+import Modal from '../modal/modal';
 
 export default class ShooterGame {
   canvas: HTMLCanvasElement | null;
@@ -43,14 +46,12 @@ export default class ShooterGame {
   render(): string {
     return `
     <div class="shooter-game">
-      <section class="block-settings">
-        <h2>shooter game</h2>
-        <div class="navigation">
-          <button class="btn start-game-btn">Start Game</button>
-          <button class="btn music-btn btn--col-3">Music on/off</button>
-          <button class="btn sound-btn btn--col-3">Sound effects on/off</button>
-        </div>
-      </section >
+      <div class="block-info">
+        <div class="score-title btn accent-font">Score: <span>${this.score}</span></div>
+        <button class="btn--settings settings-btn "></button>
+        <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
+      </div>
+      
       <canvas id="canvas-collision"></canvas>
       <canvas id="canvas-shooter-game"></canvas>
     </div>
@@ -74,19 +75,18 @@ export default class ShooterGame {
   }
 
   drawScore() {
-    if (this.ctx) {
-      this.ctx.fillStyle = 'white';
-      this.ctx.fillText(`Score: ${this.score}`, 50, 75);
-    }
+    const scoreTitle = document.querySelector('.shooter-game .score-title') as HTMLElement;
+    scoreTitle.textContent = `Score: ${this.score}`;
   }
 
   drawGameOver() {
-    if (this.ctx && this.canvas) {
-      this.ctx.textAlign = 'center';
-
-      this.ctx.fillStyle = 'white';
-      this.ctx.fillText(`GAME OVER! Your score: ${this.score}`, this.canvas.width / 2, this.canvas.height / 2);
-    }
+    const gameOverMessage = new ModalMessage();
+    gameOverMessage.drawModalMessage(
+      `
+        <div class="title-message">Game over</div>
+        <div class="text-message">Your score: <span class="score-message">${this.score}</span></div>
+      `
+    );
   }
 
   stopGame(): void {
@@ -94,6 +94,7 @@ export default class ShooterGame {
     this.drawGameOver();
     this.music.stopMusic();
     this.soundGameOver();
+    this.showStartBtn();
   }
 
   soundGameOver() {
@@ -120,38 +121,80 @@ export default class ShooterGame {
 
     const currEl = event.target;
 
-    const gameArea = document.querySelector('.shooter-game') as HTMLElement;
-    const startGameBtn = document.querySelector('.start-game-btn') as HTMLElement;
-    const musicGameBtn = document.querySelector('.music-btn') as HTMLElement;
-    const soundEffectsBtn = document.querySelector('.sound-btn') as HTMLElement;
+    const shooterGameArea = document.querySelector('.shooter-game') as HTMLElement;
+    const startGameBtn = shooterGameArea.querySelector('.start-game-btn') as HTMLElement;
+    const settingsBtn = shooterGameArea.querySelector('.settings-btn') as HTMLElement;
+
+    const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
+    const soundEffectsBtn = document.querySelector('.settings .sound-btn') as HTMLElement;
 
     if (currEl === startGameBtn) {
       this.initGame();
+      startGameBtn.classList.add('hide');
+    }
+
+    if (currEl === settingsBtn) {
+      const soundSettings = new Audio();
+      soundSettings.src = soundSettingsSrc;
+      soundSettings.play();
+
+      const modalSettings = new Modal();
+      modalSettings.drawModal(this.modalTemplateSettings());
+
+      this.music.stopMusic();
     }
 
     if (currEl === musicGameBtn) {
       this.music.playMusic();
       const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
-
       if (isMusic) {
         localStorage.setItem('isMusic', JSON.stringify(false));
         this.music.stopMusic();
+        musicGameBtn.classList.add('off');
       } else {
         localStorage.setItem('isMusic', JSON.stringify(true));
         this.music.playMusic();
+        musicGameBtn.classList.remove('off');
       }
     }
 
     if (currEl === soundEffectsBtn) {
+      soundEffectsBtn.classList.add('off');
       const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
 
       // music.playMusic();
       if (isSoundEffects) {
         localStorage.setItem('isSoundEffects', JSON.stringify(false));
+        soundEffectsBtn.classList.add('off');
       } else {
         localStorage.setItem('isSoundEffects', JSON.stringify(true));
+        soundEffectsBtn.classList.remove('off');
       }
     }
+  }
+
+  modalTemplateSettings(): string {
+    return `
+      <div class="settings">
+        <div class="settings__title title-message">Settings</div>
+        <div class="settings__container">
+        <div>
+          <button class="settings__btn settings__btn--sound btn btn--col-3 accent-font sound-btn"><span></span> Sound effects on/off</button>
+        </div>
+          <button class="settings__btn settings__btn--music btn btn--col-3 accent-font music-btn"><span></span> Music on/off</button>
+          <a href="#/page1" class="settings__btn btn accent-font-upper">On main page</a>
+          <a href="#/page3" class="settings__btn btn accent-font-upper">choose games</a>
+        </div>
+      </div>
+    `;
+  }
+
+  showStartBtn() {
+    const startGameBtn = document.querySelector('.start-game-btn') as HTMLElement;
+
+    setTimeout(() => {
+      startGameBtn.classList.remove('hide');
+    }, 3000);
   }
 
   animate(timestamp: number) {
