@@ -95,37 +95,41 @@ export default class AppModel {
   }
 
   setKeyUp(event: KeyboardEvent): void {
-    if (localStorage['isSoundEffects'] === 'true') {
-      SOUND.soundClick.play();
-    }
+    const hash: string = window.location.hash.slice(2);
 
-    const pumpkinIcon = <HTMLElement>document.querySelector('.pumpkin-shells-icon');
-    const electronIcon = <HTMLElement>document.querySelector('.pumpkin-electro-icon');
-    const freezIcon = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
-    const bombIcon = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
+    if (hash === 'pumpkinGame') {
+      if (localStorage['isSoundEffects'] === 'true') {
+        SOUND.soundClick.play();
+      }
 
-    if (event.code === 'Digit1' && !pumpkinIcon.classList.contains('select-weapon')) {
-      pumpkinIcon.classList.add('select-weapon');
-      electronIcon.classList.remove('select-weapon');
-      localStorage.setItem('currentWeapon', 'pumpkin');
-    }
+      const pumpkinIcon = <HTMLElement>document.querySelector('.pumpkin-shells-icon');
+      const electronIcon = <HTMLElement>document.querySelector('.pumpkin-electro-icon');
+      const freezIcon = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
+      const bombIcon = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
 
-    if (event.code === 'Digit2' && !electronIcon.classList.contains('select-weapon')) {
-      electronIcon.classList.add('select-weapon');
-      pumpkinIcon.classList.remove('select-weapon');
-      localStorage.setItem('currentWeapon', 'electro');
-    }
+      if (event.code === 'Digit1' && !pumpkinIcon.classList.contains('select-weapon')) {
+        pumpkinIcon.classList.add('select-weapon');
+        electronIcon.classList.remove('select-weapon');
+        localStorage.setItem('currentWeapon', 'pumpkin');
+      }
 
-    if (event.code === 'Digit3') {
-      freezIcon.classList.add('select-weapon');
-      window.setTimeout(() => freezIcon.classList.remove('select-weapon'), 200);
-      localStorage.setItem('isFreez', 'true');
-    }
-
-    if (event.code === 'Digit4') {
-      bombIcon.classList.add('select-weapon');
-      window.setTimeout(() => bombIcon.classList.remove('select-weapon'), 200);
-      localStorage.setItem('isBomb', 'true');
+      if (event.code === 'Digit2' && !electronIcon.classList.contains('select-weapon')) {
+        electronIcon.classList.add('select-weapon');
+        pumpkinIcon.classList.remove('select-weapon');
+        localStorage.setItem('currentWeapon', 'electro');
+      }
+  
+      if (event.code === 'Digit3') {
+        freezIcon.classList.add('select-weapon');
+        window.setTimeout(() => freezIcon.classList.remove('select-weapon'), 200);
+        localStorage.setItem('isFreez', 'true');
+      }
+  
+      if (event.code === 'Digit4') {
+        bombIcon.classList.add('select-weapon');
+        window.setTimeout(() => bombIcon.classList.remove('select-weapon'), 200);
+        localStorage.setItem('isBomb', 'true');
+      }
     }
   }
 

@@ -209,8 +209,11 @@ export class Player {
 export function createPlayer() {
   const hero = new Image();
   hero.src = require('../../../assets/parallax-game/brain.png');
-  player = new Player(hero, hero.width, hero.height, CANVAS_WIDTH, CANVAS_HEIGHT);
-  player.draw(ctx);
+
+  hero.onload = () => {
+    player = new Player(hero, hero.width, hero.height, CANVAS_WIDTH, CANVAS_HEIGHT);
+    player.draw(ctx);
+  };
 }
 
 export class Enemy {
@@ -323,8 +326,8 @@ export function animate(timeStamp: number) {
 
   createEnemies(time);
 
-  player.draw(ctx);
-  player.update(input, enemies);
+  player?.draw(ctx);
+  player?.update(input, enemies);
 
   if (!gameOver) {
     requestAnimationFrame(animate);
