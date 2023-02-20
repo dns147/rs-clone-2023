@@ -24,23 +24,23 @@ export default class Page7 {
 
       </div>
       <div class="match-game-graves">
-        <img class="match-game-graves__img" src="https://i.ibb.co/yRn1DwL/home-graves-short.png" alt="graves">
+        <img class="match-game-graves__img" src=${require('../../../assets/match-game/home-graves-short.png')} alt="graves">
       </div>
 
       <div class="match-game-graves2">
-        <img class="match-game-graves2__img" src="https://i.ibb.co/ZzbXc78/graves.png" alt="graves">
+        <img class="match-game-graves2__img" src=${require('../../../assets/match-game/graves.png')} alt="graves">
       </div>
 
       <div class="match-game-graves3">
-        <img class="match-game-graves3__img" src="https://i.ibb.co/ZzbXc78/graves.png" alt="graves">
+        <img class="match-game-graves3__img" src=${require('../../../assets/match-game/graves.png')} alt="graves">
       </div>
 
       <div class="match-game-tree">
-        <img class="match-game-tree__img" src="https://i.ibb.co/DV9kL3s/tree-reversed.png" alt="tree">
+        <img class="match-game-tree__img" src=${require('../../../assets/match-game/tree-reversed.png')} alt="tree">
       </div>
 
       <div class="match-game-moves">
-        <img class="match-game-moves__img" src="https://i.ibb.co/1JxhhJd/lil-ghost.png" alt="tree">
+        <img class="match-game-moves__img" src=${require('../../../assets/match-game/lil-ghost.png')} alt="ghost">
         <div class="match-game-moves-container">
           <span>Moves:</span>
           <span class="match-game-moves-container__number">0</span>
@@ -48,7 +48,7 @@ export default class Page7 {
       </div>
 
       <div class="match-game-time">
-        <img class="match-game-time__img" src="https://i.ibb.co/wRX2kr2/lil-ghost-reversed.png" alt="tree">
+        <img class="match-game-time__img" src=${require('../../../assets/match-game/lil-ghost-reversed.png')} alt="ghost">
         <div class="match-game-time-container">
           <span>Time:</span>
           <span class="match-game-time-container__number">00:00</span>
@@ -58,7 +58,7 @@ export default class Page7 {
     </div>`;
   }
 
-  init(): void {
+  showCards(): void {
     const gameContainer = document.querySelector('.match-game') as HTMLElement;
 
     const cards = createElem({
@@ -69,67 +69,67 @@ export default class Page7 {
     const heroArr = [
       {
         hero: 'mummy',
-        link: 'https://i.ibb.co/RydSF8S/mummy.png',
+        link: require('../../../assets/match-game/mummy.png'),
       },
       {
         hero: 'mummy',
-        link: 'https://i.ibb.co/RydSF8S/mummy.png',
+        link: require('../../../assets/match-game/mummy.png'),
       },
       {
         hero: 'skeleton',
-        link: 'https://i.ibb.co/k2VY90R/skeleton.png',
+        link: require('../../../assets/match-game/skeleton.png'),
       },
       {
         hero: 'skeleton',
-        link: 'https://i.ibb.co/k2VY90R/skeleton.png',
+        link: require('../../../assets/match-game/skeleton.png'),
       },
       {
         hero: 'scarecrow',
-        link: 'https://i.ibb.co/S6X047W/scarecrow.png',
+        link: require('../../../assets/match-game/scarecrow.png'),
       },
       {
         hero: 'scarecrow',
-        link: 'https://i.ibb.co/S6X047W/scarecrow.png',
+        link: require('../../../assets/match-game/scarecrow.png'),
       },
       {
         hero: 'reaper',
-        link: 'https://i.ibb.co/nRZvSyL/reaper.png',
+        link: require('../../../assets/match-game/reaper.png'),
       },
       {
         hero: 'reaper',
-        link: 'https://i.ibb.co/nRZvSyL/reaper.png',
+        link: require('../../../assets/match-game/reaper.png'),
       },
       {
         hero: 'monster',
-        link: 'https://i.ibb.co/Tmk5gGB/monster.png',
+        link: require('../../../assets/match-game/monster.png'),
       },
       {
         hero: 'monster',
-        link: 'https://i.ibb.co/Tmk5gGB/monster.png',
+        link: require('../../../assets/match-game/monster.png'),
       },
       {
         hero: 'dracula',
-        link: 'https://i.ibb.co/0FqY8sw/dracula.png',
+        link: require('../../../assets/match-game/dracula.png'),
       },
       {
         hero: 'dracula',
-        link: 'https://i.ibb.co/0FqY8sw/dracula.png',
+        link: require('../../../assets/match-game/dracula.png'),
       },
       {
         hero: 'devil',
-        link: 'https://i.ibb.co/T8mBXsw/devil.png',
+        link: require('../../../assets/match-game/devil.png'),
       },
       {
         hero: 'devil',
-        link: 'https://i.ibb.co/T8mBXsw/devil.png',
+        link: require('../../../assets/match-game/devil.png'),
       },
       {
         hero: 'ghost',
-        link: 'https://i.ibb.co/bvBnbrm/ghost.png',
+        link: require('../../../assets/match-game/ghost.png'),
       },
       {
         hero: 'ghost',
-        link: 'https://i.ibb.co/bvBnbrm/ghost.png',
+        link: require('../../../assets/match-game/ghost.png'),
       },
     ];
 
@@ -140,21 +140,25 @@ export default class Page7 {
       <div class="card" style="animation-duration: ${i / 5}s" data-hero=${heroArr[orderArr[i]].hero}>
       <div class="front">
         <div class="front-container">
-          <img class="front__img1" src="https://i.ibb.co/KDN9ZFR/skull.png" alt="skull">
-          <img class="front__img2" src="https://i.ibb.co/CQtfGBW/coffin.png" alt="coffin">
+          <img class="front__img1" src=${require('../../../assets/match-game/skull.png')} alt="skull">
+          <img class="front__img2" src=${require('../../../assets/match-game/coffin.png')} alt="coffin">
         </div>
       </div>
       <div class="back">
         <div class="back-container">
           <img class="back__img1" src=${heroArr[orderArr[i]].link} alt="${heroArr[orderArr[i]].hero}">
-          <img class="back__img2" src="https://i.ibb.co/CQtfGBW/coffin.png" alt="coffin">
+          <img class="back__img2" src=${require('../../../assets/match-game/coffin.png')} alt="coffin">
         </div>
       </div>
       </div>`;
       cards.insertAdjacentHTML('beforeend', card);
     }
-
     gameContainer.append(cards);
+  }
+
+  init(): void {
+    this.showCards();
+
     const index = 0;
     showMoves(index);
   }
