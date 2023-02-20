@@ -137,7 +137,7 @@ export default class Page7 {
 
     for (let i = 0; i < orderArr.length; i += 1) {
       const card = `
-      <div class="card" style="animation-duration: ${i / 5}s" data-hero=${heroArr[orderArr[i]].hero}>
+      <div class="card" data-hero=${heroArr[orderArr[i]].hero}>
       <div class="front">
         <div class="front-container">
           <img class="front__img1" src=${require('../../../assets/match-game/skull.png')} alt="skull">
