@@ -1,5 +1,6 @@
 import './style-cemetery-game.scss';
-import { showMoves, createElem, createRandomArr } from './utils-cemetery-game';
+import { createElem, createRandomArr } from './utils-cemetery-game';
+import { HeroParams } from './types-cemetery-game';
 
 export default class Page7 {
   constructor() {}
@@ -42,9 +43,16 @@ export default class Page7 {
       <div class="match-game-moves">
         <img class="match-game-moves__img" src=${require('../../../assets/match-game/lil-ghost.png')} alt="ghost">
         <div class="match-game-moves-container">
-          <span>Moves:</span>
-          <span class="match-game-moves-container__number">0</span>
+          <p>
+            <span>Moves:</span>
+            <span class="match-game-moves-container__number">0</span>
+          </p>
+          <p>
+            <span>Level:</span>
+            <span class="match-game-moves-container__number-level">1</span>
+          </p>
         </div>
+       
       </div>
 
       <div class="match-game-time">
@@ -58,7 +66,7 @@ export default class Page7 {
     </div>`;
   }
 
-  showCards(): void {
+  showLevel1(): void {
     const gameContainer = document.querySelector('.match-game') as HTMLElement;
 
     const cards = createElem({
@@ -132,12 +140,124 @@ export default class Page7 {
         link: require('../../../assets/match-game/ghost.png'),
       },
     ];
+    const orderArr = createRandomArr(heroArr.length);
+    gameContainer.append(cards);
+    this.createCards(cards, heroArr, orderArr);
+  }
+
+  showLevel2() {
+    const heroArr = [
+      {
+        hero: 'skull1',
+        link: require('../../../assets/match-game/skull1.png'),
+      },
+      {
+        hero: 'skull1',
+        link: require('../../../assets/match-game/skull1.png'),
+      },
+      {
+        hero: 'skull2',
+        link: require('../../../assets/match-game/skull2.png'),
+      },
+      {
+        hero: 'skull2',
+        link: require('../../../assets/match-game/skull2.png'),
+      },
+      {
+        hero: 'skull3',
+        link: require('../../../assets/match-game/skull3.png'),
+      },
+      {
+        hero: 'skull3',
+        link: require('../../../assets/match-game/skull3.png'),
+      },
+      {
+        hero: 'skeleton2',
+        link: require('../../../assets/match-game/skeleton2.png'),
+      },
+      {
+        hero: 'skeleton2',
+        link: require('../../../assets/match-game/skeleton2.png'),
+      },
+      {
+        hero: 'cat2',
+        link: require('../../../assets/match-game/cat2.png'),
+      },
+      {
+        hero: 'cat2',
+        link: require('../../../assets/match-game/cat2.png'),
+      },
+      {
+        hero: 'cat3',
+        link: require('../../../assets/match-game/cat3.png'),
+      },
+      {
+        hero: 'cat3',
+        link: require('../../../assets/match-game/cat3.png'),
+      },
+      {
+        hero: 'cat4',
+        link: require('../../../assets/match-game/cat4.png'),
+      },
+      {
+        hero: 'cat4',
+        link: require('../../../assets/match-game/cat4.png'),
+      },
+      {
+        hero: 'cat5',
+        link: require('../../../assets/match-game/cat5.png'),
+      },
+      {
+        hero: 'cat5',
+        link: require('../../../assets/match-game/cat5.png'),
+      },
+      {
+        hero: 'cat6',
+        link: require('../../../assets/match-game/cat6.png'),
+      },
+      {
+        hero: 'cat6',
+        link: require('../../../assets/match-game/cat6.png'),
+      },
+      {
+        hero: 'cat7',
+        link: require('../../../assets/match-game/cat7.png'),
+      },
+      {
+        hero: 'cat7',
+        link: require('../../../assets/match-game/cat7.png'),
+      },
+      {
+        hero: 'cat8',
+        link: require('../../../assets/match-game/cat8.png'),
+      },
+      {
+        hero: 'cat8',
+        link: require('../../../assets/match-game/cat8.png'),
+      },
+      {
+        hero: 'dog',
+        link: require('../../../assets/match-game/dog.png'),
+      },
+      {
+        hero: 'dog',
+        link: require('../../../assets/match-game/dog.png'),
+      },
+    ];
 
     const orderArr = createRandomArr(heroArr.length);
 
-    for (let i = 0; i < orderArr.length; i += 1) {
+    const cards = document.querySelector('.cards') as HTMLElement;
+    cards.innerHTML = '';
+    cards.classList.add('match-level2');
+
+    this.createCards(cards, heroArr, orderArr);
+  }
+
+  createCards(cardsContainer: HTMLElement, heroList: HeroParams[], order: number[]) {
+    for (let i = 0; i < order.length; i += 1) {
       const card = `
-      <div class="card" data-hero=${heroArr[orderArr[i]].hero}>
+      <div class="card" data-hero=${heroList[order[i]].hero}>
       <div class="front">
         <div class="front-container">
           <img class="front__img1" src=${require('../../../assets/match-game/skull.png')} alt="skull">
@@ -146,20 +266,16 @@ export default class Page7 {
       </div>
       <div class="back">
         <div class="back-container">
-          <img class="back__img1" src=${heroArr[orderArr[i]].link} alt="${heroArr[orderArr[i]].hero}">
+          <img class="back__img1" src=${heroList[order[i]].link} alt="${heroList[order[i]].hero}">
           <img class="back__img2" src=${require('../../../assets/match-game/coffin.png')} alt="coffin">
         </div>
       </div>
       </div>`;
-      cards.insertAdjacentHTML('beforeend', card);
+      cardsContainer.insertAdjacentHTML('beforeend', card);
     }
-    gameContainer.append(cards);
   }
 
   init(): void {
-    this.showCards();
-
-    const index = 0;
-    showMoves(index);
+    this.showLevel1();
   }
 }
