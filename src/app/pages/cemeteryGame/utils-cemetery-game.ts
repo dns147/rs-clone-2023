@@ -1,124 +1,176 @@
-let hasFlippedCard = false;
-let lockBoard = false;
-let firstCard: HTMLElement | null;
-let secondCard: HTMLElement | null;
-let index = 0;
-const matched: HTMLElement[] = [];
-let interval: NodeJS.Timer;
-let seconds = 0;
-let minutes = 0;
+import { MatchGameState, ElemParams, StorageInfo } from './types-cemetery-game';
+import Page7 from './cemeteryGame';
 
-// переворачивание карты
+const matchGameState: MatchGameState = {
+  hasFlippedCard: false,
+  lockBoard: false,
+  firstCard: null,
+  secondCard: null,
+  index: 0,
+  matched: [],
+  seconds: 0,
+  minutes: 0,
+  interval: 0,
+  level: 1,
+  results: [],
+};
 
 export function flipCard(card: HTMLElement) {
-  if (lockBoard) return;
-  if (card === firstCard) return;
+  if (matchGameState.lockBoard) return;
+  if (card === matchGameState.firstCard) return;
 
   card.classList.add('flip');
 
-  if (!hasFlippedCard) {
-    hasFlippedCard = true;
-    firstCard = card;
-    firstCard?.classList.add('no-click');
+  if (!matchGameState.hasFlippedCard) {
+    matchGameState.hasFlippedCard = true;
+    matchGameState.firstCard = card;
+    matchGameState.firstCard?.classList.add('no-click');
     countClicks();
     return;
   }
 
-  secondCard = card;
-  lockBoard = true;
+  matchGameState.secondCard = card;
+  matchGameState.lockBoard = true;
 
-  checkForMatch(secondCard);
+  checkForMatch(matchGameState.secondCard);
   countClicks();
 }
 
-// поиск пары
-
 function checkForMatch(card: HTMLElement) {
-  secondCard?.classList.add('no-click');
-  const isMatch = card.dataset.hero === firstCard?.dataset.hero;
+  matchGameState.secondCard?.classList.add('no-click');
+  const isMatch = card.dataset.hero === matchGameState.firstCard?.dataset.hero;
   isMatch ? disableCards() : unflipCards();
-  if (isMatch === true) {
-    matched.push(card);
+  if (isMatch) {
+    matchGameState.matched.push(card);
+    if (card.dataset.hero === 'ghost') {
+      changeStyles();
+    }
   }
+  console.log(matchGameState.matched);
 }
 
-// запрет клика по совпавшей паре
+function changeStyles() {
+  const matchedCards: NodeListOf<HTMLElement> = document.querySelectorAll('[data-hero="ghost"]');
+  matchedCards.forEach((e) => {
+    if (e.dataset.hero === 'ghost') {
+      const hero = e.querySelector('.back__img1') as HTMLImageElement;
+      hero.classList.add('fly-hero');
+    }
+  });
+}
 
 function disableCards() {
-  firstCard?.classList.add('no-click');
-  secondCard?.classList.add('no-click');
+  matchGameState.firstCard?.classList.add('no-click');
+  matchGameState.secondCard?.classList.add('no-click');
   resetBoard();
 }
 
-// переворачивание несовпавшей пары
-
 function unflipCards() {
   setTimeout(() => {
-    firstCard?.classList.remove('flip');
-    secondCard?.classList.remove('flip');
-    firstCard?.classList.remove('no-click');
-    secondCard?.classList.remove('no-click');
+    matchGameState.firstCard?.classList.remove('flip');
+    matchGameState.secondCard?.classList.remove('flip');
+    matchGameState.firstCard?.classList.remove('no-click');
+    matchGameState.secondCard?.classList.remove('no-click');
     resetBoard();
   }, 1200);
 }
 
-// сброс
 function resetBoard() {
-  [hasFlippedCard, lockBoard] = [false, false];
-  [firstCard, secondCard] = [null, null];
+  [matchGameState.hasFlippedCard, matchGameState.lockBoard] = [false, false];
+  [matchGameState.firstCard, matchGameState.secondCard] = [null, null];
 }
 
-// счетчик шагов
-
 function countClicks() {
-  index = index + 1;
-  showMoves(index);
-  if (index === 1) {
+  matchGameState.index = matchGameState.index + 1;
+  showMoves(matchGameState.index);
+  if (matchGameState.index === 1) {
     timer();
   }
   gameOver();
 }
 
-export function showMoves(value: number) {
+function showMoves(value: number) {
   const moves = document.querySelector('.match-game-moves-container__number') as HTMLElement;
   moves.textContent = String(value);
 }
 
-// timer
-
 function timer() {
   const timeContainer = document.querySelector('.match-game-time-container__number') as HTMLElement;
-  clearInterval(interval);
+  clearInterval(matchGameState.interval);
   timeContainer.textContent = '00:00';
-  interval = setInterval(() => {
-    seconds++;
-    if (seconds < 10 && minutes < 10) {
-      timeContainer.textContent = `0${minutes}:0${seconds}`;
-    } else if (minutes < 10 && seconds >= 10) {
-      timeContainer.textContent = `0${minutes}:${seconds}`;
-    } else if (minutes >= 10 && seconds < 10) {
-      timeContainer.textContent = `${minutes}:0${seconds}`;
-    } else if (minutes >= 10 && seconds >= 10) {
-      timeContainer.textContent = `${minutes}:${seconds}`;
+  matchGameState.interval = window.setInterval(() => {
+    matchGameState.seconds++;
+    if (matchGameState.seconds < 10 && matchGameState.minutes < 10) {
+      timeContainer.textContent = `0${matchGameState.minutes}:0${matchGameState.seconds}`;
+    } else if (matchGameState.minutes < 10 && matchGameState.seconds >= 10) {
+      timeContainer.textContent = `0${matchGameState.minutes}:${matchGameState.seconds}`;
+    } else if (matchGameState.minutes >= 10 && matchGameState.seconds < 10) {
+      timeContainer.textContent = `${matchGameState.minutes}:0${matchGameState.seconds}`;
+    } else if (matchGameState.minutes >= 10 && matchGameState.seconds >= 10) {
+      timeContainer.textContent = `${matchGameState.minutes}:${matchGameState.seconds}`;
     }
-    if (seconds >= 59) {
-      seconds = -1;
-      minutes++;
+    if (matchGameState.seconds >= 59) {
+      matchGameState.seconds = -1;
+      matchGameState.minutes++;
     }
   }, 1000);
 }
 
 function gameOver() {
-  if (matched.length === 8) {
-    clearInterval(interval);
+  if (matchGameState.level === 1 && matchGameState.matched.length === 8) {
+    createResults();
+    clearInterval(matchGameState.interval);
+    setTimeout(() => {
+      matchGameState.level += 1;
+      switchLevel(matchGameState.level);
+      clearInfo();
+    }, 1500);
+  }
+
+  if (matchGameState.level === 2 && matchGameState.matched.length === 12) {
+    createResults();
+    clearInterval(matchGameState.interval);
   }
 }
 
-type ElemParams = {
-  tagName: string | HTMLElement;
-  className: string;
-  textContent?: string;
-};
+function createResults() {
+  const timeContainer = document.querySelector('.match-game-time-container__number') as HTMLElement;
+  const result: StorageInfo = {};
+  result.level = matchGameState.level;
+  result.moves = matchGameState.index;
+  result.time = timeContainer.textContent;
+  matchGameState.results.push(result);
+  setLocalstorage();
+}
+
+function switchLevel(value: number) {
+  if (value === 2) {
+    const matchGame = new Page7();
+    matchGame.showLevel2();
+  }
+  showLevel();
+}
+
+function clearInfo() {
+  const timeContainer = document.querySelector('.match-game-time-container__number') as HTMLElement;
+  timeContainer.textContent = '00:00';
+  const moves = document.querySelector('.match-game-moves-container__number') as HTMLElement;
+  moves.textContent = '0';
+
+  matchGameState.hasFlippedCard = false;
+  matchGameState.lockBoard = false;
+  matchGameState.firstCard = null;
+  matchGameState.secondCard = null;
+  matchGameState.index = 0;
+  matchGameState.matched = [];
+  matchGameState.seconds = 0;
+  matchGameState.minutes = 0;
+}
+
+function showLevel() {
+  const level = document.querySelector('.match-game-moves-container__number-level') as HTMLElement;
+  level.textContent = String(matchGameState.level);
+}
 
 export function createElem({ tagName, className, textContent }: ElemParams): HTMLElement {
   const createdElem: HTMLElement = typeof tagName === 'string' ? document.createElement(tagName) : tagName;
@@ -145,4 +197,8 @@ export function createRandomArr(length: number) {
     }
   }
   return ARR;
+}
+
+function setLocalstorage() {
+  localStorage.setItem('cementary', JSON.stringify(matchGameState.results));
 }
