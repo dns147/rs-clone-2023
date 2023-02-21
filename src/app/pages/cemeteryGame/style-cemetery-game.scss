@@ -180,8 +180,8 @@ img {
 .match-game-moves {
   z-index: 15;
   position: absolute;
-  top: 3%;
-  left: 3%;
+  top: 2%;
+  left: 0;
   width: 15%;
   animation: floating 7s infinite ease-in-out, appearing 4.5s ease-in;
 }
@@ -189,8 +189,8 @@ img {
 .match-game-time {
   z-index: 12;
   position: absolute;
-  top: 3%;
-  left: 13%;
+  top: 2%;
+  left: 11%;
   width: 13%;
   animation: floating 9s infinite ease-in-out, appearing 6s ease-in;
 }
@@ -230,12 +230,16 @@ img {
   padding: 22% 12% 0 0;
 }
 
+.match-game-moves-container__number-level {
+  font-size: 0.8vw;
+}
+
 .cards {
   z-index: 30;
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding: 1% 1% 5% 1%;
+  padding: 1% 1% 7vh 1%;
   justify-content: space-between;
   row-gap: 4px;
   
@@ -245,6 +249,10 @@ img {
   perspective: 1000px;
 
   animation: show-cards 4.5s ease-in;
+}
+
+.match-level2 .back__img1 {
+  left: 15.5%;
 }
 
 @keyframes show-cards {
@@ -275,6 +283,16 @@ img {
   animation-name: show-card;
   animation-timing-function: ease-in;
 }
+
+.cards.match-level2 {
+  width: calc(100vw * 0.6);
+}
+
+.match-level2 .card{
+  width: calc(100vw * 0.07);
+  height: calc((100vw * 0.07) * 1.75);
+}
+
 
 .front,
 .back {
@@ -348,20 +366,16 @@ img {
   pointer-events: none;
 }
 
-// @keyframes show-card {
-//   0% {
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
-// animation-duration: ${i / 5}s
-
 @media(max-width: 1200px) {
   .cards {
     width: calc(100vw * 0.85);
-    padding: 1% 1% 10% 1%;
+  }
+  .cards.match-level2 {
+    width: calc(100vw * 0.77);
+  }
+  .match-level2 .card {
+    width: calc(100vw * 0.09);
+    height: calc((100vw * 0.09) * 1.75);
   }
 }
 
@@ -383,15 +397,22 @@ img {
     width: calc(100vw * 0.12);
     height: calc((100vw * 0.12) * 1.75);
   }
+  .cards.match-level2 {
+    width: calc(100vw * 0.77);
+  }
+  .match-level2 .card {
+    width: calc(100vw * 0.09);
+    height: calc((100vw * 0.09) * 1.75);
+  }
 }
 
-@media(max-width: 768px) {
-  .cards {
-    width: calc(100vw * 0.53);
+@media(max-width: 550px) {
+  .cards.match-level2 {
+    width: 100%;
   }
-  .card {
-    width: calc(100vw * 0.12);
-    height: calc((100vw * 0.12) * 1.75);
+  .match-level2 .card {
+    width: calc(100vw * 0.14);
+    height: calc((100vw * 0.14) * 1.75);
   }
 }
 
@@ -404,6 +425,7 @@ img {
     height: calc((100vw * 0.2) * 1.75);
   }
 }
+
 
 
 
