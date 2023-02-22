@@ -200,8 +200,8 @@ a:active {
 
 .title-message {
   font-family: 'HennyPenny';
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
+  // letter-spacing: 0.8px;
+  // text-transform: uppercase;
   color: $text-color-light;
   font-weight: 700;
   text-align: center;
@@ -210,6 +210,10 @@ a:active {
   letter-spacing: 2.8px;
   font-size: 32px;
 }
+
+.title-message--upper {
+    text-transform: uppercase;
+  }
 
 .title-message--dark {
   color: $text-color;

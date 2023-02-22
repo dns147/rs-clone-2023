@@ -36,15 +36,15 @@ const IMAGE_URL = [
 ];
 
 const gameOverModalTemplate = `
-	<h2 class="pumpkin-modal">Game Over</h2>
-	<button class="btn pumpkin-restart">Restart</button>
-	<button class="btn pumpkin-exit"><a class="exit" href="#">main page</a></button>
+	<h2 class="pumpkin-modal title-message title-message--upper">Game Over</h2>
+	<button class="btn pumpkin-restart accent-font-upper">Restart</button>
+	<button class="btn pumpkin-exit accent-font-upper"><a class="exit" href="#">main page</a></button>
 `;
 
 const gameNextLevelModalTemplate = `
-	<h2 class="pumpkin-modal">Good job!</h2>
-	<button class="btn pumpkin-next-level">Next Level</button>
-	<button class="btn pumpkin-exit"><a class="exit" href="#">main page</a></button>
+	<h2 class="pumpkin-modal title-message">Good job!</h2>
+	<button class="btn accent-font-upper pumpkin-next-level ">Next Level</button>
+	<button class="btn accent-font-upper pumpkin-exit"><a class="exit" href="#">main page</a></button>
 `;
 
 export default {
