@@ -6,6 +6,10 @@ export default class Music {
     this.music = new Audio();
     this.music.src = musicSrc;
     this.isMusic = JSON.parse(localStorage.getItem('isMusic') || '{}');
+
+    window.addEventListener('hashchange', () => {
+      this.stopMusic();
+    });
   }
   playMusic() {
     this.updateIsMusic();
