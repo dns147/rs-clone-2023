@@ -2,8 +2,7 @@ import './style-auth-form.scss';
 import './loader.scss';
 
 export default class AuthForm {
-  constructor() {
-  }
+  constructor() {}
 
   render(): string {
     return `
@@ -12,10 +11,10 @@ export default class AuthForm {
           <div class="form-content">
             <div class="block-headers">
               <div class="registration-block">
-                <h2>Register</h2>
+                <h2 class="title-message title-message--dark">Register</h2>
               </div>
               <div class="authorization-block">
-                <h2>Sign in</h2>
+                <h2 class="title-message title-message--dark">Sign in</h2>
               </div>
               <span class="errorMsg">Wrong e-mail or password</span>
             </div>
@@ -32,23 +31,21 @@ export default class AuthForm {
             </div>
             <p>* - required fields</p>
             <div class="registration-block">
-              <a class="registration-btn disabled">Register</a>
+              <a class="registration-btn btn btn--col-3 accent-font-upper disabled">Register</a>
               <div class="auth-link">
                 <span>Already registered?</span>
                 <button class="link-btn login-link" type="button">Yes, sign in!</button>
               </div>
             </div>
             <div class="authorization-block">
-              <a class="authorization-btn disabled">Sign in</a>
+              <a class="authorization-btn btn btn--col-3 accent-font-upper disabled">Sign in</a>
               <div class="registration-link">
                 <span>Don't have an account?</span>
                 <button class="link-btn reg-link" type="button">Register</button>
               </div>
             </div>
           </div>
-          <div class="close-registration-form">
-            <i class="fa-solid fa-circle-xmark"></i>
-          </div>
+          <div class="close-registration-form btn btn--round btn--col-3">X</div>
         </form>
       </div>
     `;

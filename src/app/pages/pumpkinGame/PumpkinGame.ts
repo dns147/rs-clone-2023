@@ -147,8 +147,8 @@ export default class PumpkinGame {
   }
 
   render(): string {
-    (<HTMLElement>document.querySelector('.header')).style.display = 'none';
-    (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
+    // (<HTMLElement>document.querySelector('.header')).style.display = 'none';
+    // (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
 
     const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
     const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
