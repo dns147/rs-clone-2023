@@ -76,21 +76,24 @@ export function hideRegistrationForm(): void {
 }
 
 export function removeUserInfo(): void {
-	const userName = <HTMLSpanElement>document.querySelector('.main-user-name');
-  userName.textContent = '';
-	localStorage.removeItem('userId');
-	localStorage.removeItem('userName');
+  const userName = <HTMLSpanElement>document.querySelector('.main-user-name');
+  userName.textContent = 'unknown ghost';
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userName');
 }
 
 export function changeSignInButton(isSignIn: boolean): void {
-	const userSignInBtn = <HTMLElement>document.querySelector('.user-sign-in');
-	const userSignInText = <HTMLElement>document.querySelector('.user-sign-in-text');
+  // const userSignInBtns = document.querySelectorAll('.user-sign-in');
+  const userSignInBtn = <HTMLElement>document.querySelector('.user-sign-in');
+  const userSignInText = <HTMLElement>document.querySelector('.user-sign-in-text');
 
-	if (isSignIn) {
-		userSignInBtn.classList.add('signin-active');
-		userSignInText.textContent = 'sign out';
-	} else {
-		userSignInBtn.classList.remove('signin-active');
-		userSignInText.textContent = 'sign in';
-	}
+  if (isSignIn) {
+    // userSignInBtns.forEach((userSignInBtn) => userSignInBtn.classList.add('signin-active'));
+    userSignInBtn.classList.add('signin-active');
+    userSignInText.textContent = 'sign out';
+  } else {
+    // userSignInBtns.forEach((userSignInBtn) => userSignInBtn.classList.remove('signin-active'));
+    userSignInBtn.classList.remove('signin-active');
+    userSignInText.textContent = 'sign in';
+  }
 }
