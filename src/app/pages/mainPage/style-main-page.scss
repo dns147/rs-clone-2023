@@ -1,83 +1,118 @@
-@font-face {
-  font-family: 'SecretMidnight';
-  src: url(../../../assets/fonts/SecretMidnight-518n8.otf);
-}
+@import "./../../../scss/constants.scss";
+@import "../chooseGames/style-choose-games.scss";
 
-@import '../chooseGames/style-choose-games.scss';
+// @font-face {
+//   font-family: 'SecretMidnight';
+//   src: url(../../../assets/fonts/SecretMidnight-518n8.otf);
+// }
+
+// @font-face {
+//   font-family: 'MonsterPumpkin';
+//   src: url(../../../assets/fonts/MonsterPumpkin-MVBzP.ttf);
+// }
+
+// @font-face {
+//   font-family: 'Pumpkinhunter';
+//   src: url(../../../assets/fonts/Pumpkinhunter-Ea0g4.otf);
+// }
+
+// @font-face {
+//   font-family: 'SpookypixelsRegular';
+//   src: url(../../../assets/fonts/SpookypixelsRegular-RpzzM.otf);
+// }
+
+// @font-face {
+//   font-family: 'SpookypixelsOutline';
+//   src: url(../../../assets/fonts/SpookypixelsOutline-BWyyV.otf);
+// }
+
+// @font-face {
+//   font-family: 'SpookypixelsBold';
+//   src: url(../../../assets/fonts/SpookypixelsBold-8MWWD.otf);
+// }
 
 @mixin parent-size {
   width: 100%;
   height: 100%;
 }
 
-$home-background: linear-gradient(
-  to bottom,
-  #020024 0%,
-  #8e0088 100%
-);
-
-$heading-shadow: #f5f5f5;
-$buttons-container: #e8e8e8;
+// $planetColor: #ccc; //rgb(209, 70, 22)
 $castle-ground: #151414;
-$ground: #000000;
-
 $basis-size: 35vw;
-// $planetColor: #ccc;//rgb(209, 70, 22)
 $moon-color: whitesmoke;
 $dark-moon-color: darken($moon-color, 5%);
 $darker-moon-color: darken($moon-color, 10%);
 $darkest-moon-color: darken($moon-color, 15%);
-
-$button-border: #c7c7c7;
-$button-background: #8e0088;
-
 $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-a {
-  cursor: pointer;
-}
 
 .home-heading {
   display: flex;
   justify-content: space-between;
-  width: calc(100vw * 0.59);
+  justify-content: center;
+  gap: 50px;
+  width: calc(100vw * 0.8);
 
-  font-family: 'SecretMidnight';
-  font-size: calc(100vw * 0.07);
+  line-height: 1;
+  font-family: "SecretMidnight";
   font-weight: 100;
-  text-shadow: 2px 2px 4px $heading-shadow;
+  font-size: 110px;
+  text-shadow: 6px 6px 6px $dark-color;
+
+  // font-family: 'SpookypixelsRegular';
+  // font-size: 100px;
+  // text-shadow: 4px 4px 4px #000;
+  // text-shadow: 2px 2px 0px #fff;
+  // color: $accent2-color;
+
+  opacity: 0;
+  animation: show-content 5s linear forwards;
+
+  @media (max-width: 1024px) {
+    font-size: 90px;
+  }
+  @media (max-width: 880px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (max-width: 540px) {
+    gap: 40px;
+    font-size: 70px;
+  }
+  @media (max-width: 420px) {
+    font-size: 55px;
+  }
 }
 
 .home {
   position: relative;
   @include parent-size;
-  background-image: $home-background;
+  background-image: $gradient-20;
   overflow: hidden;
 }
 
 .home-navigation {
-  z-index: 100;
+  z-index: 50;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   @include parent-size;
+  padding: 0 0 90px 0;
+  margin: 90px 0 0 0;
 }
 
 .home-buttons-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 10%;
-  gap: 20px;
-  background-color: $buttons-container;
+  gap: 15px;
+  width: 280px;
+  margin: 0 0 10%;
+
+  transform: translateY(200%);
+  animation: show-from-bottom 1.5s forwards ease-out;
+  animation-delay: 3.5s;
 }
 
 .ground-front {
@@ -99,6 +134,9 @@ a {
   width: 40%;
   bottom: 0;
   right: -15%;
+  opacity: 0;
+  animation: show-content 5s forwards;
+  animation-delay: 2s;
 }
 
 .home-tree-right__img,
@@ -115,10 +153,11 @@ a {
   width: 100%;
   bottom: 0;
   left: 0;
+  animation: show-from-bottom 4s forwards;
 }
 
 .home-castle-ground {
-  z-index: 40;
+  z-index: 5;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -128,13 +167,16 @@ a {
 .home-castle-ground-wrapper {
   position: relative;
   @include parent-size;
+
+  opacity: 0;
+  animation: show-from-bottom 2.5s forwards;
 }
 
 .home-castle {
   z-index: 45;
   position: absolute;
   width: 20%;
-  bottom: calc(20vw / 2);
+  bottom: calc(16vw / 2);
   left: calc(80% / 2);
   animation: show-content 0.2s ease-in;
 }
@@ -237,22 +279,15 @@ a {
   display: none;
   width: 100%;
   height: 10vh;
-  background-color: $ground;
-  animation: show-content 0.1s ease-in;
-}
-
-@keyframes show-content {
-  0% {
-   opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  background-color: $dark-color;
+  animation: 
+    show-content 0.1s ease-in,
+    show-from-bottom 2.5s forwards;
 }
 
 .home-sky-wrapper .home-moon {
   position: absolute;
-  top: 0;
+  top: -2vh;
   right: 0;
   bottom: 0;
   left: 0;
@@ -271,9 +306,11 @@ a {
     transparent 65%,
     $dark-moon-color 65%
   );
-    animation:
-    blink-moon 5s alternate infinite,
-    show-moon 3s ease-in;
+  opacity: 0;
+  animation: 
+    blink-moon 5s alternate infinite, 
+    show-moon 3.2s ease-in forwards;
+  animation-delay: 0.5s;
 }
 
 @keyframes blink-moon {
@@ -293,11 +330,11 @@ a {
 
 @keyframes show-moon {
   0% {
-    bottom: -100%;
+    bottom: -200%;
     opacity: 0;
   }
   10% {
-   opacity: 0;
+    opacity: 0;
   }
   100% {
     rotate: 360deg;
@@ -376,39 +413,17 @@ a {
 }
 
 .home-button {
-  border: 2px solid $button-border;
-  border-radius: 40px;
-  padding: 0.45rem 0.75rem;
-  color: darken($button-border, 25%);
-  font-weight: bold;
-
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  transition: all 0.25s $bezier;
-  // filter: grayscale(100%);
-  user-select: none;
-
-  width: 300px;
-
-  &:hover {
-    border-color: currentColor;
-  }
-
-  background-color: $button-background;
-
-  font-weight: 100;
-  text-decoration: none;
+  justify-content: space-between;
 }
 
 .home-button__icon {
-  width: 34px;
-  height: 32px;
+  width: 28px;
+  height: 26px;
   display: inline-block;
   position: relative;
-  margin-right: 0.25em;
-  font-size: 1.5rem;
+  margin: 0 15px 0 15px;
   background: url(../../../assets/img/bat-svg.svg) no-repeat center;
   background-size: 100%;
   animation: icon-resize 0.25s $bezier both;
@@ -428,18 +443,19 @@ a {
     height: 26px;
     opacity: 0;
 
-      &::before, &::after {
-        content: '';
-        background: inherit;
-        background-size: 100%;
-        width: inherit;
-        height: inherit;
-        display: inherit;
-        position: relative;
-        top: inherit;
-        left: inherit;
-        opacity: 0;
-      }
+    &::before,
+    &::after {
+      content: '';
+      background: inherit;
+      background-size: 100%;
+      width: inherit;
+      height: inherit;
+      display: inherit;
+      position: relative;
+      top: inherit;
+      left: inherit;
+      opacity: 0;
+    }
   }
 
   .home-button__animation-1 {
@@ -500,22 +516,22 @@ a {
 
 @keyframes icon-main-float1 {
   0% {
-    opacity: 0; 
+    opacity: 0;
     transform: translate(0) rotate(0);
   }
-  50% { 
-    opacity: 1; 
+  50% {
+    opacity: 1;
     transform: translate(0, -25px) rotate(-20deg);
   }
 }
 
 @keyframes icon-main-float2 {
   0% {
-    opacity: 0; 
+    opacity: 0;
     transform: translate(0) rotate(0) scale(0);
   }
-  50% { 
-    opacity: .9; 
+  50% {
+    opacity: 0.9;
     transform: translate(-10px, -38px) rotate(25deg) scale(1);
   }
 }
@@ -568,8 +584,7 @@ a {
 }
 
 // media queries
-
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   $basis-size: 45vw;
 
   .home-moon {
@@ -587,7 +602,7 @@ a {
       height: calc($basis-size / 4);
       width: calc($basis-size / 4);
     }
-  
+
     &__three {
       height: calc($basis-size / 4);
       width: calc($basis-size / 4);
@@ -619,11 +634,6 @@ a {
     }
   }
 
-  .home-heading {
-    width: calc(100vw * 0.87);
-    font-size: calc(100vw * 0.1);
-  }
-
   .home-tree-right {
     width: 50%;
   }
@@ -639,14 +649,7 @@ a {
   }
 }
 
-@media(max-width: 768px) {
-  .home-heading {
-    flex-direction: column;
-    align-items: center;
-    width: 100vw;
-    font-size: calc(100vw * 0.13);
-  }
-
+@media (max-width: 768px) {
   .home-castle {
     width: 30%;
     bottom: calc(20vw / 2);
@@ -672,7 +675,7 @@ a {
   }
 }
 
-@media(max-width: 425px) {
+@media (max-width: 425px) {
   $basis-size: 60vw;
 
   .home-moon {
@@ -690,7 +693,7 @@ a {
       height: calc($basis-size / 4);
       width: calc($basis-size / 4);
     }
-  
+
     &__three {
       height: calc($basis-size / 4);
       width: calc($basis-size / 4);
@@ -722,11 +725,6 @@ a {
     }
   }
 
-  .home-heading {
-    width: 100vw;
-    font-size: calc(100vw * 0.2);
-  }
-
   .home-castle {
     width: 40%;
     bottom: calc(22vw / 2);
@@ -749,9 +747,4 @@ a {
     height: calc(36vw / 2);
     left: calc(45% / 2);
   }
-}
-
-.user-sign-in:hover {
-  cursor: pointer;
-  color: #49258f;
 }
