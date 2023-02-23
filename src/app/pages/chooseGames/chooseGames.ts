@@ -1,7 +1,15 @@
 import './style-choose-games.scss';
+import evilLaugh from '../../../assets/audio/music/evil-laugh.mp3';
+import Music from '../../../utils/Music';
 
 export default class ChooseGames {
-  constructor() {}
+  musicSrc: string;
+  music: Music;
+
+  constructor() {
+    this.musicSrc = evilLaugh;
+    this.music = new Music(this.musicSrc);
+  }
 
   render(): string {
     return `<div class="map">
@@ -98,5 +106,9 @@ export default class ChooseGames {
   </div>`;
   }
 
-  init(): void {}
+  init(): void {
+    window.setTimeout(() => {
+      this.music.playMusic();
+    }, 2000);
+  }
 }
