@@ -40,7 +40,7 @@ localStorage.setItem('isMusic', JSON.stringify(true));
 localStorage.setItem('isSoundEffects', JSON.stringify(true));
 
 const userTemplate = `
-  <div class="main-user user-sign-in btn btn--col-3 accent-font" data-tooltip='sign in/out'>
+  <div class="main-user user-sign-in btn btn--col-3 accent-font" data-tooltip='sign in'>
     <div class="main-user-icon"></div>
     <span class="main-user-name"></span>
   <div>

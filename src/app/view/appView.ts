@@ -7,7 +7,6 @@ import {
 } from '../pages/authForm/utils-auth-form';
 import constsAuthForm from '../pages/authForm/const-auth-form';
 import Authorization from '../pages/authForm/authorization';
-import { hideUserMenu, showUserMenu } from '../utils-component';
 import { flipCard } from '../pages/cemeteryGame/utils-cemetery-game';
 
 export default class AppView {
@@ -91,15 +90,6 @@ export default class AppView {
     regBlocks.forEach((regElem: HTMLElement) => {
       regElem.style.display = isReg;
     });
-  }
-
-  goToUserMenu(): void {
-    const userMenu = <HTMLElement>this.container.querySelector('.user-menu');
-    if (userMenu.classList.contains('active')) {
-      hideUserMenu(userMenu);
-    } else {
-      showUserMenu(userMenu);
-    }
   }
 
   userSignOut(): void {

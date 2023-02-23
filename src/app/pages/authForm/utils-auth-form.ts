@@ -1,5 +1,3 @@
-import { hideUserMenu } from "../../utils-component";
-
 export function checkSubmitButtonsStatus(isValidEmail: boolean, isValidPassword: boolean): void {
 	const registryBtn = <HTMLButtonElement>document.querySelector('.registration-btn');
 	const loginBtn = <HTMLButtonElement>document.querySelector('.authorization-btn');
@@ -83,17 +81,13 @@ export function removeUserInfo(): void {
 }
 
 export function changeSignInButton(isSignIn: boolean): void {
-  // const userSignInBtns = document.querySelectorAll('.user-sign-in');
   const userSignInBtn = <HTMLElement>document.querySelector('.user-sign-in');
-  const userSignInText = <HTMLElement>document.querySelector('.user-sign-in-text');
 
   if (isSignIn) {
-    // userSignInBtns.forEach((userSignInBtn) => userSignInBtn.classList.add('signin-active'));
+    userSignInBtn.setAttribute('data-tooltip', 'sign out');
     userSignInBtn.classList.add('signin-active');
-    userSignInText.textContent = 'sign out';
   } else {
-    // userSignInBtns.forEach((userSignInBtn) => userSignInBtn.classList.remove('signin-active'));
+    userSignInBtn.setAttribute('data-tooltip', 'sign in');
     userSignInBtn.classList.remove('signin-active');
-    userSignInText.textContent = 'sign in';
   }
 }

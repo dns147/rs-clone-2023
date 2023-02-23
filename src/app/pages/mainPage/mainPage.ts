@@ -134,8 +134,3 @@ export default class MainPage {
     }
   }
 }
-
-// const signInButtonStatus = localStorage['userName'] ? 'sign out' : 'sign in';
-// <button class="home-button btn btn--big accent-font-upper user-sign-in">
-//   <span class="home-button__text user-sign-in-text">${signInButtonStatus}</span>
-// </button>
