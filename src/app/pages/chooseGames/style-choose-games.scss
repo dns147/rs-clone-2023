@@ -25,7 +25,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   overflow: hidden;
 }
 
-.map-caslte {
+.map-castle {
   z-index: 20;
   position: absolute;
   right: -10px;
@@ -43,15 +43,13 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   position: absolute;
   bottom: 0;
   left: 0;
-  display: none;
-  height: 120px;
+  height: 0;
   width: 100%;
   background-color: $ground-color;
 }
 
 .location-ghost {
   position: absolute;
-  cursor: pointer;
   .location-ghost__img {
     @include img-props;
     filter: contrast(150%);
@@ -84,7 +82,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
 
 #location-ghost-four {
   width: 11%;
-  bottom: 35%;
+  bottom: 37%;
   left: 76%;
   transform: rotate(-12deg);
   animation: floating 13s infinite ease-in-out;
@@ -97,6 +95,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   width: 70%;
   height: 56%;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .location-ghost__link {
@@ -142,9 +141,19 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: 0;
   left: 0;
   width: 23%;
+  animation: show-from-left 4.5s ease-out;
 
   .hero__img {
     @include img-props;
+  }
+}
+
+@keyframes show-from-left {
+  0% {
+    left: - 100%;
+  }
+  100% {
+   left: 0;
   }
 }
 
@@ -154,20 +163,11 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: 0;
   left: 0;
   width: 100%;
-  animation: mountain 4.5s ease-in;
+  animation: show-from-bottom 3.5s forwards;
 
   .mountain__img {
     @include img-props;
     filter: brightness(190%);
-  }
-}
-
-@keyframes mountain {
-  0% {
-    bottom: -100%;
-  }
-  100% {
-    bottom: 0;
   }
 }
 
@@ -177,6 +177,8 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: -170px;
   left: 0;
   width: 60%;
+
+  animation: show-from-bottom 2.5s forwards;
 
   .graves__img {
     @include img-props;
@@ -189,20 +191,11 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: -90px;
   left: 0;
   width: 90%;
-  animation: forest 3s ease-in;
+  animation: show-from-bottom 3s forwards;
 
   .forest__img{
     @include img-props;
     filter: brightness(90%);
-  }
-}
-
-@keyframes forest {
-  0% {
-    bottom: -100%;
-  }
-  100% {
-    bottom: -90px;
   }
 }
 
@@ -394,13 +387,13 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
 }
 
 @media(max-width: 1440px) {
-  .map-caslte {
+  .map-castle {
     width: 65%;
   }
 }
 
 @media(max-width: 1200px) {
-  .map-caslte {
+  .map-castle {
     width: 75%;
   }
 
@@ -413,27 +406,10 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
     bottom: -50px;
   }
 
-  @keyframes forest {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: -50px;
-    }
-  }
-
   .mountain {
     bottom: 50px;
   }
 
-  @keyframes mountain {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: 50px;
-    }
-  }
 }
 
 @media(max-width: 1024px) {
@@ -502,7 +478,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
     }
   }
 
-  .map-caslte {
+  .map-castle {
     width: 90%;
   }
 
@@ -512,15 +488,6 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
 
   .forest {
     bottom: -40px;
-  }
-
-  @keyframes forest {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: -40px;
-    }
   }
 
   .cloud-front-center-slow {
@@ -549,7 +516,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
 }
 
 @media(max-width: 900px) {
-  .map-caslte {
+  .map-castle {
     width: 100%;
     bottom: -15px;
   }
@@ -562,31 +529,14 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
     bottom: -37px;
   }
 
-  @keyframes forest {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: -37px;
-    }
-  }
-
   .mountain {
     bottom: 90px;
   }
 
-  @keyframes mountain {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: 90px;
-    }
-  }
 }
 
 @media(max-width: 768px) {
-  .map-caslte {
+  .map-castle {
     bottom: 100px;
     width: 107%;
     left: -5%;
@@ -594,34 +544,17 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   }
 
   .ground {
-    display: block;
+    height: 120px;
   }
 
   .forest {
     bottom: 100px;
   }
 
-  @keyframes forest {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: 100px;
-    }
-  }
-
   .mountain {
     bottom: 180px;
   }
 
-  @keyframes mountain {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: 180px;
-    }
-  }
 }
 
 @media(max-width: 500px) {
@@ -629,7 +562,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
     height: 140px;
   }
 
-  .map-caslte {
+  .map-castle {
     bottom: 150px;
     width: 114%;
     left: -12%;
@@ -644,25 +577,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
     bottom: 150px;
   }
 
-  @keyframes forest {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: 150px;
-    }
-  }
-
   .mountain {
     bottom: 190px;
-  }
-
-  @keyframes mountain {
-    0% {
-      bottom: -100%;
-    }
-    100% {
-      bottom: 190px;
-    }
   }
 }

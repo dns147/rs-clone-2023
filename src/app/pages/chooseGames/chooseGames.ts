@@ -47,7 +47,7 @@ export default class ChooseGames {
         </div>
       </div>
     </div>
-    <div class="map-caslte">
+    <div class="map-castle">
       <img class="map-castle__img" src=${require('../../../assets/map/map-castle.png')} alt="castle">
       <div id="location-ghost-one" class="location-ghost">
         <img class="location-ghost__img" src=${require('../../../assets/map/location-ghost.png')} alt="ghost">
