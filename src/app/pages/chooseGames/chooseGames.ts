@@ -26,15 +26,17 @@ export default class ChooseGames {
           <img class="cloud__img" src=${require('../../../assets/map/cloud-svg-grey3.svg')} alt="cloud">
         </div>
       </div>
-      <div class="moon">
-        <ul class="moon-wrapper">
-          <li class="moon-wrapper__crater"></li>
-          <li class="moon-wrapper__crater"></li>
-          <li class="moon-wrapper__crater"></li>
-          <li class="moon-wrapper__crater"></li>
-          <li class="moon-wrapper__crater"></li>
-          <li class="moon-wrapper__crater"></li>
-        </ul>
+      <div class="map-moon">
+        <div class="map-moon-spots">
+          <span class="spot map-moon-spots__one"></span>
+          <span class="spot map-moon-spots__two"></span>
+          <span class="spot map-moon-spots__three"></span>
+          <span class="spot map-moon-spots__four"></span>
+          <span class="spot map-moon-spots__five"></span>
+          <span class="spot map-moon-spots__six"></span>
+          <span class="spot map-moon-spots__seven"></span>
+          <span class="spot map-moon-spots__eigth"></span>
+        </div>
       </div>
     </div>
     <div class="map-caslte">
