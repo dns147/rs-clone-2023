@@ -43,12 +43,43 @@ export default class ChooseGames {
       <img class="map-castle__img" src=${require('../../../assets/map/map-castle.png')} alt="castle">
       <div id="location-ghost-one" class="location-ghost">
         <img class="location-ghost__img" src=${require('../../../assets/map/location-ghost.png')} alt="ghost">
+        <div class="location-ghost__link-container">
+          <a class="location-ghost__link" href="#/cemeteryGame">
+            <div class="location-ghost__link-img-container location-ghost__link-img-container_opened">
+              <img class="location-ghost__link-img" src=${require('../../../assets/map/skull3.png')} alt="skull">
+            </div>
+          </a>
+        </div>
       </div>
       <div id="location-ghost-two" class="location-ghost">
         <img class="location-ghost__img" src=${require('../../../assets/map/location-ghost.png')} alt="ghost">
+        <div class="location-ghost__link-container">
+          <a class="location-ghost__link" href="#/shooterGame">
+            <div class="location-ghost__link-img-container">
+              <img class="location-ghost__link-img" src=${require('../../../assets/map/raven.png')} alt="raven">
+            </div>
+          </a>
+        </div>
       </div>
       <div id="location-ghost-three" class="location-ghost">
         <img class="location-ghost__img" src=${require('../../../assets/map/location-ghost-reversed.png')} alt="ghost">
+        <div class="location-ghost__link-container">
+          <a class="location-ghost__link" href="#/zombieGame">
+            <div class="location-ghost__link-img-container">
+              <img class="location-ghost__link-img" src="" alt="???">
+            </div>
+          </a>
+        </div>
+      </div>
+      <div id="location-ghost-four" class="location-ghost">
+        <img class="location-ghost__img" src=${require('../../../assets/map/location-ghost.png')} alt="ghost">
+        <div class="location-ghost__link-container">
+          <a class="location-ghost__link" href="#/pumpkinGame">
+            <div class="location-ghost__link-img-container">
+              <img class="location-ghost__link-img" src=${require('../../../assets/map/pumpkin.png')} alt="pumpkin">
+            </div>
+          </a>
+        </div>
       </div>
     </div>
     <div class="ground"></div>
