@@ -1,11 +1,10 @@
 import './style-shooter-game.scss';
 import { Raven, Explosion, Particle } from './utils-shooter-game';
 import Music from '../../../utils/Music';
-import musicRavensSrc from '../../../assets/audio/music/strashnye-zvuki-vorony.mp3';
-import soundGameOverSrc from '../../../assets/audio/effects/fail-wha-wha.mp3';
-import soundSettingsSrc from '../../../assets/audio/effects/settings-1.mp3';
+import CONST from '../../../spa/coreConst';
 import ModalMessage from '../modalMessage/modalMessage';
-import Modal from '../modal/modal';
+import DataBase from '../../../utils/dataBase';
+import { ResultGame } from '../../../spa/coreTypes';
 
 export default class ShooterGame {
   canvas: HTMLCanvasElement | null;
@@ -21,7 +20,7 @@ export default class ShooterGame {
   particles: Particle[];
   score: number;
   music: Music;
-  musicGameSrc: string;
+  resultGame: ResultGame;
 
   constructor() {
     this.canvas = null;
@@ -36,22 +35,34 @@ export default class ShooterGame {
     this.ravens = [];
     this.explosions = []; // boom-effect
     this.particles = []; //birds tail-particles
+    this.music = new Music(CONST.musicRavensSrc);
     this.score = 0;
 
-    // this.musicGameSrc = AUDIO_CONST.PLAY_LIST.music[0]; //strashnye-zvuki-vorony.mp3'
-    this.musicGameSrc = musicRavensSrc;
-    this.music = new Music(this.musicGameSrc);
+    const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : 'unknown ghost';
+    const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
+    this.resultGame = {
+      id: userId,
+      name: userName,
+      game: 'Ravens hunting',
+      score: this.score,
+      level: 0,
+      time: 0,
+    };
   }
 
   render(): string {
     return `
     <div class="shooter-game">
-      <div class="block-info">
-        <div class="score-title btn accent-font">Score: <span>${this.score}</span></div>
-        <button class="btn--settings settings-btn "></button>
-        <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
+      <div class="nav-block container">
+        <div class="nav-block__left">
+          <div class="score-info btn accent-font">Score: <span>${this.score}</span></div>
+        </div>
+        <div class="nav-block__right">
+        </div>
       </div>
-      
+
+      <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
+
       <canvas id="canvas-collision"></canvas>
       <canvas id="canvas-shooter-game"></canvas>
     </div>
@@ -75,7 +86,7 @@ export default class ShooterGame {
   }
 
   drawScore() {
-    const scoreTitle = document.querySelector('.shooter-game .score-title') as HTMLElement;
+    const scoreTitle = document.querySelector('.shooter-game .score-info') as HTMLElement;
     scoreTitle.textContent = `Score: ${this.score}`;
   }
 
@@ -83,14 +94,16 @@ export default class ShooterGame {
     const gameOverMessage = new ModalMessage();
     gameOverMessage.drawModalMessage(
       `
-        <div class="title-message">Game over</div>
-        <div class="text-message">Your score: <span class="score-message">${this.score}</span></div>
+      <div class="title-modal-message">Game over</div>
+      <div class="text-message">Your score: <span class="score-number"> ${this.score}</span></div>
       `
     );
   }
 
   stopGame(): void {
-    this.saveScoreLSt(this.score);
+    this.saveScore(this.score);
+    this.saveResultGameToStorage(this.resultGame);
+
     this.drawGameOver();
     this.music.stopMusic();
     this.soundGameOver();
@@ -99,8 +112,8 @@ export default class ShooterGame {
 
   soundGameOver() {
     const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
-    const soundGameOver = new Audio();
-    soundGameOver.src = soundGameOverSrc;
+    const soundGameOver = new Audio(CONST.soundGameOverSrc);
+    soundGameOver.volume = 0.6;
     if (isSoundEffects) soundGameOver.play();
   }
 
@@ -120,73 +133,13 @@ export default class ShooterGame {
     }
 
     const currEl = event.target;
-
     const shooterGameArea = document.querySelector('.shooter-game') as HTMLElement;
     const startGameBtn = shooterGameArea.querySelector('.start-game-btn') as HTMLElement;
-    const settingsBtn = shooterGameArea.querySelector('.settings-btn') as HTMLElement;
-
-    const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
-    const soundEffectsBtn = document.querySelector('.settings .sound-btn') as HTMLElement;
 
     if (currEl === startGameBtn) {
       this.initGame();
       startGameBtn.classList.add('hide');
     }
-
-    if (currEl === settingsBtn) {
-      const soundSettings = new Audio();
-      soundSettings.src = soundSettingsSrc;
-      soundSettings.play();
-
-      const modalSettings = new Modal();
-      modalSettings.drawModal(this.modalTemplateSettings());
-
-      this.music.stopMusic();
-    }
-
-    if (currEl === musicGameBtn) {
-      this.music.playMusic();
-      const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
-      if (isMusic) {
-        localStorage.setItem('isMusic', JSON.stringify(false));
-        this.music.stopMusic();
-        musicGameBtn.classList.add('off');
-      } else {
-        localStorage.setItem('isMusic', JSON.stringify(true));
-        // this.music.playMusic();
-        musicGameBtn.classList.remove('off');
-      }
-    }
-
-    if (currEl === soundEffectsBtn) {
-      soundEffectsBtn.classList.add('off');
-      const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
-
-      // music.playMusic();
-      if (isSoundEffects) {
-        localStorage.setItem('isSoundEffects', JSON.stringify(false));
-        soundEffectsBtn.classList.add('off');
-      } else {
-        localStorage.setItem('isSoundEffects', JSON.stringify(true));
-        soundEffectsBtn.classList.remove('off');
-      }
-    }
-  }
-
-  modalTemplateSettings(): string {
-    return `
-      <div class="settings">
-        <div class="settings__title title-message">Settings</div>
-        <div class="settings__container">
-        <div>
-          <button class="settings__btn settings__btn--sound btn btn--col-3 accent-font sound-btn"><span></span> Sound effects on/off</button>
-        </div>
-          <button class="settings__btn settings__btn--music btn btn--col-3 accent-font music-btn"><span></span> Music on/off</button>
-          <a href="#" class="settings__btn btn accent-font-upper">On main page</a>
-          <a href="#/chooseGames" class="settings__btn btn accent-font-upper">play games</a>
-        </div>
-      </div>
-    `;
   }
 
   showStartBtn() {
@@ -232,8 +185,14 @@ export default class ShooterGame {
     }
   }
 
-  saveScoreLSt(score: number) {
+  saveScore(score: number) {
     localStorage.setItem('scoreShooterGame', `${score}`);
+    this.resultGame.score = score;
+  }
+
+  saveResultGameToStorage(resultGame: ResultGame): void {
+    const db = new DataBase();
+    db.saveToStorage(resultGame);
   }
 
   initGame() {
