@@ -8,6 +8,7 @@
 $match-game-moon-size: 15vw;
 
 .match-game {
+  z-index: 0;
   position: relative;
   display: flex;
   justify-content: center;

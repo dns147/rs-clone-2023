@@ -103,25 +103,51 @@
 }
 
 // ==== table-styles ====
-.table {
+.table-container {
+  position: relative;
   width: 60%;
+  height: 50vh;
+  margin: 158px auto 20px;//100+38 + 20
+  overflow-y: auto;
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.table {
+  position: relative;
+  width: 100%;
   font-size: 18px;
   font-weight: 500;
   text-align: left;
-  border-collapse: collapse;
+  // border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 2px;
 
-  border-radius: $border-radius-big;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -khtml-border-radius: 10px;
-  overflow: hidden;
-  margin: 100px auto 20px;
+  @media (max-width: 620px) {
+    font-size: 14px;
+  }
 }
 
 .table__head {
+  position: sticky;
+  top: 0;
+
   font-family: 'HennyPenny';
   color: $text-color;
   background: $gradient-4;
+}
+
+.table thead td,
+.table thead th {
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
 }
 
 .table td,
