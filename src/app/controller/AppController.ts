@@ -1,4 +1,7 @@
 import AppModel from '../model/appModel';
+import CONST from '../../spa/coreConst';
+import Modal from '../pages/modal/modal';
+import ModalTemplates from '../pages/modal/modalTemplates';
 
 export default class AppController {
   model: AppModel;
@@ -37,6 +40,65 @@ export default class AppController {
       const card = <HTMLElement>event.target.closest('.card');
       const userSignIn = <HTMLElement>event.target.closest('.user-sign-in');
 
+      //  ==== nav-block, settings ====
+      const settingsBtn = document.querySelector('.settings-btn') as HTMLElement;
+      const homeBtn = document.querySelector('.home-btn') as HTMLElement;
+      const authFormBtn = document.querySelector('.main-user') as HTMLElement;
+      const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
+      const soundEffectsBtn = document.querySelector('.settings .sound-btn') as HTMLElement;
+      const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
+
+      const currEl = event.target;
+
+      if (currEl === homeBtn) {
+        const soundHome = new Audio(CONST.soundDoorScripSrc);
+        soundHome.volume = 0.3;
+        if (isSoundEffects) soundHome.play();
+      }
+
+      if (currEl === authFormBtn) {
+        const soundBooGhost = new Audio(CONST.soundBooSrc);
+        soundBooGhost.volume = 0.3;
+        if (isSoundEffects) soundBooGhost.play();
+      }
+
+      if (currEl === settingsBtn) {
+        const soundSettings = new Audio(CONST.soundSettingsSrc);
+        if (isSoundEffects) soundSettings.play();
+
+        const modalSettings = new Modal();
+        modalSettings.drawModal(ModalTemplates.modalTemplateSettings);
+        // this.music.stopMusic();
+      }
+
+      if (currEl === musicGameBtn) {
+        // this.music.playMusic();
+        const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
+        if (isMusic) {
+          localStorage.setItem('isMusic', JSON.stringify(false));
+          // this.music.stopMusic();
+          musicGameBtn.classList.add('off');
+        } else {
+          localStorage.setItem('isMusic', JSON.stringify(true));
+          // this.music.playMusic();
+          musicGameBtn.classList.remove('off');
+        }
+      }
+
+      if (currEl === soundEffectsBtn) {
+        soundEffectsBtn.classList.add('off');
+
+        // music.playMusic();
+        if (isSoundEffects) {
+          localStorage.setItem('isSoundEffects', JSON.stringify(false));
+          soundEffectsBtn.classList.add('off');
+        } else {
+          localStorage.setItem('isSoundEffects', JSON.stringify(true));
+          soundEffectsBtn.classList.remove('off');
+        }
+      }
+      //  ==== /settings ====
+
       if (card) {
         this.model.cardGame(card);
       }
@@ -48,7 +110,7 @@ export default class AppController {
           this.model.goToLoginContainer();
         }
       }
-      
+
       if (btnAuthorization) {
         this.model.authorization();
       }
@@ -87,7 +149,7 @@ export default class AppController {
     if (event.target instanceof Element) {
       const emailInput = <HTMLInputElement>event.target.closest('#email');
       const passwordInput = <HTMLInputElement>event.target.closest('#password');
-      
+
       if (emailInput) {
         this.model.validateEmail(emailInput);
       }

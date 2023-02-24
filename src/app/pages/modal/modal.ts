@@ -4,7 +4,8 @@ import soundSettingsSrc from '../../../assets/audio/effects/settings-1.mp3';
 
 export default class Modal {
   drawModal(myModalTemplate: string) {
-    const popup = createElem('div', 'popup', document.body);
+    const parentContainer = document.querySelector('.app') as HTMLElement;
+    const popup = createElem('div', 'popup', parentContainer);
     popup.innerHTML = this.render(myModalTemplate);
 
     //close modal-window on click on dark area
@@ -20,7 +21,6 @@ export default class Modal {
     });
 
     window.addEventListener('hashchange', () => {
-      console.log('The hash has changed!');
       popup.remove();
     });
   }
