@@ -49,6 +49,7 @@ const pumpkinLevel4 = new Audio(PUMPKIN_LIST_URL[16]);
 
 localStorage.setItem('isMusic', JSON.stringify(true));
 localStorage.setItem('isSoundEffects', JSON.stringify(true));
+const unknownUserName = 'unknown ghost';
 
 //images
 //for main page
@@ -95,4 +96,6 @@ export default {
   musicChildSongSrc,
   musicSomethHappenSrc,
   musicMagicMetamorphoseSrc,
+
+  unknownUserName,
 };
