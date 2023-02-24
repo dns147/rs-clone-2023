@@ -1,27 +1,24 @@
-import { myDatabase } from '../../firebase';
-import { ref, onValue } from "firebase/database";
 import './style-results.scss';
-import Music from '../../../utils/Music';
-import musicChildSongSrc from '../../../assets/audio/music/strashnye-zvuki-child-song.mp3';
+import { myDatabase } from '../../firebase';
+import { ref, onValue } from 'firebase/database';
 import { DataFromDb, DataFromDbInner, ResultGame } from '../../../spa/coreTypes';
+import Music from '../../../utils/Music';
+import CONST from '../../../spa/coreConst';
 
 export default class Results {
-  musicResultsSrc: string;
   music: Music;
 
   constructor() {
-    this.musicResultsSrc = musicChildSongSrc;
-    this.music = new Music(this.musicResultsSrc);
+    this.music = new Music(CONST.musicChildSongSrc);
   }
 
   render(): string {
     return `
       <div class="results-page results">
         <div class="container">
-          <div class="block-info">
-            <button class="btn--settings settings-btn"></button>
+          <div class="table-container">
+            ${this.templateTableResults()}
           </div>
-          ${this.templateTableResults()}
           <div class="animation-field">
             <div class="walk-ghost"></div>
           </div>
@@ -57,7 +54,7 @@ export default class Results {
 
   startLoader(): void {
     const loader = <HTMLElement>document.querySelector('.result-loader');
-    const loaderTxt = ["L", "o", "a", "d", "i", "n", "g", ".", ".", "."]
+    const loaderTxt = ['L', 'o', 'a', 'd', 'i', 'n', 'g', '.', '.', '.'];
     const spanLoader = [];
 
     for (let index = 0; index < loaderTxt.length; index += 1) {
@@ -67,14 +64,14 @@ export default class Results {
       spanLoader.push(spani);
     }
 
-    loader.append(...spanLoader);  
+    loader.append(...spanLoader);
   }
 
   getFromStorage(): void {
     const that = this;
     const dataFromDb = ref(myDatabase, 'users/');
 
-    onValue(dataFromDb, function(snapshot) {
+    onValue(dataFromDb, function (snapshot) {
       const resultData = snapshot.val();
       that.removeLoader();
       that.makeTable(resultData);
