@@ -2,7 +2,7 @@ import CONST from './../../../spa/coreConst';
 
 const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : CONST.unknownUserName;
 const userTemplate = `
-  <button class="main-user user-sign-in btn btn--col-3 accent-font" data-tooltip='sign in/out'>
+  <button class="main-user user-sign-in btn btn--col-3 accent-font" data-tooltip='sign in'>
     <div class="main-user-icon"></div>
     <span class="main-user-name">${userName}</span>
   </button>
