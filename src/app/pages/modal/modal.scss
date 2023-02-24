@@ -1,9 +1,9 @@
 @import './../../../scss/constants.scss';
-@import './../../../scss/base.scss';
+// @import './../../../scss/base.scss';
 
 // ===== popup ======
 .popup {
-  z-index: 100;
+  z-index: 100 !important;
   position: absolute;
 
   top: 0;
@@ -69,7 +69,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: none;
     min-width: 200px;
     width: 200px;
     margin: 0 auto 10px;
