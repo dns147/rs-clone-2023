@@ -1,5 +1,5 @@
 import './style-page2.scss';
-// import { start } from './utils-page2';
+import { setCanvasSize, createAllStars, animateSky, createShootingStar } from './utils-page2';
 
 export default class Page2 {
   constructor() {}
@@ -112,6 +112,11 @@ export default class Page2 {
   }
 
   init(): void {
-    // setTimeout(start, 300);
+    setCanvasSize();
+    createAllStars();
+    animateSky();
+    window.setInterval(() => {
+      createShootingStar();
+    }, 1500);
   }
 }
