@@ -1,5 +1,6 @@
 import Sprite from "./sprite";
 import { getImage } from "./utils-pumpkin-game";
+import modalMessageTemplates from '../modalMessage/modalMessageTemplates';
 
 const IMAGE_URL = [
 	require('../../../assets/sprites/pumpkin-good1.png'), // 0
@@ -35,20 +36,30 @@ const IMAGE_URL = [
 	require('../../../assets/sprites/skelet-back.png'), // 30
 ];
 
-const gameOverModalTemplate = `
-	<h2 class="pumpkin-modal title-message title-message--upper">Game Over</h2>
-	<button class="btn pumpkin-restart accent-font-upper">Restart</button>
-	<button class="btn pumpkin-exit accent-font-upper"><a class="exit" href="#">main page</a></button>
+const startGameBtnTemplate = `
+  <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>;
 `;
 
-const gameNextLevelModalTemplate = `
-	<h2 class="pumpkin-modal title-message">Good job!</h2>
-	<button class="btn accent-font-upper pumpkin-next-level ">Next Level</button>
-	<button class="btn accent-font-upper pumpkin-exit"><a class="exit" href="#">main page</a></button>
+const gameOverModalMessageTemplate = `
+	${modalMessageTemplates.gameOverMessageTemplate}
+	<button class="btns__item btn btn--col-7 accent-font accent-font--upper pumpkin-restart">Restart</button>
+	${modalMessageTemplates.toPlayGamesBtn}
+	${modalMessageTemplates.toResultsBtn}
 `;
+
+const nextLevelModalMessageTemplate = `
+	${modalMessageTemplates.successMessageTemplate}
+	<button class="btns__item btn btn--col-7 accent-font accent-font--upper pumpkin-next-level">Next Level</button>
+	${modalMessageTemplates.toPlayGamesBtn}
+	${modalMessageTemplates.toResultsBtn}
+`;
+
+const accentColorNumber = '#ff9900'; //$accent1-color from constants.scss
 
 export default {
-	IMAGE_URL,
-	gameOverModalTemplate,
-	gameNextLevelModalTemplate,
+  IMAGE_URL,
+  startGameBtnTemplate,
+  gameOverModalMessageTemplate,
+  nextLevelModalMessageTemplate,
+  accentColorNumber,
 };

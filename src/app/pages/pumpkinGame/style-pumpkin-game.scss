@@ -1,13 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap');
+@import './../../../scss/constants.scss';
+// @import url('https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap');
 
+//подключает шрифт on main page
 @font-face {
   font-family: 'SecretMidnight';
   src: url(../../../assets/fonts/SecretMidnight-518n8.otf);
-}
-
-@font-face {
-  font-family: 'Gilroy-Bold';
-  src: url(../../../assets/fonts/Gilroy-Bold.woff);
 }
 
 @keyframes AnimationColor {
@@ -56,7 +53,7 @@
 
 @mixin text-center {
   font-size: 80px;
-  color: #ffeb3b;
+  color: $accent2-color;
   z-index: 10;
   position: absolute;
   text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0,0,0,0.9);
@@ -65,6 +62,7 @@
 $heading-shadow: #f5f5f5;
 
 .game-container {
+  position: relative;
   height: 100vh;
   background-image: url(../../../assets/img/bg-pumpkin2.jpg);
   background-size: cover;
@@ -73,19 +71,22 @@ $heading-shadow: #f5f5f5;
 
   .status-panel {
     position: absolute;
-    width: 77%;
-    top: 9px;
-    font-family: 'SecretMidnight', sans-serif;
-    color: $heading-shadow;
-    font-size: 22px;
+    z-index: 101; //because conflict with navBlock
+    width: 800px; //40%, 370+20+130 !update
+    top: 20px;
+    left: 10%;
+    font-family: 'HennyPenny', 'Roboto', Arial, sans-serif;
+    font-size: 16px;
     display: flex;
     justify-content: space-between;
-    z-index: 1;
+    gap: 20px;
 
     .wrapper-pumpkin-level {
       display: flex;
       column-gap: 20px;
-      color: aquamarine;
+      background: $accent3-color;
+      border-radius: $border-radius;
+      padding: 22px 15px;
 
       .pumpkin-level,
       .pumpkin-score,
@@ -93,6 +94,8 @@ $heading-shadow: #f5f5f5;
       .electo-ball,
       .bomb,
       .freezing {
+        width: 38px;
+        height: 38px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -100,7 +103,9 @@ $heading-shadow: #f5f5f5;
 
         .pumpkin-level-name,
         .pumpkin-score-name {
-          border-bottom: 1px solid;
+          border-bottom: 1px solid $text-color-light;
+          padding: 4px;
+          margin: 0 0 4px 0;
         }
 
         .pumpkin-level-number,
@@ -109,14 +114,12 @@ $heading-shadow: #f5f5f5;
         .pumpkin-electro-number,
         .pumpkin-bomb-number,
         .pumpkin-freezing-number {
-          font-family: monospace;
-          color: white;
-          text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+          padding: 6px 0 0 0;
         }
 
         .pumpkin-shells-number {
-          font-size: 32px;
-          line-height: 100%;
+          font-size: 24px;
+          line-height: 1;
         }
       }
 
@@ -125,7 +128,9 @@ $heading-shadow: #f5f5f5;
       .pumpkin-electro-icon,
       .pumpkin-bomb-icon,
       .pumpkin-freezing-icon {
+        border: 1px solid transparent;
         padding: 4px;
+        transition: 0.1s;
       }
 
       .pumpkin-shells-icon:hover,
@@ -133,13 +138,13 @@ $heading-shadow: #f5f5f5;
       .pumpkin-bomb-icon:hover,
       .pumpkin-freezing-icon:hover {
         cursor: pointer;
-        outline: 1px solid orange;
-        border-radius: 10px;
+        border: 2px solid $accent2-color;
+        border-radius: $border-radius-small;
       }
 
       .select-weapon {
-        outline: 1px solid;
-        border-radius: 10px;
+        border: 2px solid;
+        border-radius: $border-radius-small;
       }
     }
 
@@ -147,46 +152,12 @@ $heading-shadow: #f5f5f5;
       position: absolute;
       left: 50%;
       align-self: center;
-      color: white;
-      font-family: monospace;
-      font-size: 32px;
-      text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
-    }
-
-    .icon-list {
-      align-self: center;
-      display: flex;
-      column-gap: 10px;
-
-      .user {
-        display: flex;
-        
-        .user-icon {
-          filter: brightness(0) saturate(100%) invert(82%) sepia(57%) saturate(315%) hue-rotate(94deg) brightness(99%) contrast(105%);
-          width: 22px;
-        }
-
-        .user-name {
-          width: 100px;
-          color: aquamarine;
-          font-family: monospace;
-          align-self: center;
-          margin-left: 10px;
-          font-size: 20px;
-        }
-      }
-
-      .pumpkin-exit {
-        align-self: center;
-        color: aquamarine;
-        font-size: 24px;
-        transform: rotate(10deg);
-      }
-
-      .pumpkin-exit:hover {
-        color: orange;
-        animation: AnimIconExit 0.7s infinite alternate linear;
-      }
+      color: $text-color-light;
+      font-size: 22px;
+      letter-spacing: 3.8px;
+      background: $accent3-color;
+      border-radius: $border-radius;
+      padding: 10px 15px;
     }
   }
 
@@ -198,23 +169,13 @@ $heading-shadow: #f5f5f5;
     justify-content: center;
     align-items: center;
 
-    .pumpkin-play {
-      @include btn-default;
-      font-family: 'SecretMidnight', sans-serif;
-      @include text-center;
-    }
-
-    .pumpkin-play:hover {
-      cursor: pointer;
-      color: #fb33f3;
-    }
-
     .round-number-wrapper {
-      font-family: 'Sigmar One', cursive;
       @include text-center;
-      font-size: 50px;
-      color: #4caf50;
+      font-family: 'HennyPenny', 'Roboto', Arial, sans-serif;
+      letter-spacing: 2.8px;
       text-transform: uppercase;
+      font-size: 42px;
+      color: $accent2-color;
       visibility: hidden;
     }
 
