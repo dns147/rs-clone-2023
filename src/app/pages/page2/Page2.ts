@@ -1,8 +1,16 @@
 import './style-page2.scss';
 import { setCanvasSize, createAllStars, animateSky, createShootingStar } from './utils-page2';
+import Music from '../../../utils/Music';
+import musicChildSongSrc from '../../../assets/audio/music/strashnye-zvuki-child-song.mp3';
 
 export default class Page2 {
-  constructor() {}
+  musicResultsSrc: string;
+  music: Music;
+
+  constructor() {
+    this.musicResultsSrc = musicChildSongSrc;
+    this.music = new Music(this.musicResultsSrc);
+  }
 
   render(): string {
     return `
@@ -118,5 +126,7 @@ export default class Page2 {
     window.setInterval(() => {
       createShootingStar();
     }, 1500);
+
+    this.music.playMusic();
   }
 }
