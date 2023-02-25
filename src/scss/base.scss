@@ -157,14 +157,15 @@ a:active {
 }
 
 .btn--col-3:hover,
-.btn--col-3:focus {
+.btn--col-3:focus,
+.btn--col-7:hover,
+.btn--col-7:focus{
   background: $gradient-5;
   background-color: $accent3-color;
   color: $text-color-light;
 }
 
-.btn--col-5:hover,
-.btn--col-7:hover {
+.btn--col-5:hover {
   background-color: $accent9-color;
   color: $text-color;
 }
@@ -220,7 +221,7 @@ a:active {
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-size: 24px;
-  margin: 0 0 10px 0;
+  margin: 0 0 15px 0;
 }
 
 .title--upper {
