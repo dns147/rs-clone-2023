@@ -9,7 +9,7 @@ import ShooterGame from './pages/shooterGame/shooterGame';
 import Results from './pages/results/results';
 import CemeteryGame from './pages/cemeteryGame/cemeteryGame';
 import ZombieGame from './pages/zombieGame/zombieGame';
-import Settings from './pages/settings/settings';
+import NavBlock from './pages/navBlock/navBlock';
 import Page10 from './pages/page10/Page10';
 import Page11 from './pages/page11/Page11';
 import Page12 from './pages/page12/Page12';
@@ -27,6 +27,7 @@ export default class App {
       header: Header,
       content: Content,
       footer: Footer,
+      navBlock: new NavBlock(),
     };
 
     const routes = {
@@ -39,7 +40,6 @@ export default class App {
       results: Results,
       cemeteryGame: CemeteryGame,
       zombieGame: ZombieGame,
-      settings: Settings,
       page10: Page10,
       page11: Page11,
       page12: Page12,

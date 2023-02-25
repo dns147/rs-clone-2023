@@ -5,7 +5,7 @@ import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
 import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize, playAudio, stopAudio } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
 import SOUND from '../../../spa/coreConst';
-import Modal from '../modal/modal';
+import ModalMessage from '../modalMessage/modalMessage';
 import DataBase from '../../../utils/dataBase';
 
 export default class PumpkinGame {
@@ -104,7 +104,7 @@ export default class PumpkinGame {
     this.intervalShoot = 800;
     this.enemySpeed = 30;
     this.isGameOver = true;
-    this.isMonsterStop = false
+    this.isMonsterStop = false;
     this.score = 0;
     this.numberPumpkins = 10;
     this.numberElectrons = 15;
@@ -160,10 +160,11 @@ export default class PumpkinGame {
     return `
       <div class="game-container">
         <div class="game-area">
+
           <div class="status-panel">
             <div class="wrapper-pumpkin-level">
               <div class="pumpkin-level">
-                <span class="pumpkin-level-name">LVL</span>
+                <span class="pumpkin-level-name">Level</span>
                 <span class="pumpkin-level-number">0</span>
               </div>
               <div class="pumpkin-score">
@@ -171,40 +172,27 @@ export default class PumpkinGame {
                 <span class="pumpkin-score-number">0</span>
               </div>
               <div class="shells">
-                <img src=${require("../../../assets/img/key1.png")} class="keyboard-key" alt="icon">
-                <img src=${require("../../../assets/img/pumpkin-icon.png")} class="pumpkin-shells-icon select-weapon" alt="icon">
+                <img src=${require('../../../assets/img/pumpkin-icon.png')} class="pumpkin-shells-icon select-weapon" alt="icon">
                 <span class="pumpkin-shells-number">∞</span>
               </div>
               <div class="electo-ball">
-                <img src=${require("../../../assets/img/key2.png")} class="keyboard-key" alt="icon">
-                <img src=${require("../../../assets/img/electro-ball.png")} class="pumpkin-electro-icon" alt="icon">
+                <img src=${require('../../../assets/img/electro-ball.png')} class="pumpkin-electro-icon" alt="icon">
                 <span class="pumpkin-electro-number">${this.numberElectrons}</span>
               </div>
               <div class="freezing">
-                <img src=${require("../../../assets/img/key3.png")} class="keyboard-key" alt="icon">
-                <img src=${require("../../../assets/img/freezing.png")} class="pumpkin-freezing-icon" alt="icon">
+                <img src=${require('../../../assets/img/freezing.png')} class="pumpkin-freezing-icon" alt="icon">
                 <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
               </div>
               <div class="bomb">
-                <img src=${require("../../../assets/img/key4.png")} class="keyboard-key" alt="icon">
-                <img src=${require("../../../assets/img/pumpkin-bomb.png")} class="pumpkin-bomb-icon" alt="icon">
+                <img src=${require('../../../assets/img/pumpkin-bomb.png')} class="pumpkin-bomb-icon" alt="icon">
                 <span class="pumpkin-bomb-number">${this.numberBombs}</span>
               </div>
             </div>
             <div class="time-game-pumpkin">
               <span class="time-pumpkin">00:00</span>
             </div>
-            <div class="icon-list">
-              <div class="user">
-                <img src=${require("../../../assets/img/user-solid.svg")} class="user-icon" alt="icon">
-                <span class="user-name">${userName}</span>
-              </div>
-              <a class="pumpkin-exit" href="#">
-                <i class="fa-solid fa-door-open"></i>
-              </a>
-            </div>
           </div>
-          <button class="pumpkin-play">Play</button>
+          ${CONSTS.startGameBtnTemplate}
           <div class="round-number-wrapper">
             Level <span class="round-number">1</span>
           </div>
@@ -232,7 +220,7 @@ export default class PumpkinGame {
     const pumpkinBomb = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
     pumpkinBomb.addEventListener('click', this.burstAllMonsters);
 
-    const pumpkinExit = <HTMLElement>document.querySelector('.pumpkin-exit');
+    const pumpkinExit = <HTMLElement>document.querySelector('.home-btn');
     pumpkinExit.addEventListener('click', () => {
       if (this.isMusic) {
         stopAudio(this.currentMusic);
@@ -301,7 +289,7 @@ export default class PumpkinGame {
   }
 
   preInitGame(): void {
-    const btnPlay = <HTMLButtonElement>document.querySelector('.pumpkin-play');
+    const btnPlay = <HTMLButtonElement>document.querySelector('.start-game-btn');
 
     btnPlay.addEventListener('click', () => {
       btnPlay.style.display = 'none';
@@ -703,7 +691,7 @@ export default class PumpkinGame {
 
       if (this.numberElectrons === 0) {
         const numberElectron = <HTMLSpanElement>document.querySelector('.pumpkin-electro-number');
-        numberElectron.style.color = 'red';
+        numberElectron.style.color = CONSTS.accentColorNumber;
       }
 
       if (localStorage['currentWeapon'] === 'pumpkin') {
@@ -1065,8 +1053,8 @@ export default class PumpkinGame {
     this.gameLevel = 1;
     this.score = 0;
 
-    const modal = new Modal();
-    modal.drawModalWithoutClose(CONSTS.gameOverModalTemplate);
+    const gameOverModalMessage = new ModalMessage();
+    gameOverModalMessage.drawModalMessage(CONSTS.gameOverModalMessageTemplate, false);
 
     const pumpkinRestart = <HTMLElement>document.querySelector('.pumpkin-restart');
     pumpkinRestart.addEventListener('click', () => {
@@ -1091,6 +1079,7 @@ export default class PumpkinGame {
 
       this.setRoundName();
     });
+
  }
 
   makeTimer(min: number, sec: number): void {
@@ -1158,8 +1147,8 @@ export default class PumpkinGame {
     this.bombs = [];
     this.electrons = [];
 
-    const modal = new Modal();
-    modal.drawModalWithoutClose(CONSTS.gameNextLevelModalTemplate);
+    const nextLevelModalMessage = new ModalMessage();
+    nextLevelModalMessage.drawModalMessage(CONSTS.nextLevelModalMessageTemplate, false);
 
     const pumpkinNextLevel = <HTMLElement>document.querySelector('.pumpkin-next-level');
     pumpkinNextLevel.addEventListener('click', this.setRoundName);
@@ -1180,7 +1169,7 @@ export default class PumpkinGame {
 
     if (this.numberFreezers === 0) {
       const numberFreezers = <HTMLSpanElement>document.querySelector('.pumpkin-freezing-number');
-      numberFreezers.style.color = 'red';
+      numberFreezers.style.color = CONSTS.accentColorNumber;
     }
   }
 
@@ -1196,7 +1185,7 @@ export default class PumpkinGame {
 
     if (this.numberBombs === 0) {
       const numberBomb = <HTMLSpanElement>document.querySelector('.pumpkin-bomb-number');
-      numberBomb.style.color = 'red';
+      numberBomb.style.color = CONSTS.accentColorNumber;
     }
   }
 
@@ -1237,3 +1226,27 @@ export default class PumpkinGame {
     db.saveToStorage(this.resultGame);
   }
 }
+
+// c.197
+// <button class="pumpkin-play">Play</button>
+
+// <div class="shells">
+//   <img src=${require("../../../assets/img/key1.png")} class="keyboard-key" alt="icon">
+//   <img src=${require("../../../assets/img/pumpkin-icon.png")} class="pumpkin-shells-icon select-weapon" alt="icon">
+//   <span class="pumpkin-shells-number">∞</span>
+// </div>
+// <div class="electo-ball">
+//   <img src=${require("../../../assets/img/key2.png")} class="keyboard-key" alt="icon">
+//   <img src=${require("../../../assets/img/electro-ball.png")} class="pumpkin-electro-icon" alt="icon">
+//   <span class="pumpkin-electro-number">${this.numberElectrons}</span>
+// </div>
+// <div class="freezing">
+//   <img src=${require("../../../assets/img/key3.png")} class="keyboard-key" alt="icon">
+//   <img src=${require("../../../assets/img/freezing.png")} class="pumpkin-freezing-icon" alt="icon">
+//   <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
+// </div>
+// <div class="bomb">
+//   <img src=${require("../../../assets/img/key4.png")} class="keyboard-key" alt="icon">
+//   <img src=${require("../../../assets/img/pumpkin-bomb.png")} class="pumpkin-bomb-icon" alt="icon">
+//   <span class="pumpkin-bomb-number">${this.numberBombs}</span>
+// </div>

@@ -1,4 +1,5 @@
-@import "./../../../scss/constants.scss";
+@import './../../../scss/constants.scss';
+// @import './../../../scss/base.scss';
 
 @font-face {
   font-family: 'HennyPenny';
@@ -6,7 +7,7 @@
 }
 
 .popup-message {
-  z-index: 14;
+  z-index: 115;
 
   &__content {
     width: 60%;
@@ -23,19 +24,19 @@
     text-align: center;
   }
 
-  .title-message {
-    font-family: 'HennyPenny';
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: $text-color-light;
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
+  .btns__container {
+    display: flex;
+    // gap: 20px;
+    align-items: center;
   }
 
-  .score-message {
-    font-weight: 700;
-    font-size: 22px;
-    color: $accent6-color;
+  .btns__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: none;
+    min-width: 200px;
+    width: 200px;
+    margin: 0 auto 10px;
   }
 }

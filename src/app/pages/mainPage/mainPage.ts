@@ -1,10 +1,13 @@
-import { createElem } from '../../../utils/createElem';
 import './style-main-page.scss';
-import CONSTS from '../../../spa/coreConst';
-import { changeSignInButton } from '../authForm/utils-auth-form';
+import CONST from '../../../spa/coreConst';
+import Music from '../../../utils/Music';
 
 export default class MainPage {
-  constructor() {}
+  music: Music;
+
+  constructor() {
+    this.music = new Music(CONST.musicMagicMetamorphoseSrc);
+  }
 
   render(): string {
     return `<div class="home">
@@ -13,11 +16,11 @@ export default class MainPage {
         <div class="home-sky-wrapper">
 
             <div class="home-sky-witch-left">
-              <img class="home-sky-witch-left__img" src=${CONSTS.witch1Img} alt="witch">
+              <img class="home-sky-witch-left__img" src=${CONST.witch1Img} alt="witch">
             </div>
 
             <div class="home-sky-witch-right">
-              <img class="home-sky-witch-right__img" src=${CONSTS.witch2Img} alt="witch">
+              <img class="home-sky-witch-right__img" src=${CONST.witch2Img} alt="witch">
             </div>
 
             <div class="home-moon">
@@ -40,11 +43,11 @@ export default class MainPage {
       <div class="home-castle-ground">
         <div class="home-castle-ground-wrapper">
           <div class="home-castle">
-            <img class="home-castle__img" src=${CONSTS.castleImg} alt="castle">
+            <img class="home-castle__img" src=${CONST.castleImg} alt="castle">
           </div>
           <div class="home-ground"></div>
           <div class="home-hero">
-            <img class="home-hero__img" src=${CONSTS.grimReaperImg} alt="hero">
+            <img class="home-hero__img" src=${CONST.grimReaperImg} alt="hero">
           </div>
         </div>
       </div>
@@ -52,10 +55,10 @@ export default class MainPage {
       <div class="ground-front">
         <div class="ground-front-wrapper">
           <div class="home-graves">
-            <img class="home-graves__img" src=${CONSTS.gravesShortImg} alt="graves">
+            <img class="home-graves__img" src=${CONST.gravesShortImg} alt="graves">
           </div>
           <div class="home-tree-right">
-            <img class="home-tree-right__img" src="${CONSTS.treeImg}" alt="tree">
+            <img class="home-tree-right__img" src="${CONST.treeImg}" alt="tree">
           </div>
         </div>
       </div>
@@ -69,7 +72,7 @@ export default class MainPage {
         </h1>
 
         <div class="home-buttons-container">
-          <a class="home-button btn btn--big accent-font-upper" href="#/chooseGames">
+          <a class="home-button btn btn--big accent-font accent-font--upper" href="#/chooseGames">
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
@@ -80,18 +83,7 @@ export default class MainPage {
               <div class="home-button__animation-2"></div>
             </span>
           </a>
-          <a class="home-button btn btn--big accent-font-upper" href="#/settings">
-            <span class="home-button__icon">
-              <div class="home-button__animation-1"></div>
-              <div class="home-button__animation-2"></div>
-            </span>
-            <span class="home-button__text">settings</span>  
-            <span class="home-button__icon">
-              <div class="home-button__animation-1"></div>
-              <div class="home-button__animation-2"></div>
-            </span>
-          </a>
-          <a class="home-button btn btn--big accent-font-upper" href="#/about">
+          <a class="home-button btn btn--big accent-font accent-font--upper" href="#/about">
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
@@ -102,7 +94,7 @@ export default class MainPage {
               <div class="home-button__animation-2"></div>
             </span>
           </a>
-          <a class="home-button btn btn--big accent-font-upper" href="#/results">
+          <a class="home-button btn btn--big accent-font accent-font--upper" href="#/results">
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
@@ -122,20 +114,6 @@ export default class MainPage {
   }
 
   init(): void {
-    const mainUser = createElem('button', 'main-user-container container', 'main');
-    mainUser.innerHTML = CONSTS.userTemplate;
-
-    const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : 'unknown ghost';
-    const userNameTag = <HTMLSpanElement>document.querySelector('.main-user-name');
-    userNameTag.textContent = userName;
-
-    if (localStorage['userName']) {
-      changeSignInButton(true);
-    }
+    this.music.playMusic();
   }
 }
-
-// const signInButtonStatus = localStorage['userName'] ? 'sign out' : 'sign in';
-// <button class="home-button btn btn--big accent-font-upper user-sign-in">
-//   <span class="home-button__text user-sign-in-text">${signInButtonStatus}</span>
-// </button>

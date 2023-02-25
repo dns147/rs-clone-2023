@@ -44,6 +44,10 @@ a:active {
   min-height: 100%;
 }
 
+.main {
+  height: 100vh;
+}
+
 .main-flex {
   flex: 1 1 auto;
 }
@@ -118,6 +122,7 @@ a:active {
 
 .btn--fixed-center {
   position: fixed;
+  z-index: 50;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -139,18 +144,6 @@ a:active {
   height: auto;
 }
 
-.accent-font {
-  font-family: 'HennyPenny';
-  letter-spacing: 2px;
-  height: auto;
-}
-.accent-font-upper {
-  font-family: 'HennyPenny';
-  letter-spacing: 2px;
-  height: auto;
-  text-transform: uppercase;
-}
-
 .btn:hover,
 .btn:focus {
   background: $gradient-4;
@@ -164,14 +157,15 @@ a:active {
 }
 
 .btn--col-3:hover,
-.btn--col-3:focus {
+.btn--col-3:focus,
+.btn--col-7:hover,
+.btn--col-7:focus{
   background: $gradient-5;
   background-color: $accent3-color;
   color: $text-color-light;
 }
 
-.btn--col-5:hover,
-.btn--col-7:hover {
+.btn--col-5:hover {
   background-color: $accent9-color;
   color: $text-color;
 }
@@ -182,7 +176,7 @@ a:active {
   color: $text-color-light;
 }
 
-// scrollbar in overflow-y
+// ==== scrollbar in overflow-y ====
 ::-webkit-scrollbar-track {
   background: $gray-color-light;
   border-radius: 10px;
@@ -197,11 +191,19 @@ a:active {
 ::-webkit-scrollbar {
   width: 10px;
 }
+// ==== /scrollbar in overflow-y ====
 
-.title-message {
+.accent-font {
   font-family: 'HennyPenny';
-  // letter-spacing: 0.8px;
-  // text-transform: uppercase;
+  letter-spacing: 2px;
+  height: auto;
+}
+.accent-font--upper {
+  text-transform: uppercase;
+}
+
+.title-modal {
+  font-family: 'HennyPenny';
   color: $text-color-light;
   font-weight: 700;
   text-align: center;
@@ -210,23 +212,50 @@ a:active {
   letter-spacing: 2.8px;
   font-size: 32px;
 }
+.title-modal-message {
+  font-family: 'HennyPenny';
+  color: $text-color-light;
+  font-weight: 700;
+  text-align: center;
 
-.title-message--upper {
-    text-transform: uppercase;
-  }
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 24px;
+  margin: 0 0 15px 0;
+}
 
-.title-message--dark {
+.title--upper {
+  text-transform: uppercase;
+}
+
+.title--dark {
   color: $text-color;
 }
 
-.score-message {
-  font-weight: 700;
+.text-message {
+  color: $text-color;
   font-size: 22px;
-  color: $accent6-color;
+  font-weight: 700;
+  font-family: 'HennyPenny';
 }
 
-//==== @keyframes ====
-// animation: show-content 1s forwards; 
+.score-number {
+  // font-family: 'Roboto', Arial, sans-serif;;
+  font-weight: 700;
+  font-size: 24px;
+  color: $accent6-color;
+  padding: 0 10px;
+}
+
+.score-info {
+  background: $gradient-4;
+  font-size: 22px;
+  line-height: 1;
+  cursor: default;
+}
+
+// ==== @keyframes ====
+// animation: show-content 1s forwards;
 
 @keyframes show-content {
   0% {
@@ -237,13 +266,20 @@ a:active {
   }
 }
 
-@keyframes show-from-bottom { 
-  0%{
+@keyframes show-from-bottom {
+  0% {
     opacity: 0;
     transform: translateY(200%);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateY(0%);
   }
+}
+
+// ==== @mixins ====
+@mixin background-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }

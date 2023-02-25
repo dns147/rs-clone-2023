@@ -5,6 +5,7 @@ export default class Music {
   constructor(musicSrc: string) {
     this.music = new Audio();
     this.music.src = musicSrc;
+    this.music.volume = 0.2;
     this.isMusic = JSON.parse(localStorage.getItem('isMusic') || '{}');
 
     window.addEventListener('hashchange', () => {
@@ -15,7 +16,6 @@ export default class Music {
     this.updateIsMusic();
     if (this.isMusic) {
       this.music.play();
-      this.music.volume = 0.2;
     }
   }
   stopMusic() {

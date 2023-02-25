@@ -1,10 +1,11 @@
 @import './../../../scss/constants.scss';
+// @import './../../../scss/base.scss';
 
 // ===== popup ======
 .popup {
-  z-index: 15;
-
+  z-index: 100 !important;
   position: absolute;
+
   top: 0;
   bottom: 0;
   right: 0;
@@ -33,28 +34,6 @@
     right: 25px;
   }
 
-  .title-message {
-    font-family: 'HennyPenny';
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: $text-color-light;
-    font-weight: 700;
-    text-align: center;
-
-    text-transform: none;
-    letter-spacing: 2.8px;
-    font-size: 32px;
-  }
-
-  // .title-message--upper {
-  //   text-transform: uppercase;
-  // }
-
-  .score-message {
-    font-weight: 700;
-    font-size: 22px;
-    color: $accent6-color;
-  }
 
   .pumpkin-modal {
     // text-align: center;
@@ -66,12 +45,80 @@
   .pumpkin-next-level,
   .pumpkin-exit,
   .pumpkin-restart {
-    margin: 0 auto;
-    margin-top: 20px;
-    display: block;
+    // margin: 0 auto;
+    // margin-top: 20px;
+    // display: block;
     
     .exit {
-      color: black;
+      // color: black;
     }
   }
 }
+
+// ===== modal-Settings ====
+.settings {
+  &__container {
+    align-items: center;
+  }
+
+  &__title {
+    margin: 0 0 20px 0;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    width: 200px;
+    margin: 0 auto 10px;
+  }
+
+  &__btn span {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 20px 0 0;
+  }
+
+  &__btn--sound,
+  &__btn--music {
+    width: auto;
+  }
+
+  &__btn--sound:hover,
+  &__btn--music:hover,
+  &__btn--sound:focus,
+  &__btn--music:focus {
+    background: none;
+    background-color: transparent;
+  }
+  &__btn--sound span {
+    background-image: url(./../../../assets/icons/icon-speaker-audio-1.png);
+    transform: scale(1.15);
+  }
+  &__btn--music span {
+    background-image: url(./../../../assets/icons/icon-music-alt-1.png);
+  }
+
+  &__btn span:after {
+    position: absolute;
+    content: "";
+    top: -6px;
+    left: 15px;
+    display: inline-block;
+    opacity: 0;
+    width: 3px;
+    height: 40px;
+    border-radius: $border-radius;
+    background-color: #fff;
+    transform: rotate(30deg);
+  }
+  &__btn.off span:after {
+    opacity: 1;
+  }
+}
+// ===== /modal-Settings ====

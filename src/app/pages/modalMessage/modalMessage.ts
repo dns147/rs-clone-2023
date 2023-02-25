@@ -15,6 +15,10 @@ export default class ModalMessage {
         }
       }, 3000);
     }
+
+    window.addEventListener('hashchange', () => {
+      modalMessage.remove();
+    });
   }
 
   render(message: string): string {
