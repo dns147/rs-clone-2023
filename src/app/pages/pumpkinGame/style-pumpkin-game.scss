@@ -72,7 +72,7 @@ $heading-shadow: #f5f5f5;
   .status-panel {
     position: absolute;
     z-index: 101; //because conflict with navBlock
-    width: 800px; //40%, 370+20+130 !update
+    width: 500px; //40%, 370+20+130
     top: 20px;
     left: 10%;
     font-family: 'HennyPenny', 'Roboto', Arial, sans-serif;
@@ -149,8 +149,6 @@ $heading-shadow: #f5f5f5;
     }
 
     .time-game-pumpkin {
-      position: absolute;
-      left: 50%;
       align-self: center;
       color: $text-color-light;
       font-size: 22px;
