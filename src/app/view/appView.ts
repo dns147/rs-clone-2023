@@ -19,6 +19,8 @@ export default class AppView {
 
     this.isValidEmail = false;
     this.isValidPassword = false;
+
+    //this.showGamePumpkinInfo();
   }
 
   goToLoginContainer(): void {
@@ -105,5 +107,16 @@ export default class AppView {
 
   cardGame(card: HTMLElement): void {
     flipCard(card);
+  }
+
+  showGamePumpkinInfo(): void {
+    const hash: string = window.location.hash.slice(2);
+    const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
+    
+    if (hash === 'pumpkinGame') {      
+      gameInfoBtn.classList.remove('hide');
+    } else {
+      gameInfoBtn.classList.add('hide');
+    }
   }
 }

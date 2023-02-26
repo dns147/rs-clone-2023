@@ -193,38 +193,39 @@ export default class PumpkinGame {
 
     return `
       <div class="game-container">
-        <div class="game-area">
-          <div class="status-panel">
-            <div class="wrapper-pumpkin-level">
-              <div class="pumpkin-level">
-                <span class="pumpkin-level-name">Level</span>
-                <span class="pumpkin-level-number">0</span>
-              </div>
-              <div class="pumpkin-score">
-                <span class="pumpkin-score-name">Score</span>
-                <span class="pumpkin-score-number">0</span>
-              </div>
-              <div class="shells">
-                <img src=${require('../../../assets/img/pumpkin-icon.png')} class="pumpkin-shells-icon select-weapon" width="38" alt="icon">
-                <span class="pumpkin-shells-number">∞</span>
-              </div>
-              <div class="electo-ball">
-                <img src=${require('../../../assets/img/electro-ball.png')} class="pumpkin-electro-icon" width="38" alt="icon">
-                <span class="pumpkin-electro-number">${this.numberElectrons}</span>
-              </div>
-              <div class="freezing">
-                <img src=${require('../../../assets/img/freezing.png')} class="pumpkin-freezing-icon" width="38" alt="icon">
-                <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
-              </div>
-              <div class="bomb">
-                <img src=${require('../../../assets/img/bomb-mini.png')} class="pumpkin-bomb-icon" width="38" alt="icon">
-                <span class="pumpkin-bomb-number">${this.numberBombs}</span>
-              </div>
+        <div class="status-panel">
+          <div class="wrapper-pumpkin-level">
+            <div class="pumpkin-level">
+              <span class="pumpkin-level-name">Level</span>
+              <span class="pumpkin-level-number">0</span>
             </div>
-            <div class="time-game-pumpkin">
-              <span class="time-pumpkin">00:00</span>
+            <div class="pumpkin-score">
+              <span class="pumpkin-score-name">Score</span>
+              <span class="pumpkin-score-number">0</span>
+            </div>
+            <div class="shells">
+              <img src=${require('../../../assets/img/pumpkin-icon.png')} class="pumpkin-shells-icon select-weapon" width="38" alt="icon">
+              <span class="pumpkin-shells-number">∞</span>
+            </div>
+            <div class="electo-ball">
+              <img src=${require('../../../assets/img/electro-ball.png')} class="pumpkin-electro-icon" width="38" alt="icon">
+              <span class="pumpkin-electro-number">${this.numberElectrons}</span>
+            </div>
+            <div class="freezing">
+              <img src=${require('../../../assets/img/freezing.png')} class="pumpkin-freezing-icon" width="38" alt="icon">
+              <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
+            </div>
+            <div class="bomb">
+              <img src=${require('../../../assets/img/bomb-mini.png')} class="pumpkin-bomb-icon" width="38" alt="icon">
+              <span class="pumpkin-bomb-number">${this.numberBombs}</span>
             </div>
           </div>
+          <div class="time-game-pumpkin">
+            <span class="min">00</span><span>:</span><span class="sec">00</span>
+          </div>
+        </div>
+
+        <div class="game-area">
           ${ModalMessageTemplates.startGameBtnTemplate}
           <div class="round-number-wrapper">
             Level <span class="round-number">1</span>
@@ -247,9 +248,12 @@ export default class PumpkinGame {
   }
 
   init(): void {
-    this.showGameInfo();
     (<HTMLElement>document.querySelector('.pumpkin-freezing-icon')).addEventListener('click', this.freezMonsters);
     (<HTMLElement>document.querySelector('.pumpkin-bomb-icon')).addEventListener('click', this.burstAllMonsters);
+    
+    const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
+    gameInfoBtn.classList.remove('hide');
+    gameInfoBtn.addEventListener('click', this.showGameInfo);
 
     window.addEventListener('hashchange', this.finishGame);
     window.addEventListener('resize', () => document.location.reload());
@@ -318,25 +322,18 @@ export default class PumpkinGame {
   }
 
   showGameInfo(): void {
-    const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
-    gameInfoBtn.classList.remove('hide');
-
-    gameInfoBtn.addEventListener('click', () => {
-      const gameInfoModal = new Modal();
-      gameInfoModal.drawModal(ModalTemplates.gameInfoModalTemplate);
-    });
-
-    window.addEventListener('hashchange', () => {
-      gameInfoBtn.classList.add('hide');
-    });
+    const gameInfoModal = new Modal();
+    gameInfoModal.drawModal(ModalTemplates.gameInfoModalTemplate);
   }
 
   setRoundName(): void {
     const popup = <HTMLElement>document.querySelector('.popup');
     popup?.remove();
 
-    const time = <HTMLSpanElement>document.querySelector('.time-pumpkin');
-    time.textContent = normalize(0) + ':' + normalize(0);
+    const timeMin = <HTMLSpanElement>document.querySelector('.min');
+    const timeSec = <HTMLSpanElement>document.querySelector('.sec');
+    timeMin.textContent = normalize(0);
+    timeSec.textContent = normalize(0);
 
     const gameLevel = <HTMLSpanElement>document.querySelector('.pumpkin-level-number');
     gameLevel.textContent = `${this.gameLevel}`;
@@ -1304,22 +1301,28 @@ export default class PumpkinGame {
 
   makeTimer(min: number, sec: number): void {
     const that = this;
-    const time = <HTMLSpanElement>document.querySelector('.time-pumpkin');
+    const timeMin = <HTMLSpanElement>document.querySelector('.min');
+    const timeSec = <HTMLSpanElement>document.querySelector('.sec');
 
     if (this.gameLevel === 4) {
-      time.textContent = '∞' + ':' + '∞';
+      timeMin.textContent = '∞';
+      timeSec.textContent = '∞';
       return;
     }
 
     setTimeout(function tick() {
-      time.textContent = normalize(min) + ':' + normalize(sec);
+      timeMin.textContent = normalize(min);
+      timeSec.textContent = normalize(sec);
+      //time.textContent = normalize(min) + ':' + normalize(sec);
 
       if (min >= 0 && !that.isGameOver) {
         setTimeout(tick, 1000);
       }
 
       if (min < 0) {
-        time.textContent = normalize(0) + ':' + normalize(0);
+        timeMin.textContent = normalize(0);
+        timeSec.textContent = normalize(0);
+        //time.textContent = normalize(0) + ':' + normalize(0);
         that.gameLevel += 1;
         that.nextLevel();
       }

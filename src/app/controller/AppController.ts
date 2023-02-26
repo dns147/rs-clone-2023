@@ -15,11 +15,13 @@ export default class AppController {
     this.getEventsInput = this.getEventsInput.bind(this);
     this.getEventsMouse = this.getEventsMouse.bind(this);
     this.setKeyUp = this.setKeyUp.bind(this);
+    this.showGamePumpkinInfo = this.showGamePumpkinInfo.bind(this);
 
     document.addEventListener('click', this.getEventsClick);
     document.addEventListener('input', this.getEventsInput);
     document.addEventListener('mousemove', this.getEventsMouse);
     document.addEventListener('keyup', this.setKeyUp);
+    window.addEventListener('hashchange', this.showGamePumpkinInfo);
   }
 
   getEventsClick(event: Event): void {
@@ -179,5 +181,9 @@ export default class AppController {
 
   setKeyUp(event: KeyboardEvent): void {
     this.model.setKeyUp(event);
+  }
+
+  showGamePumpkinInfo(): void {
+    this.model.showGamePumpkinInfo();
   }
 }
