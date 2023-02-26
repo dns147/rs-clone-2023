@@ -16,6 +16,10 @@
     background-color: $accent5-color;
     padding: 30px 22px;
     border-radius: $border-radius-big;
+    @media (max-width: 480px) {
+      width: 80%;
+      padding: 22px 18px;
+    }
   }
 
   &__message-info {
@@ -26,7 +30,6 @@
 
   .btns__container {
     display: flex;
-    // gap: 20px;
     align-items: center;
   }
 
