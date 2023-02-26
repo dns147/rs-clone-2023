@@ -439,7 +439,7 @@ export default class PumpkinGame {
     this.electroWeapon = {
       rotate: 0,
       pos: [0, 0],
-      sprite: new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0),
+      sprite: new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [48, 45], 1, [0], null, false, 0),
       width: 48,
       height: 45,
       clickInfo: {
@@ -459,14 +459,14 @@ export default class PumpkinGame {
     this.monsterGame3 = new Sprite(getImage(this.images, this.imagesUrl[5]), [0, 0], [105, 67], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
     this.monsterGame4 = new Sprite(getImage(this.images, this.imagesUrl[6]), [0, 0], [111, 95], 5, [0, 1, 2, 3, 4, 5], null, false, 0);
     this.monsterGame5 = new Sprite(getImage(this.images, this.imagesUrl[4]), [0, 0], [90, 78], 2, [0, 1, 2, 3, 4, 5], null, false, 0);
-    this.monsterGame6 = new Sprite(getImage(this.images, this.imagesUrl[16]), [0, 0], [87, 50], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
-    this.monsterGame7 = new Sprite(getImage(this.images, this.imagesUrl[18]), [0, 0], [75, 83], 5, [0, 1, 2, 3, 4, 5, 4, 3, 2, 1], null, false, 0);
-    this.monsterGame8 = new Sprite(getImage(this.images, this.imagesUrl[20]), [0, 0], [82, 50], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
-    this.monsterGame9 = new Sprite(getImage(this.images, this.imagesUrl[22]), [0, 0], [75, 83], 5, [5, 4, 3, 2, 1, 0, 1, 2, 3, 4], null, false, 0);
-    this.monsterGame10 = new Sprite(getImage(this.images, this.imagesUrl[27]), [0, 0], [95, 52], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
-    this.monsterGame11 = new Sprite(getImage(this.images, this.imagesUrl[28]), [0, 0], [96, 52], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
-    this.monsterGame12 = new Sprite(getImage(this.images, this.imagesUrl[25]), [0, 0], [162, 94], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
-    this.monsterGame13 = new Sprite(getImage(this.images, this.imagesUrl[26]), [0, 0], [164, 99], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
+    this.monsterGame6 = new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [87, 50], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
+    this.monsterGame7 = new Sprite(getImage(this.images, this.imagesUrl[15]), [0, 0], [75, 83], 5, [0, 1, 2, 3, 4, 5, 4, 3, 2, 1], null, false, 0);
+    this.monsterGame8 = new Sprite(getImage(this.images, this.imagesUrl[16]), [0, 0], [82, 50], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
+    this.monsterGame9 = new Sprite(getImage(this.images, this.imagesUrl[17]), [0, 0], [75, 83], 5, [5, 4, 3, 2, 1, 0, 1, 2, 3, 4], null, false, 0);
+    this.monsterGame10 = new Sprite(getImage(this.images, this.imagesUrl[20]), [0, 0], [95, 52], 5, [0, 1, 2, 3, 2, 1], null, false, 0);
+    this.monsterGame11 = new Sprite(getImage(this.images, this.imagesUrl[21]), [0, 0], [96, 52], 5, [3, 2, 1, 0, 1, 2], null, false, 0);
+    this.monsterGame12 = new Sprite(getImage(this.images, this.imagesUrl[18]), [0, 0], [162, 94], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
+    this.monsterGame13 = new Sprite(getImage(this.images, this.imagesUrl[19]), [0, 0], [164, 99], 5, [0, 1, 2, 3, 4, 5, 6, 7], null, false, 0);
   }
 
   //--- Главный цикл игры ---
@@ -622,21 +622,21 @@ export default class PumpkinGame {
         case 0:
           this.freezers.push({
             pos: [Math.random() * this.canvasWidth - 15, 0],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[15]), [0, 0], [53, 53], 1, [0], null, false, 0),
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[13]), [0, 0], [53, 53], 1, [0], null, false, 0),
           });
           break;
 
         case 1:
           this.bombs.push({
             pos: [Math.random() * this.canvasWidth - 15, 0],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[9]), [0, 0], [49, 46], 1, [0], null, false, 0),
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[8]), [0, 0], [49, 46], 1, [0], null, false, 0),
           });
         break;
 
         case 2:
           this.electrons.push({
             pos: [Math.random() * this.canvasWidth - 15, 0],
-            sprite: new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0),
+            sprite: new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [48, 45], 1, [0], null, false, 0),
           });
         break;
       }
@@ -702,7 +702,7 @@ export default class PumpkinGame {
       const distance: number = clickInfo.distance;
 
       if (localStorage['currentWeapon'] === 'electro' && this.numberElectrons > 0) {
-        const spriteWeapon: Sprite = new Sprite(getImage(this.images, this.imagesUrl[14]), [0, 0], [48, 45], 1, [0], null, false, 0);
+        const spriteWeapon: Sprite = new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [48, 45], 1, [0], null, false, 0);
 
         this.weapons.push({
           pos: [this.canvasWidth/2, this.canvasHeight/2],
@@ -1021,12 +1021,12 @@ export default class PumpkinGame {
     if (localStorage['currentWeapon'] === 'electro') {
       this.bursts.push({
         pos: pos1,
-        sprite: new Sprite(getImage(this.images, this.imagesUrl[12]), [0, 0], [94, 94], 8, [0, 1, 2, 3, 4, 5], null, true, 0),
+        sprite: new Sprite(getImage(this.images, this.imagesUrl[10]), [0, 0], [94, 94], 8, [0, 1, 2, 3, 4, 5], null, true, 0),
       });
     } else {
       this.bursts.push({
         pos: pos1,
-        sprite: new Sprite(getImage(this.images, this.imagesUrl[8]), [0, 0], [61, 61], 8, [0, 1, 2, 3], null, true, 0),
+        sprite: new Sprite(getImage(this.images, this.imagesUrl[7]), [0, 0], [61, 61], 8, [0, 1, 2, 3], null, true, 0),
       });
     }
 
@@ -1038,7 +1038,7 @@ export default class PumpkinGame {
   addExplosion(pos1: number[]): void {
     this.bursts.push({
       pos: pos1,
-      sprite: new Sprite(getImage(this.images, this.imagesUrl[11]), [0, 0], [250, 256], 6, [0, 1, 2, 3, 4, 5], null, true, 0),
+      sprite: new Sprite(getImage(this.images, this.imagesUrl[9]), [0, 0], [250, 256], 6, [0, 1, 2, 3, 4, 5], null, true, 0),
     });
 
     if (this.isSound) {
@@ -1049,7 +1049,7 @@ export default class PumpkinGame {
   addBurstItem(pos1: number[]): void {
     this.bursts.push({
       pos: pos1,
-      sprite: new Sprite(getImage(this.images, this.imagesUrl[13]), [0, 0], [69, 69], 10, [0, 1, 2, 3, 4, 5, 6, 7], null, true, 0),
+      sprite: new Sprite(getImage(this.images, this.imagesUrl[11]), [0, 0], [69, 69], 10, [0, 1, 2, 3, 4, 5, 6, 7], null, true, 0),
     });
 
     if (this.isSound) {
