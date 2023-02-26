@@ -6,7 +6,10 @@ import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize, pl
 import CONSTS from './consts-pumpkin-game';
 import SOUND from '../../../spa/coreConst';
 import ModalMessage from '../modalMessage/modalMessage';
+import ModalMessageTemplates from '../modalMessage/modalMessageTemplates';
 import DataBase from '../../../utils/dataBase';
+import Modal from '../modal/modal';
+import ModalTemplates from '../modal/modalTemplates';
 
 export default class PumpkinGame {
   canvas: HTMLCanvasElement | null;
@@ -192,7 +195,7 @@ export default class PumpkinGame {
               <span class="time-pumpkin">00:00</span>
             </div>
           </div>
-          ${CONSTS.startGameBtnTemplate}
+          ${ModalMessageTemplates.startGameBtnTemplate}
           <div class="round-number-wrapper">
             Level <span class="round-number">1</span>
           </div>
@@ -214,6 +217,7 @@ export default class PumpkinGame {
   }
 
   init(): void {
+    this.showGameInfo();
     const pumpkinFreezing = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
     pumpkinFreezing.addEventListener('click', this.freezMonsters);
 
@@ -295,6 +299,20 @@ export default class PumpkinGame {
       btnPlay.style.display = 'none';
       this.canvas?.classList.add('pumpkin-canvas-active');
       this.setRoundName();
+    });
+  }
+
+  showGameInfo(): void {
+    const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
+    gameInfoBtn.classList.remove('hide');
+
+    gameInfoBtn.addEventListener('click', () => {
+      const gameInfoModal = new Modal();
+      gameInfoModal.drawModal(ModalTemplates.gameInfoModalTemplate);
+    });
+
+    window.addEventListener('hashchange', () => {
+      gameInfoBtn.classList.add('hide');
     });
   }
 
