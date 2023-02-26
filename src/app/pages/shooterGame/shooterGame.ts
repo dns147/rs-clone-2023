@@ -3,6 +3,7 @@ import { Raven, Explosion, Particle } from './utils-shooter-game';
 import Music from '../../../utils/Music';
 import CONST from '../../../spa/coreConst';
 import ModalMessage from '../modalMessage/modalMessage';
+import ModalMessageTemplates from '../modalMessage/modalMessageTemplates';
 import DataBase from '../../../utils/dataBase';
 import { ResultGame } from '../../../spa/coreTypes';
 
@@ -55,13 +56,13 @@ export default class ShooterGame {
     <div class="shooter-game">
       <div class="nav-block container">
         <div class="nav-block__left">
-          <div class="score-info btn accent-font">Score: <span>${this.score}</span></div>
+          <div class="score-info btn btn--mini accent-font"><span>Score:</span><span>${this.score}</span></div>
         </div>
         <div class="nav-block__right">
         </div>
       </div>
 
-      <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
+      ${ModalMessageTemplates.startGameBtnTemplate}
 
       <canvas id="canvas-collision"></canvas>
       <canvas id="canvas-shooter-game"></canvas>
@@ -87,7 +88,7 @@ export default class ShooterGame {
 
   drawScore() {
     const scoreTitle = document.querySelector('.shooter-game .score-info') as HTMLElement;
-    scoreTitle.textContent = `Score: ${this.score}`;
+    scoreTitle.innerHTML = `<span>Score:</span> ${this.score}`;
   }
 
   drawGameOver() {
@@ -113,7 +114,7 @@ export default class ShooterGame {
   soundGameOver() {
     const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
     const soundGameOver = new Audio(CONST.soundGameOverSrc);
-    soundGameOver.volume = 0.6;
+    soundGameOver.volume = 0.4;
     if (isSoundEffects) soundGameOver.play();
   }
 

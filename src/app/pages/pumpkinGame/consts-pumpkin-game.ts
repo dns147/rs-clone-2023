@@ -34,9 +34,7 @@ const IMAGE_URL = [
 	require('../../../assets/sprites/skelet-back.png'), // 30
 ];
 
-const startGameBtnTemplate = `
-  <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
-`;
+const accentColorNumber = '#ff9900'; //$accent1-color from constants.scss
 
 const gameOverModalMessageTemplate = `
 	${modalMessageTemplates.gameOverMessageTemplate}
@@ -52,11 +50,8 @@ const nextLevelModalMessageTemplate = `
 	${modalMessageTemplates.toResultsBtn}
 `;
 
-const accentColorNumber = '#ff9900'; //$accent1-color from constants.scss
-
 export default {
   IMAGE_URL,
-  startGameBtnTemplate,
   gameOverModalMessageTemplate,
   nextLevelModalMessageTemplate,
   accentColorNumber,

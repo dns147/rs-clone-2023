@@ -29,11 +29,22 @@
   align-items: center;
   column-gap: 10px;
   padding: 6px 15px;
+  @media (max-width: 768px) {
+    padding: 5px 12px;
+    font-size: 14px;
+  }
+  @media (max-width: 480px) {
+    padding: 3px 10px;
+  }
 
   .main-user-icon {
     width: 30px;
     height: 30px;
     background: url(./../../../assets/icons/ghost-min.png) center/contain no-repeat;
+    @media (max-width: 768px) {
+      width: 26px;
+      height: 26px;
+    }
   }
 
   .main-user-name {
@@ -83,14 +94,29 @@
   font-size: 22px;
   transition: 0.3s;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+  }
+  @media (max-width: 480px) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .btn-nav--settings {
   width: 38px;
   height: 38px;
   background: url(./../../../assets/icons/icon-settings-1.png) no-repeat;
-  background: url(./../../../assets/icons/icon-settings-1.png) no-repeat;
   background-size: contain;
+  @media (max-width: 768px) {
+    width: 34px;
+    height: 34px;
+  }
+  @media (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .btn-nav--settings:hover,
@@ -109,5 +135,25 @@
   background: url(./../../../assets/icons/door-open2.png) no-repeat;
   background-size: contain;
   transition: 0.3s;
+}
+
+.btn-nav--game-info {
+  width: 37px;
+  height: 37px;
+  background: url(./../../../assets/icons/icon-question-mark-draw-yellow.png) no-repeat;
+  background-size: contain;
+  @media (max-width: 768px) {
+    width: 33px;
+    height: 33px;
+  }
+  @media (max-width: 480px) {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+.btn-nav--game-info:hover {
+  background: url(./../../../assets/icons/icon-question-mark-draw-white.png) no-repeat;
+  background-size: contain;
 }
 // ==== /btns-nav ====

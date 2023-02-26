@@ -2,7 +2,7 @@
 //audio
 import soundGameOverSrc from '../assets/audio/effects/fail-wha-wha.mp3';
 import soundSettingsSrc from '../assets/audio/effects/settings-1.mp3';
-import soundDoorScripSrc from '../assets/audio/effects/scrip-dveri-min.mp3';
+import soundDoorScripSrc from '../assets/audio/effects/scrip-dveri-min-2.mp3';
 import soundBooSrc from '../assets/audio/effects/boo-child.mp3';
 
 import musicRavensSrc from '../assets/audio/music/strashnye-zvuki-vorony.mp3'; // for Ravens hunting
