@@ -3,14 +3,13 @@
 
 // ===== popup ======
 .popup {
-  z-index: 100 !important;
+  z-index: 200;
   position: absolute;
 
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,9 +22,14 @@
     max-width: 440px;
     border-radius: $border-radius-big;
     background-color: $accent3-color;
+    color: $text-color-light;
     padding: 30px 22px;
-    color: $text-color;
     text-align: center;
+
+    @media (max-width: 480px) {
+      width: 90%;
+      padding: 22px 18px;
+    }
   }
 
   &__close-btn {
@@ -34,24 +38,10 @@
     right: 25px;
   }
 
-
-  .pumpkin-modal {
-    // text-align: center;
-    // color: #bb07df;
-    // text-transform: uppercase;
-    // font-size: 40px;
-  }
-
-  .pumpkin-next-level,
-  .pumpkin-exit,
-  .pumpkin-restart {
-    // margin: 0 auto;
-    // margin-top: 20px;
-    // display: block;
-    
-    .exit {
-      // color: black;
-    }
+  p,
+  li {
+    text-align: left;
+    margin: 0 0 5px 0;
   }
 }
 
@@ -62,7 +52,6 @@
   }
 
   &__title {
-    margin: 0 0 20px 0;
   }
 
   &__btn {
@@ -106,7 +95,7 @@
 
   &__btn span:after {
     position: absolute;
-    content: "";
+    content: '';
     top: -6px;
     left: 15px;
     display: inline-block;

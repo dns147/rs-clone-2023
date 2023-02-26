@@ -75,6 +75,13 @@ a:active {
   // height: 30px;
   cursor: pointer;
   transition: 0.3s;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 }
 
 .btn--transp {
@@ -142,6 +149,15 @@ a:active {
   border-radius: $border-radius-big;
   padding: 26px 22px;
   height: auto;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 22px 18px;
+  }
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 20px 16px;
+  }
 }
 
 .btn:hover,
@@ -202,6 +218,7 @@ a:active {
   text-transform: uppercase;
 }
 
+// styles for Modal, ModalMessage components
 .title-modal {
   font-family: 'HennyPenny';
   color: $text-color-light;
@@ -211,6 +228,11 @@ a:active {
   text-transform: none;
   letter-spacing: 2.8px;
   font-size: 32px;
+  margin: 0 0 20px 0;
+  @media (max-width: 768px) {
+    font-size: 26px;
+    margin: 0 0 15px 0;
+  }
 }
 .title-modal-message {
   font-family: 'HennyPenny';
@@ -222,6 +244,10 @@ a:active {
   letter-spacing: 0.8px;
   font-size: 24px;
   margin: 0 0 15px 0;
+  @media (max-width: 480px) {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+  }
 }
 
 .title--upper {
@@ -232,11 +258,27 @@ a:active {
   color: $text-color;
 }
 
+.subtitle-modal {
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: $text-color-light;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 10px 0;
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin: 0 0 8px 0;
+  }
+}
+
 .text-message {
   color: $text-color;
   font-size: 22px;
   font-weight: 700;
   font-family: 'HennyPenny';
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 }
 
 .score-number {
@@ -245,6 +287,9 @@ a:active {
   font-size: 24px;
   color: $accent6-color;
   padding: 0 10px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 }
 
 .score-info {
@@ -252,6 +297,18 @@ a:active {
   font-size: 22px;
   line-height: 1;
   cursor: default;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
+}
+
+.score-info span:first-of-type {
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
 
 // ==== @keyframes ====
@@ -269,7 +326,7 @@ a:active {
 @keyframes show-from-bottom {
   0% {
     opacity: 0;
-    transform: translateY(200%);
+    transform: translateY(250%);
   }
   100% {
     opacity: 1;

@@ -12,6 +12,10 @@ export const settingsBtnTemplate = `
   <button class="btn-nav btn-nav--settings settings-btn"></button>
 `;
 
+export const gameInfoBtnTemplate = `
+  <button class="btn-nav btn-nav--game-info game-info-btn hide"></button>
+`;
+
 export const homeBtnTemplate = `
   <a href="#" class="btn-nav btn-nav--home home-btn"></a>
 `;
@@ -22,9 +26,10 @@ export const navBlockTemplate = `
     </div>
 
     <div class="nav-block__right">
-      ${settingsBtnTemplate}
-      ${userTemplate}
-      ${homeBtnTemplate}
+    ${gameInfoBtnTemplate}
+    ${settingsBtnTemplate}
+    ${userTemplate}
+    ${homeBtnTemplate}
     </div>
   </div>
 `;

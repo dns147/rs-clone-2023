@@ -13,6 +13,22 @@ const modalTemplateSettings = `
   </div>
 `;
 
+const gameInfoModalTemplate = `
+  <h2 class="title-modal">About game</h2>
+  <div class="game-info-modal">
+    <h3 class="subtitle-modal">Subtitle</h3>
+    <p>Info about game</p>
+    <p>Bla-bla-bla</p>
+    <p>Bla-bla-bla</p>
+    <p>Bla-bla-bla</p>
+    
+    <h3 class="subtitle-modal">Subtitle</h3>
+    <p>Bla-bla-bla</p>
+    <p>Bla-bla-bla</p>
+  </div>
+`;
+
 export default {
   modalTemplateSettings,
+  gameInfoModalTemplate,
 };
