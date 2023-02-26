@@ -2,6 +2,7 @@ let ctx: CanvasRenderingContext2D;
 let CANVAS_WIDTH: number;
 let CANVAS_HEIGHT: number;
 let gameSpeed = 5;
+const parallaxSpeed = 5;
 
 let enemies: Enemy[] = [];
 let gameOver = false;
@@ -20,7 +21,7 @@ let seconds = 0;
 let minutes = 0;
 
 let timerId = setTimeout(function tick() {
-  gameSpeed += 1;
+  gameSpeed += 0.1;
   if (gameSpeed > 10 && gameSpeed <= 15) {
     enemyInterval = 1000;
     min = 100;
@@ -31,15 +32,14 @@ let timerId = setTimeout(function tick() {
     enemyInterval = 100;
     min = 50;
   }
-  timerId = setTimeout(tick, 10000);
-}, 10000);
+  timerId = setTimeout(tick, 500);
+}, 500);
 
 export function setCanvas(): void {
   const canvas = document.querySelector('#canvas-parallax') as HTMLCanvasElement;
-  const canvasContainer = document.querySelector('.canvas-container') as HTMLElement;
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-  canvas.width = canvasContainer.offsetWidth < 1920 ? canvasContainer.offsetWidth : 1920;
-  canvas.height = canvasContainer.offsetHeight < 1080 ? canvasContainer.offsetHeight : 1080;
+  canvas.width = window.innerHeight * 1.6 > window.innerWidth ? window.innerWidth : window.innerHeight * 1.6;
+  canvas.height = window.innerHeight;
   CANVAS_WIDTH = canvas.width;
   CANVAS_HEIGHT = canvas.height;
   ctx = context;
@@ -59,15 +59,15 @@ class Parallax {
     this.x = 0;
     this.y = 0;
     this.height = CANVAS_HEIGHT;
-    this.width = CANVAS_HEIGHT * 1.7777;
+    this.width = CANVAS_HEIGHT * 1.77;
     this.x2 = this.width;
     this.image = image;
     this.speedModifier = speedModifier;
-    this.speed = gameSpeed * this.speedModifier;
+    this.speed = parallaxSpeed * this.speedModifier;
   }
 
   update() {
-    this.speed = gameSpeed * this.speedModifier;
+    this.speed = parallaxSpeed * this.speedModifier;
 
     if (this.x <= -this.width) {
       this.x = this.width + this.x2 - this.speed;
@@ -139,29 +139,28 @@ export class Player {
   ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.height = gameHeight * 0.11;
+    this.height = gameHeight * 0.24;
     this.width = (this.height * ((playerWidth * 100) / playerHeight)) / 100;
 
     this.x = gameWidth * 0.01;
-    this.y = this.gameHeight - this.height - this.gameHeight * 0.095;
+    this.y = this.gameHeight - this.height - this.gameHeight * 0.1;
     this.image = image;
     this.speed = 0;
     this.vy = 0;
-    this.weight = 1;
+    this.weight = 0.3;
   }
 
   draw(context: CanvasRenderingContext2D) {
-    console.log('hero');
     context.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
   update(input: InputHandler, enemies: Enemy[]) {
     // collision
     enemies.forEach((e) => {
-      const dx = e.x + e.width / 2 - (this.x + this.width / 2) * 0.8;
-      const dy = e.y + e.height / 2 - (this.y + this.height / 2) * 0.8;
+      const dx = e.x + e.width / 2 - (this.x + this.width / 2) * 0.9;
+      const dy = e.y + e.height / 2 - (this.y + this.height / 2) * 0.9;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < (e.width / 2 + this.width / 2) * 0.8) {
+      if (distance < (e.width / 2 + this.width / 2) * 0.9) {
         gameOver = true;
         clearTimeout(timerId);
         clearInterval(interval);
@@ -170,31 +169,41 @@ export class Player {
 
     this.x += this.speed;
 
-    if (input.keys.indexOf('Space') > -1 && this.onGround()) {
-      this.jump();
+    if (input.keys.indexOf('Space') > -1) {
+      if ((!this.onGround() && this.y > -1) || this.onGround()) {
+        this.jump();
+      }
     } else {
       this.speedDown();
     }
 
-    if (input.keys.indexOf('touchstart') > -1 && this.onGround()) {
-      this.jump();
+    if (input.keys.indexOf('touchstart') > -1) {
+      if ((!this.onGround() && this.y > -1) || this.onGround()) {
+        this.jump();
+      }
     } else {
       this.speedDown();
     }
 
     this.y += this.vy;
+
     if (!this.onGround()) {
       this.vy += this.weight;
     } else {
       this.vy = 0;
     }
+
     if (this.y > this.gameHeight - this.height) {
-      this.y = this.gameHeight - this.height - this.gameHeight * 0.095;
+      this.y = this.gameHeight - this.height - this.gameHeight * 0.1;
+    }
+
+    if (this.y < -1) {
+      this.y = -1;
     }
   }
 
   jump() {
-    this.vy -= 35;
+    this.vy -= 0.6;
   }
 
   speedDown() {
@@ -202,13 +211,13 @@ export class Player {
   }
 
   onGround() {
-    return this.y >= this.gameHeight - this.height - this.gameHeight * 0.095;
+    return this.y >= this.gameHeight - this.height - this.gameHeight * 0.1;
   }
 }
 
 export function createPlayer() {
   const hero = new Image();
-  hero.src = require('../../../assets/parallax-game/brain.png');
+  hero.src = require('../../../assets/parallax-game/witch1.png');
 
   hero.onload = () => {
     player = new Player(hero, hero.width, hero.height, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -292,7 +301,7 @@ export function createBackground(): void {
 }
 
 function createEnemies(time: number) {
-  const max = 9;
+  const max = 8;
   const min = 1;
   const enemyNum = Math.floor(Math.random() * (max - min + min) + min);
   const enemy = new Image();
