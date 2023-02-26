@@ -22,15 +22,11 @@
 }
 
 .canvas-container {
-  @include parent-size;
-  max-width: 1920px;
-  max-height: 1080px;
+  width: fit-content;
+  height: fit-content;
   font-size: 0;
 }
 
 #canvas-parallax {
   position: relative;
-  @include parent-size;
-  max-width: 1920px;
-  max-height: 1080px;
 }
