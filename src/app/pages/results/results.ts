@@ -93,7 +93,9 @@ export default class Results {
         const userLevel = infoGamePlayer.level;
         const userTime = infoGamePlayer.time;
 
-        tableBody.insertAdjacentHTML('afterbegin', `
+        tableBody.insertAdjacentHTML(
+          'afterbegin',
+          `
           <tr>
             <td class="table__num-str">1</td>
             <td>${userName || '-'}</td>
@@ -102,7 +104,8 @@ export default class Results {
             <td>${userLevel || '-'}</td>
             <td>${userTime || '-'}</td>
           </tr>
-        `);
+        `
+        );
       }
     }
   }

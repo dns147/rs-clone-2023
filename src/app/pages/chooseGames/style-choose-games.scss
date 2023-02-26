@@ -1,4 +1,4 @@
-$main-background: linear-gradient(to top, #3584A7 0%, #0a1425 100%);
+$main-background: linear-gradient(to top, #3584a7 0%, #0a1425 100%);
 
 $ground-color: #000000;
 
@@ -154,7 +154,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
     left: -100%;
   }
   100% {
-   left: 0;
+    left: 0;
   }
 }
 
@@ -194,7 +194,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   width: 90%;
   animation: show-from-bottom 3s forwards;
 
-  .forest__img{
+  .forest__img {
     @include img-props;
     filter: brightness(90%);
   }
@@ -296,27 +296,18 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   width: $map-moon-size;
   border-radius: 100%;
   background-color: $moon-color;
-  background-image: radial-gradient(
-    circle at 0 20%,
-    $moon-color 0%,
-    transparent 65%,
-    $dark-moon-color 65%
-  );
+  background-image: radial-gradient(circle at 0 20%, $moon-color 0%, transparent 65%, $dark-moon-color 65%);
   animation: blink-map-game-moon 5s alternate infinite, map-moon 1.5s ease-in;
 }
 
 @keyframes blink-map-game-moon {
   0% {
-    box-shadow:
-    0px 0px 1px 0px rgb(250,250,250),
-    0px 0px 2px 0px rgb(250,250,250),
-    0px 0px 20px 0px rgb(250,250,250);
+    box-shadow: 0px 0px 1px 0px rgb(250, 250, 250), 0px 0px 2px 0px rgb(250, 250, 250),
+      0px 0px 20px 0px rgb(250, 250, 250);
   }
   100% {
-    box-shadow:
-    0px 0px 5px 0px rgb(250,250,250),
-    0px 0px 10px 0px rgb(250,250,250),
-    0px 0px 100px 0px rgb(250,250,250);
+    box-shadow: 0px 0px 5px 0px rgb(250, 250, 250), 0px 0px 10px 0px rgb(250, 250, 250),
+      0px 0px 100px 0px rgb(250, 250, 250);
   }
 }
 
@@ -387,13 +378,13 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   }
 }
 
-@media(max-width: 1440px) {
+@media (max-width: 1440px) {
   .map-castle {
     width: 65%;
   }
 }
 
-@media(max-width: 1200px) {
+@media (max-width: 1200px) {
   .map-castle {
     width: 75%;
   }
@@ -410,10 +401,9 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   .mountain {
     bottom: 50px;
   }
-
 }
 
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   $map-moon-size: 20vw;
 
   .map-moon {
@@ -428,49 +418,49 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
       top: 15%;
       left: 40%;
     }
-  
+
     &__two {
       height: calc($map-moon-size / 4);
       width: calc($map-moon-size / 4);
       top: 63%;
       left: 48%;
     }
-  
+
     &__three {
       height: calc($map-moon-size/ 4);
       width: calc($map-moon-size / 4);
       top: 28%;
       left: 14%;
     }
-  
+
     &__four {
       height: calc($map-moon-size / 6);
       width: calc($map-moon-size / 6);
       top: 64%;
       left: 15%;
     }
-  
+
     &__five {
       height: calc($map-moon-size / 7);
       width: calc($map-moon-size / 7);
       top: 38%;
       left: 73%;
     }
-  
+
     &__six {
       height: calc($map-moon-size/ 14);
       width: calc($map-moon-size / 14);
       top: 17%;
       left: 20%;
     }
-  
+
     &__seven {
       height: calc($map-moon-size / 16);
       width: calc($map-moon-size / 16);
       top: 63%;
       left: 35%;
     }
-  
+
     &__eigth {
       height: calc($map-moon-size / 16);
       width: calc($map-moon-size / 16);
@@ -494,29 +484,29 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   .cloud-front-center-slow {
     width: 20%;
   }
-  
+
   .cloud-front-center-very-slow {
     width: 14%;
   }
-  
+
   .cloud-front-center-fast {
     width: 14%;
   }
-  
+
   .cloud-front-bottom-fast {
     width: 20%;
   }
-  
+
   .cloud-front-bottom-slow {
     width: 20%;
   }
-  
+
   .cloud-front-bottom-very-slow {
     width: 24%;
   }
 }
 
-@media(max-width: 900px) {
+@media (max-width: 900px) {
   .map-castle {
     width: 100%;
     bottom: -15px;
@@ -533,10 +523,9 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   .mountain {
     bottom: 90px;
   }
-
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .map-castle {
     bottom: 100px;
     width: 107%;
@@ -555,10 +544,9 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   .mountain {
     bottom: 180px;
   }
-
 }
 
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   .sky {
     height: 140px;
   }

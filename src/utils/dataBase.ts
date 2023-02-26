@@ -1,5 +1,5 @@
 import { myDatabase } from '../app/firebase';
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue } from 'firebase/database';
 import { DataFromDb, ResultGame } from '../spa/coreTypes';
 
 export default class DataBase {
@@ -17,14 +17,14 @@ export default class DataBase {
         game: game,
         score: score,
         level: level,
-        time: time
+        time: time,
       })
-      .then(() => {
-        console.log('Data saved successfully!');
-      })
-      .catch((error) => {
-        console.error('The write failed: ', error);
-      });
+        .then(() => {
+          console.log('Data saved successfully!');
+        })
+        .catch((error) => {
+          console.error('The write failed: ', error);
+        });
     } else {
       console.log('User not registered');
     }

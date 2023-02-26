@@ -1,5 +1,5 @@
-import { MousePos } from "../../../spa/coreTypes";
-import Sprite from "./sprite";
+import { MousePos } from '../../../spa/coreTypes';
+import Sprite from './sprite';
 
 export type Player = {
   rotate?: number;

@@ -1,5 +1,5 @@
 import AppView from '../view/AppView';
-import constsAuthForm from "../pages/authForm/const-auth-form";
+import constsAuthForm from '../pages/authForm/const-auth-form';
 import { MousePos } from '../../spa/coreTypes';
 import { Angle } from '../pages/pumpkinGame/types-pumpkin-game';
 import { getAngle } from '../pages/pumpkinGame/utils-pumpkin-game';
@@ -7,7 +7,7 @@ import SOUND from '../../spa/coreConst';
 
 export default class AppModel {
   view: AppView;
-  
+
   constructor(view: AppView) {
     this.view = view;
   }
@@ -49,7 +49,7 @@ export default class AppModel {
   }
 
   rotatePlayer(event: MouseEvent): void {
-    const mousePos: MousePos = {'x': event.clientX + 18, 'y': event.clientY + 18};
+    const mousePos: MousePos = { x: event.clientX + 18, y: event.clientY + 18 };
     localStorage.setItem('mousePos', JSON.stringify(mousePos));
   }
 
@@ -59,7 +59,10 @@ export default class AppModel {
     const posCenterY: number = document.documentElement.clientHeight / 2;
     const mouseX: number = mousePos['x'];
     const mouseY: number = mousePos['y'];
-    const distance: number = Math.sqrt((mousePos['x'] - posCenterX) * (mousePos['x'] - posCenterX) + (mousePos['y'] - posCenterY) * (mousePos['y'] - posCenterY));
+    const distance: number = Math.sqrt(
+      (mousePos['x'] - posCenterX) * (mousePos['x'] - posCenterX) +
+        (mousePos['y'] - posCenterY) * (mousePos['y'] - posCenterY)
+    );
     const angle: Angle = getAngle(mouseX, mouseY, posCenterX, posCenterY);
 
     const clickInfo = {
@@ -114,13 +117,13 @@ export default class AppModel {
         pumpkinIcon.classList.remove('select-weapon');
         localStorage.setItem('currentWeapon', 'electro');
       }
-  
+
       if (event.code === 'Digit3') {
         freezIcon.classList.add('select-weapon');
         window.setTimeout(() => freezIcon.classList.remove('select-weapon'), 200);
         localStorage.setItem('isFreez', 'true');
       }
-  
+
       if (event.code === 'Digit4') {
         bombIcon.classList.add('select-weapon');
         window.setTimeout(() => bombIcon.classList.remove('select-weapon'), 200);

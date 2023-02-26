@@ -140,7 +140,7 @@ export class Player {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.height = gameHeight * 0.11;
-    this.width = this.height * ((playerWidth * 100) / playerHeight) / 100;
+    this.width = (this.height * ((playerWidth * 100) / playerHeight)) / 100;
 
     this.x = gameWidth * 0.01;
     this.y = this.gameHeight - this.height - this.gameHeight * 0.095;
@@ -158,10 +158,10 @@ export class Player {
   update(input: InputHandler, enemies: Enemy[]) {
     // collision
     enemies.forEach((e) => {
-      const dx = (e.x + (e.width / 2)) - (this.x + (this.width / 2)) * 0.8;
-      const dy = (e.y + (e.height / 2)) - (this.y + (this.height / 2)) * 0.8;
-      const distance = Math.sqrt((dx * dx) + (dy * dy));
-      if (distance < ((e.width / 2) + (this.width / 2)) * 0.8) {
+      const dx = e.x + e.width / 2 - (this.x + this.width / 2) * 0.8;
+      const dy = e.y + e.height / 2 - (this.y + this.height / 2) * 0.8;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < (e.width / 2 + this.width / 2) * 0.8) {
         gameOver = true;
         clearTimeout(timerId);
         clearInterval(interval);
@@ -238,7 +238,7 @@ export class Enemy {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.height = gameHeight * 0.28;
-    this.width = this.height * ((enemyWidth * 100) / enemyHeight) / 100;
+    this.width = (this.height * ((enemyWidth * 100) / enemyHeight)) / 100;
     this.image = image;
     this.x = gameWidth;
     this.y = this.gameHeight - this.height - this.gameHeight * 0.08;
