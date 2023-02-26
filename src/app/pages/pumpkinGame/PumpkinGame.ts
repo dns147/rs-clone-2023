@@ -373,7 +373,7 @@ export default class PumpkinGame {
         this.makeTimer(1, 30);
         if (this.isMusic) {
           this.currentMusic = this.pumpkinLevel2;
-          this.currentMusic.playMusic(0.3);
+          this.currentMusic.playMusic(0.8);
         }
         break;
       case 3:
@@ -840,23 +840,23 @@ export default class PumpkinGame {
       const speedWeapon: number = localStorage['currentWeapon'] === 'electro' ? 2.2 : 1; 
 
       if (angleGrad > 0 && angleGrad <= 90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX - pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY + pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX - pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY + pumpkinHeight * factorY) / distance;
       }
   
       if (angleGrad > 90 && angleGrad <= 180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX - pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY - pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX - pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY - pumpkinHeight * factorY) / distance;
       }
   
       if (angleGrad < 0 && angleGrad >= -90) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX + pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY + pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX + pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY + pumpkinHeight * factorY) / distance;
       }
   
       if (angleGrad < -90 && angleGrad >= -180) {
-        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX + pumpkinWidth) / distance;
-        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY - pumpkinHeight) / distance;
+        pumpkin.pos[0] += this.pumpkinSpeed * dt * speedWeapon * (mouseX - this.posCenterX + pumpkinWidth * factorX) / distance;
+        pumpkin.pos[1] += this.pumpkinSpeed * dt * speedWeapon * (mouseY - this.posCenterY - pumpkinHeight * factorY) / distance;
       }
 
       if (pumpkin.pos[0] < 0 || pumpkin.pos[0] > this.canvasWidth || pumpkin.pos[1] < 0 || pumpkin.pos[1] > this.canvasHeight) {
