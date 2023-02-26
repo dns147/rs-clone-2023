@@ -3,7 +3,6 @@ import constsAuthForm from '../pages/authForm/const-auth-form';
 import { MousePos } from '../../spa/coreTypes';
 import { Angle } from '../pages/pumpkinGame/types-pumpkin-game';
 import { getAngle } from '../pages/pumpkinGame/utils-pumpkin-game';
-import SOUND from '../../spa/coreConst';
 
 export default class AppModel {
   view: AppView;
@@ -76,10 +75,6 @@ export default class AppModel {
   }
 
   playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement): void {
-    if (localStorage['isSoundEffects'] === 'true') {
-      //SOUND.soundClick.play();
-    }
-
     if (eventTarget === pumpkinShellsIcon && !pumpkinShellsIcon.classList.contains('select-weapon')) {
       pumpkinShellsIcon.classList.add('select-weapon');
       (<HTMLElement>document.querySelector('.pumpkin-electro-icon')).classList.remove('select-weapon');
@@ -97,10 +92,6 @@ export default class AppModel {
     const hash: string = window.location.hash.slice(2);
 
     if (hash === 'pumpkinGame') {
-      if (localStorage['isSoundEffects'] === 'true') {
-        //SOUND.soundClick.play();
-      }
-
       const pumpkinIcon = <HTMLElement>document.querySelector('.pumpkin-shells-icon');
       const electronIcon = <HTMLElement>document.querySelector('.pumpkin-electro-icon');
       const freezIcon = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
@@ -145,5 +136,9 @@ export default class AppModel {
     localStorage.setItem('shooterGameData', JSON.stringify(shooterGameData));
     localStorage.setItem('isGameOverShooterGame', '0');
     localStorage.setItem('scoreShooterGame', '0');
+  }
+
+  showGamePumpkinInfo(): void {
+    this.view.showGamePumpkinInfo();
   }
 }

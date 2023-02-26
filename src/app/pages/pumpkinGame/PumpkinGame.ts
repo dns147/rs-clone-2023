@@ -248,9 +248,12 @@ export default class PumpkinGame {
   }
 
   init(): void {
-    this.showGameInfo();
     (<HTMLElement>document.querySelector('.pumpkin-freezing-icon')).addEventListener('click', this.freezMonsters);
     (<HTMLElement>document.querySelector('.pumpkin-bomb-icon')).addEventListener('click', this.burstAllMonsters);
+    
+    const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
+    gameInfoBtn.classList.remove('hide');
+    gameInfoBtn.addEventListener('click', this.showGameInfo);
 
     window.addEventListener('hashchange', this.finishGame);
     window.addEventListener('resize', () => document.location.reload());
@@ -319,17 +322,8 @@ export default class PumpkinGame {
   }
 
   showGameInfo(): void {
-    const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
-    gameInfoBtn.classList.remove('hide');
-
-    gameInfoBtn.addEventListener('click', () => {
-      const gameInfoModal = new Modal();
-      gameInfoModal.drawModal(ModalTemplates.gameInfoModalTemplate);
-    });
-
-    window.addEventListener('hashchange', () => {
-      gameInfoBtn.classList.add('hide');
-    });
+    const gameInfoModal = new Modal();
+    gameInfoModal.drawModal(ModalTemplates.gameInfoModalTemplate);
   }
 
   setRoundName(): void {
