@@ -1,4 +1,4 @@
-import { Angle } from "./types-pumpkin-game";
+import { Angle } from './types-pumpkin-game';
 
 export function getAngle(x: number, y: number, posCenterX: number, posCenterY: number): Angle {
   const mouseX: number = x - posCenterX;
@@ -21,7 +21,7 @@ export function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export function getFactor(angleGrad: number, angleRad: number): {factorX: number, factorY: number} {
+export function getFactor(angleGrad: number, angleRad: number): { factorX: number; factorY: number } {
   let factorX: number = 0;
   let factorY: number = 0;
 
@@ -76,43 +76,49 @@ export function getFactor(angleGrad: number, angleRad: number): {factorX: number
   }
 
   return {
-    factorX: factorX, 
-    factorY: factorY
+    factorX: factorX,
+    factorY: factorY,
   };
 }
 
-//--- boxCollides — это обертка для collides, принимающая массивы 
+//--- boxCollides — это обертка для collides, принимающая массивы
 // с положением и размером каждого элемента ---
 export function boxCollides(pos1: number[], size1: number[], pos2: number[], size2: number[]) {
-  return collides(pos1[0], pos1[1],
-                        pos1[0] + size1[0], pos1[1] + size1[1],
-                        pos2[0], pos2[1],
-                        pos2[0] + size2[0], pos2[1] + size2[1]);
+  return collides(
+    pos1[0],
+    pos1[1],
+    pos1[0] + size1[0],
+    pos1[1] + size1[1],
+    pos2[0],
+    pos2[1],
+    pos2[0] + size2[0],
+    pos2[1] + size2[1]
+  );
 }
 
-//--- collides принимает координаты верхнего/левого и нижнего/правого 
+//--- collides принимает координаты верхнего/левого и нижнего/правого
 // углов обоих объектов и проверяет, есть ли какие-то пересечения ---
 export function collides(x: number, y: number, r: number, b: number, x2: number, y2: number, r2: number, b2: number) {
   return !(r <= x2 || x > r2 || b <= y2 || y > b2);
 }
 
-export const normalize = (num: number): string => ((num < 10) ? '0' : '') + num;
+export const normalize = (num: number): string => (num < 10 ? '0' : '') + num;
 
-export function playAudio(audio: HTMLAudioElement | null, volume?: number, attribute?: string): void {
-  audio?.play();
+// export function playAudio(audio: HTMLAudioElement | null, volume?: number, attribute?: string): void {
+//   audio?.play();
 
-  if (audio && volume) {
-    audio.volume = volume;
-  }
-  
-  if (audio && attribute) {
-    audio.setAttribute(attribute, attribute);
-  }
-}
+//   if (audio && volume) {
+//     audio.volume = volume;
+//   }
 
-export function stopAudio(audio: HTMLAudioElement | null): void {
-  if (audio) {
-    audio.pause();
-    audio.currentTime = 0;
-  }
-}
+//   if (audio && attribute) {
+//     audio.setAttribute(attribute, attribute);
+//   }
+// }
+
+// export function stopAudio(audio: HTMLAudioElement | null): void {
+//   if (audio) {
+//     audio.pause();
+//     audio.currentTime = 0;
+//   }
+// }

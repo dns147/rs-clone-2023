@@ -29,9 +29,9 @@ export class Router {
     const registrationContainer = <HTMLDivElement>container.querySelector('.registration-container');
 
     if (!registrationContainer) {
-      const pageAuthForm: TypeOfClasses = new AuthForm;
+      const pageAuthForm: TypeOfClasses = new AuthForm();
       container.insertAdjacentHTML('beforeend', pageAuthForm.render());
-  
+
       const registrationContainer = <HTMLDivElement>container.querySelector('.registration-container');
       registrationContainer.style.display = 'none';
     }

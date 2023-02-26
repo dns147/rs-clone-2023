@@ -19,7 +19,16 @@ export default class Sprite {
   _index: number;
   done: boolean;
 
-  constructor(img: HTMLImageElement, pos: number[], size: number[], speed: number, frames: number[], dir: string | null, once: boolean, rad: number) {
+  constructor(
+    img: HTMLImageElement,
+    pos: number[],
+    size: number[],
+    speed: number,
+    frames: number[],
+    dir: string | null,
+    once: boolean,
+    rad: number
+  ) {
     this.img = img;
     this.pos = pos;
     this.size = size;
@@ -62,11 +71,17 @@ export default class Sprite {
     }
 
     ctx?.rotate(this.rad);
-    ctx?.drawImage(this.img,
-      x, y,
-      this.size[0], this.size[1],
-      -this.size[0]/2, -this.size[1]/2,
-      this.size[0], this.size[1]);
+    ctx?.drawImage(
+      this.img,
+      x,
+      y,
+      this.size[0],
+      this.size[1],
+      -this.size[0] / 2,
+      -this.size[1] / 2,
+      this.size[0],
+      this.size[1]
+    );
 
     ctx?.resetTransform();
   }

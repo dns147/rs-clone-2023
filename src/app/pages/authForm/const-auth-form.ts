@@ -3,7 +3,7 @@ const LOGIN = 'login';
 const REGISTRATION = 'registration';
 
 export default {
-	MIN_PASS_LEN,
-	LOGIN,
-	REGISTRATION,
+  MIN_PASS_LEN,
+  LOGIN,
+  REGISTRATION,
 };

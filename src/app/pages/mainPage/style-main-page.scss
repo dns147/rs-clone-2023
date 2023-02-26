@@ -1,5 +1,5 @@
-@import "./../../../scss/constants.scss";
-@import "../chooseGames/style-choose-games.scss";
+@import './../../../scss/constants.scss';
+@import '../chooseGames/style-choose-games.scss';
 
 // @font-face {
 //   font-family: 'SecretMidnight';
@@ -53,7 +53,7 @@ $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: calc(100vw * 0.8);
 
   line-height: 1;
-  font-family: "SecretMidnight";
+  font-family: 'SecretMidnight';
   font-weight: 100;
   font-size: 110px;
   text-shadow: 6px 6px 6px $dark-color;
@@ -281,9 +281,7 @@ $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 100%;
   height: 10vh;
   background-color: $dark-color;
-  animation: 
-    show-content 0.1s ease-in,
-    show-from-bottom 2.5s forwards;
+  animation: show-content 0.1s ease-in, show-from-bottom 2.5s forwards;
 }
 
 .home-sky-wrapper .home-moon {
@@ -301,31 +299,20 @@ $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: $basis-size;
   border-radius: 100%;
   background-color: $moon-color;
-  background-image: radial-gradient(
-    circle at 0 20%,
-    $moon-color 0%,
-    transparent 65%,
-    $dark-moon-color 65%
-  );
+  background-image: radial-gradient(circle at 0 20%, $moon-color 0%, transparent 65%, $dark-moon-color 65%);
   opacity: 0;
-  animation: 
-    blink-moon 5s alternate infinite, 
-    show-moon 3.2s ease-in forwards;
+  animation: blink-moon 5s alternate infinite, show-moon 3.2s ease-in forwards;
   animation-delay: 0.5s;
 }
 
 @keyframes blink-moon {
   0% {
-    box-shadow:
-    0px 0px 1px 0px rgb(250,250,250),
-    0px 0px 5px 0px rgb(250,250,250),
-    0px 0px 50px 0px rgb(250,250,250);
+    box-shadow: 0px 0px 1px 0px rgb(250, 250, 250), 0px 0px 5px 0px rgb(250, 250, 250),
+      0px 0px 50px 0px rgb(250, 250, 250);
   }
   100% {
-    box-shadow:
-    0px 0px 10px 0px rgb(250,250,250),
-    0px 0px 50px 0px rgb(250,250,250),
-    0px 0px 500px 0px rgb(250,250,250);
+    box-shadow: 0px 0px 10px 0px rgb(250, 250, 250), 0px 0px 50px 0px rgb(250, 250, 250),
+      0px 0px 500px 0px rgb(250, 250, 250);
   }
 }
 
@@ -433,7 +420,7 @@ $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 .home-button:hover .home-button__icon {
   animation: icon-pulse 0.25s $bezier both;
 
-  [class^="home-button__animation-"] {
+  [class^='home-button__animation-'] {
     background: url(../../../assets/img/bat-svg.svg) no-repeat center;
     background-size: 100%;
     display: block;
@@ -462,7 +449,8 @@ $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   .home-button__animation-1 {
     animation: icon-main-float1 1s $bezier both;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       width: 24px;
       height: 22px;
       visibility: hidden;
@@ -482,7 +470,8 @@ $bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   .home-button__animation-2 {
     animation: icon-main-float2 1s 0.1s $bezier both;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       width: 22px;
       height: 20px;
       visibility: hidden;

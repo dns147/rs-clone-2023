@@ -64,7 +64,7 @@ export default class AppView {
     const userPassword = <HTMLInputElement>this.container.querySelector('#password');
     showLoader();
     const authUser = new Authorization();
-	  authUser.loginUser({email: userEmail.value, password: userPassword.value});
+    authUser.loginUser({ email: userEmail.value, password: userPassword.value });
   }
 
   registration(): void {
@@ -73,20 +73,20 @@ export default class AppView {
     const userPassword = <HTMLInputElement>this.container.querySelector('#password');
     showLoader();
     const authUser = new Authorization();
-	  authUser.createUser({name: userName.value, email: userEmail.value, password: userPassword.value});
+    authUser.createUser({ name: userName.value, email: userEmail.value, password: userPassword.value });
   }
 
   switchMode(mode: string): void {
-    const isLogin = (mode === constsAuthForm.LOGIN) ? 'flex' : 'none';
-    const isReg = (mode === constsAuthForm.REGISTRATION) ? 'flex' : 'none';
+    const isLogin = mode === constsAuthForm.LOGIN ? 'flex' : 'none';
+    const isReg = mode === constsAuthForm.REGISTRATION ? 'flex' : 'none';
     const loginBlocks = this.container.querySelectorAll('.authorization-block') as NodeListOf<HTMLElement>;
-    
+
     loginBlocks.forEach((loginElem: HTMLElement) => {
       loginElem.style.display = isLogin;
     });
-    
-    const regBlocks = this.container.querySelectorAll('.registration-block') as NodeListOf<HTMLElement>;;
-    
+
+    const regBlocks = this.container.querySelectorAll('.registration-block') as NodeListOf<HTMLElement>;
+
     regBlocks.forEach((regElem: HTMLElement) => {
       regElem.style.display = isReg;
     });
@@ -94,10 +94,10 @@ export default class AppView {
 
   userSignOut(): void {
     const authUser = new Authorization();
-	  authUser.userSignOut();
+    authUser.userSignOut();
 
     removeUserInfo();
-		changeSignInButton(false);
+    changeSignInButton(false);
 
     this.isValidEmail = false;
     this.isValidPassword = false;

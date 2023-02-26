@@ -135,7 +135,14 @@ export default class AppController {
         this.model.shootPumpkin();
       }
 
-      if (playGamePumpkin || exitGamePumpkin || pumpkinShellsIcon || pumpkinElectroIcon || pumpkinBombIcon || pumpkinFreezingIcon) {
+      if (
+        playGamePumpkin ||
+        exitGamePumpkin ||
+        pumpkinShellsIcon ||
+        pumpkinElectroIcon ||
+        pumpkinBombIcon ||
+        pumpkinFreezingIcon
+      ) {
         this.model.playSoundClick(event.target, pumpkinShellsIcon, pumpkinElectroIcon);
       }
 
