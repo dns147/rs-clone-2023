@@ -2,11 +2,12 @@ import { MousePos, ResultGame } from '../../../spa/coreTypes';
 import Sprite from './sprite';
 import './style-pumpkin-game.scss';
 import { Angle, ClickInfo, Player, Pumpkin } from './types-pumpkin-game';
-import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize, playAudio, stopAudio } from './utils-pumpkin-game';
+import { boxCollides, getAngle, getFactor, getImage, getRandomInt, normalize } from './utils-pumpkin-game';
 import CONSTS from './consts-pumpkin-game';
-import SOUND from '../../../spa/coreConst';
+import CORE_CONST from '../../../spa/coreConst';
 import ModalMessage from '../modalMessage/modalMessage';
 import DataBase from '../../../utils/dataBase';
+import Music from '../../../utils/Music';
 
 export default class PumpkinGame {
   canvas: HTMLCanvasElement | null;
@@ -47,7 +48,7 @@ export default class PumpkinGame {
   userName: string;
   isMusic: boolean;
   isSound: boolean;
-  currentMusic: HTMLAudioElement | null;
+  currentMusic: Music;
 
   player: Player | null;
   pumpkinWeapon: Pumpkin | null;
@@ -67,6 +68,22 @@ export default class PumpkinGame {
   monsterGame12: Sprite | null;
   monsterGame13: Sprite | null;
   monsterGame14: Sprite | null;
+
+  soundPumpkinCrashes: Music;
+  soundExplosion: Music;
+  soundMonsterDead1: Music;
+  soundMonsterDead2: Music;
+  soundFire: Music;
+  soundLife: Music;
+  soundPumpkin: Music;
+  soundFreesing: Music;
+  soundGameWin: Music;
+  soundGameOver: Music;
+  timeOver: Music;
+  pumpkinLevel1: Music;
+  pumpkinLevel2: Music;
+  pumpkinLevel3: Music;
+  pumpkinLevel4: Music;
 
   constructor() {
     this.canvas = null;
@@ -114,7 +131,7 @@ export default class PumpkinGame {
     this.userName = '';
     this.isMusic = localStorage['isMusic'] === 'true';
     this.isSound = localStorage['isSoundEffects'] === 'true';
-    this.currentMusic = null;
+    this.currentMusic = new Music(CORE_CONST.pumpkinLevel1Src);
 
     this.player = null;
     this.pumpkinWeapon = null;
@@ -135,6 +152,22 @@ export default class PumpkinGame {
     this.monsterGame13 = null;
     this.monsterGame14 = null;
 
+    this.soundPumpkinCrashes = new Music(CORE_CONST.soundPumpkinCrashesSrc);
+    this.soundExplosion = new Music(CORE_CONST.soundExplosionSrc);
+    this.soundMonsterDead1 = new Music(CORE_CONST.soundMonsterDead1Src);
+    this.soundMonsterDead2 = new Music(CORE_CONST.soundMonsterDead2Src);
+    this.soundFire = new Music(CORE_CONST.soundFireSrc);
+    this.soundLife = new Music(CORE_CONST.soundLifeSrc);
+    this.soundPumpkin = new Music(CORE_CONST.soundPumpkinSrc);
+    this.soundFreesing = new Music(CORE_CONST.soundFreesingSrc);
+    this.soundGameWin = new Music(CORE_CONST.soundGameWinSrc);
+    this.soundGameOver = new Music(CORE_CONST.soundGameOverSrc);
+    this.timeOver = new Music(CORE_CONST.timeOverSrc);
+    this.pumpkinLevel1 = new Music(CORE_CONST.pumpkinLevel1Src);
+    this.pumpkinLevel2 = new Music(CORE_CONST.pumpkinLevel2Src);
+    this.pumpkinLevel3 = new Music(CORE_CONST.pumpkinLevel3Src);
+    this.pumpkinLevel4 = new Music(CORE_CONST.pumpkinLevel4Src);
+
     this.freezMonsters = this.freezMonsters.bind(this);
     this.burstAllMonsters = this.burstAllMonsters.bind(this);
     this.mainLoop = this.mainLoop.bind(this);
@@ -147,20 +180,16 @@ export default class PumpkinGame {
   }
 
   render(): string {
-    // (<HTMLElement>document.querySelector('.header')).style.display = 'none';
-    // (<HTMLElement>document.querySelector('.footer')).style.display = 'none';
-
     const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
     const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
     this.resultGame.name = userName;
     this.resultGame.id = userId;
-    this.resultGame.game = 'Pumpkin Game';
+    this.resultGame.game = 'Save Pumpkin';
     this.resultGame.time = 0;
 
     return `
       <div class="game-container">
         <div class="game-area">
-
           <div class="status-panel">
             <div class="wrapper-pumpkin-level">
               <div class="pumpkin-level">
@@ -172,19 +201,19 @@ export default class PumpkinGame {
                 <span class="pumpkin-score-number">0</span>
               </div>
               <div class="shells">
-                <img src=${require('../../../assets/img/pumpkin-icon.png')} class="pumpkin-shells-icon select-weapon" alt="icon">
+                <img src=${require('../../../assets/img/pumpkin-icon.png')} class="pumpkin-shells-icon select-weapon" width="38" alt="icon">
                 <span class="pumpkin-shells-number">∞</span>
               </div>
               <div class="electo-ball">
-                <img src=${require('../../../assets/img/electro-ball.png')} class="pumpkin-electro-icon" alt="icon">
+                <img src=${require('../../../assets/img/electro-ball.png')} class="pumpkin-electro-icon" width="38" alt="icon">
                 <span class="pumpkin-electro-number">${this.numberElectrons}</span>
               </div>
               <div class="freezing">
-                <img src=${require('../../../assets/img/freezing.png')} class="pumpkin-freezing-icon" alt="icon">
+                <img src=${require('../../../assets/img/freezing.png')} class="pumpkin-freezing-icon" width="38" alt="icon">
                 <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
               </div>
               <div class="bomb">
-                <img src=${require('../../../assets/img/pumpkin-bomb.png')} class="pumpkin-bomb-icon" alt="icon">
+                <img src=${require('../../../assets/img/bomb-mini.png')} class="pumpkin-bomb-icon" width="38" alt="icon">
                 <span class="pumpkin-bomb-number">${this.numberBombs}</span>
               </div>
             </div>
@@ -223,11 +252,11 @@ export default class PumpkinGame {
     const pumpkinExit = <HTMLElement>document.querySelector('.home-btn');
     pumpkinExit.addEventListener('click', () => {
       if (this.isMusic) {
-        stopAudio(this.currentMusic);
+        this.currentMusic.stopMusic();
       }
 
       if (this.isSound) {
-        stopAudio(SOUND.timeOver);
+        this.timeOver.stopMusic();
       }
 
       this.gameTime = 0;
@@ -350,29 +379,29 @@ export default class PumpkinGame {
       case 1:
         this.makeTimer(1, 30);
         if (this.isMusic) {
-          this.currentMusic = SOUND.pumpkinLevel1;
-          playAudio(this.currentMusic, 0.9);
+          this.currentMusic = this.pumpkinLevel1;
+          this.currentMusic.playMusic(0.9);
         }
         break;
       case 2:
         this.makeTimer(1, 30);
         if (this.isMusic) {
-          this.currentMusic = SOUND.pumpkinLevel2;
-          playAudio(this.currentMusic, 0.3);
+          this.currentMusic = this.pumpkinLevel2;
+          this.currentMusic.playMusic(0.3);
         }
         break;
       case 3:
         this.makeTimer(0, 60);
         if (this.isMusic) {
-          this.currentMusic = SOUND.pumpkinLevel3;
-          playAudio(this.currentMusic, 0.8);
+          this.currentMusic = this.pumpkinLevel3;
+          this.currentMusic.playMusic(0.8);
         }
         break;
       case 4:
         this.makeTimer(0, 0);
         if (this.isMusic) {
-          this.currentMusic = SOUND.pumpkinLevel4;
-          playAudio(this.currentMusic, 0.3, 'loop');
+          this.currentMusic = this.pumpkinLevel4;
+          this.currentMusic.playMusic(0.3);
         }
         break;
     }
@@ -682,7 +711,7 @@ export default class PumpkinGame {
         });
 
         if (this.isSound) {
-          playAudio(SOUND.soundFire);
+          this.soundFire.playMusic(1);
         }
 
         this.numberElectrons = this.numberElectrons <= 0 ? 0 : this.numberElectrons - 1;
@@ -708,7 +737,7 @@ export default class PumpkinGame {
         });
 
         if (this.isSound) {
-          playAudio(SOUND.soundPumpkin);
+          this.soundPumpkin.playMusic(1);
         }
       }
 
@@ -998,7 +1027,7 @@ export default class PumpkinGame {
     }
 
     if (this.isSound) {
-      playAudio(SOUND.soundPumpkinCrashes);
+      this.soundPumpkinCrashes.playMusic(1);
     }
   }
 
@@ -1009,7 +1038,7 @@ export default class PumpkinGame {
     });
 
     if (this.isSound) {
-      playAudio(SOUND.soundExplosion);
+      this.soundExplosion.playMusic(1);
     }
   }
 
@@ -1020,17 +1049,17 @@ export default class PumpkinGame {
     });
 
     if (this.isSound) {
-      playAudio(SOUND.soundLife);
+      this.soundLife.playMusic(1);
     }
   }
 
   gameOver() {
     if (this.isMusic) {
-      stopAudio(this.currentMusic);
+      this.currentMusic.stopMusic();
     }
 
     if (this.isSound) {
-      playAudio(SOUND.soundGameOver);
+      this.soundGameOver.playMusic(0.2);
     }
 
     this.resultGame.level = this.gameLevel;
@@ -1069,12 +1098,12 @@ export default class PumpkinGame {
       pumpkinBomb.textContent = `${this.numberBombs}`;
 
       if (this.isSound) {
-        stopAudio(SOUND.soundGameOver);
+        this.soundGameOver.stopMusic();
       }
 
       if (this.isMusic) {
-        this.currentMusic = SOUND.pumpkinLevel1;
-        playAudio(this.currentMusic);
+        this.currentMusic = this.pumpkinLevel1;
+        this.currentMusic.playMusic(0.9);
       }
 
       this.setRoundName();
@@ -1113,13 +1142,13 @@ export default class PumpkinGame {
 
       if (min === 0 && sec < 10) {
         if (that.isSound) {
-          playAudio(SOUND.timeOver, 0.5);
+          that.timeOver.playMusic(0.5);
         }
       }
 
       if (that.isGameOver) {
         if (that.isSound) {
-          stopAudio(SOUND.timeOver);
+          that.timeOver.stopMusic();
         }
       }
     });
@@ -1127,11 +1156,11 @@ export default class PumpkinGame {
 
   nextLevel(): void {
     if (this.isSound) {
-      playAudio(SOUND.soundGameWin, 0.6);
+      this.soundGameWin.playMusic(0.6);
     }
 
     if (this.isMusic) {
-      stopAudio(this.currentMusic);
+      this.currentMusic.stopMusic();
     }
 
     this.resultGame.level = this.gameLevel - 1;
@@ -1160,7 +1189,7 @@ export default class PumpkinGame {
       window.setTimeout(() => this.isMonsterStop = false, 5000);
 
       if (this.isSound) {
-        playAudio(SOUND.soundFreesing);
+        this.soundFreesing.playMusic(1);
       }
 
       this.numberFreezers = this.numberFreezers <= 0 ? 0 : this.numberFreezers - 1;
@@ -1226,27 +1255,3 @@ export default class PumpkinGame {
     db.saveToStorage(this.resultGame);
   }
 }
-
-// c.197
-// <button class="pumpkin-play">Play</button>
-
-// <div class="shells">
-//   <img src=${require("../../../assets/img/key1.png")} class="keyboard-key" alt="icon">
-//   <img src=${require("../../../assets/img/pumpkin-icon.png")} class="pumpkin-shells-icon select-weapon" alt="icon">
-//   <span class="pumpkin-shells-number">∞</span>
-// </div>
-// <div class="electo-ball">
-//   <img src=${require("../../../assets/img/key2.png")} class="keyboard-key" alt="icon">
-//   <img src=${require("../../../assets/img/electro-ball.png")} class="pumpkin-electro-icon" alt="icon">
-//   <span class="pumpkin-electro-number">${this.numberElectrons}</span>
-// </div>
-// <div class="freezing">
-//   <img src=${require("../../../assets/img/key3.png")} class="keyboard-key" alt="icon">
-//   <img src=${require("../../../assets/img/freezing.png")} class="pumpkin-freezing-icon" alt="icon">
-//   <span class="pumpkin-freezing-number">${this.numberFreezers}</span>
-// </div>
-// <div class="bomb">
-//   <img src=${require("../../../assets/img/key4.png")} class="keyboard-key" alt="icon">
-//   <img src=${require("../../../assets/img/pumpkin-bomb.png")} class="pumpkin-bomb-icon" alt="icon">
-//   <span class="pumpkin-bomb-number">${this.numberBombs}</span>
-// </div>

@@ -1,5 +1,3 @@
-import Sprite from "./sprite";
-import { getImage } from "./utils-pumpkin-game";
 import modalMessageTemplates from '../modalMessage/modalMessageTemplates';
 
 const IMAGE_URL = [
@@ -37,7 +35,7 @@ const IMAGE_URL = [
 ];
 
 const startGameBtnTemplate = `
-  <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>;
+  <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
 `;
 
 const gameOverModalMessageTemplate = `

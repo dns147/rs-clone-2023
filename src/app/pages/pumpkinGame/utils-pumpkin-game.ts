@@ -98,21 +98,21 @@ export function collides(x: number, y: number, r: number, b: number, x2: number,
 
 export const normalize = (num: number): string => ((num < 10) ? '0' : '') + num;
 
-export function playAudio(audio: HTMLAudioElement | null, volume?: number, attribute?: string): void {
-  audio?.play();
+// export function playAudio(audio: HTMLAudioElement | null, volume?: number, attribute?: string): void {
+//   audio?.play();
 
-  if (audio && volume) {
-    audio.volume = volume;
-  }
+//   if (audio && volume) {
+//     audio.volume = volume;
+//   }
   
-  if (audio && attribute) {
-    audio.setAttribute(attribute, attribute);
-  }
-}
+//   if (audio && attribute) {
+//     audio.setAttribute(attribute, attribute);
+//   }
+// }
 
-export function stopAudio(audio: HTMLAudioElement | null): void {
-  if (audio) {
-    audio.pause();
-    audio.currentTime = 0;
-  }
-}
+// export function stopAudio(audio: HTMLAudioElement | null): void {
+//   if (audio) {
+//     audio.pause();
+//     audio.currentTime = 0;
+//   }
+// }

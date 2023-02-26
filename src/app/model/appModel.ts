@@ -74,7 +74,7 @@ export default class AppModel {
 
   playSoundClick(eventTarget: Element, pumpkinShellsIcon: HTMLElement, pumpkinElectroIcon: HTMLElement): void {
     if (localStorage['isSoundEffects'] === 'true') {
-      SOUND.soundClick.play();
+      //SOUND.soundClick.play();
     }
 
     if (eventTarget === pumpkinShellsIcon && !pumpkinShellsIcon.classList.contains('select-weapon')) {
@@ -95,7 +95,7 @@ export default class AppModel {
 
     if (hash === 'pumpkinGame') {
       if (localStorage['isSoundEffects'] === 'true') {
-        SOUND.soundClick.play();
+        //SOUND.soundClick.play();
       }
 
       const pumpkinIcon = <HTMLElement>document.querySelector('.pumpkin-shells-icon');

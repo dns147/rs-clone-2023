@@ -99,13 +99,15 @@
 }
 
 .btn-nav--home {
-  background: url(./../../../assets/icons/icon-door.png) no-repeat;
+  background: url(./../../../assets/icons/door-close2.png) no-repeat;
+  filter: brightness(0) saturate(100%) invert(74%) sepia(87%) saturate(953%) hue-rotate(355deg) brightness(100%) contrast(108%);
   background-size: contain;
 }
 
 .btn-nav--home:hover,
 .btn-nav--home:focus {
-  background: url(./../../../assets/icons/icon-door-white.png) no-repeat;
+  background: url(./../../../assets/icons/door-open2.png) no-repeat;
   background-size: contain;
+  transition: 0.3s;
 }
 // ==== /btns-nav ====
