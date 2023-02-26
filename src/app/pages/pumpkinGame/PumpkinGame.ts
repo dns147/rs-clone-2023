@@ -177,6 +177,7 @@ export default class PumpkinGame {
     this.handleMouse = this.handleMouse.bind(this);
     this.updateEntities = this.updateEntities.bind(this);
     this.setRoundName = this.setRoundName.bind(this);
+    this.finishGame = this.finishGame.bind(this);
   }
 
   render(): string {
@@ -243,31 +244,16 @@ export default class PumpkinGame {
   }
 
   init(): void {
-    const pumpkinFreezing = <HTMLElement>document.querySelector('.pumpkin-freezing-icon');
-    pumpkinFreezing.addEventListener('click', this.freezMonsters);
+    (<HTMLElement>document.querySelector('.pumpkin-freezing-icon')).addEventListener('click', this.freezMonsters);
+    (<HTMLElement>document.querySelector('.pumpkin-bomb-icon')).addEventListener('click', this.burstAllMonsters);
 
-    const pumpkinBomb = <HTMLElement>document.querySelector('.pumpkin-bomb-icon');
-    pumpkinBomb.addEventListener('click', this.burstAllMonsters);
-
-    const pumpkinExit = <HTMLElement>document.querySelector('.home-btn');
-    pumpkinExit.addEventListener('click', () => {
-      if (this.isMusic) {
-        this.currentMusic.stopMusic();
-      }
-
-      if (this.isSound) {
-        this.timeOver.stopMusic();
-      }
-
-      this.gameTime = 0;
-      this.isGameOver = true;
-    });
-
-    localStorage.setItem('currentWeapon', 'pumpkin');
-
+    window.addEventListener('hashchange', this.finishGame);
     window.addEventListener('resize', () => document.location.reload());
     window.addEventListener('resize', this.resizeGameArea);
+    
     this.resizeGameArea();
+    localStorage.setItem('currentWeapon', 'pumpkin');
+
     this.canvas = <HTMLCanvasElement>document.querySelector('.pumpkin-canvas');
     this.ctx = <CanvasRenderingContext2D>this.canvas.getContext('2d');
 
@@ -1248,6 +1234,19 @@ export default class PumpkinGame {
   changeNumberElectrons(): void {
     const numberElectroDoom = <HTMLSpanElement>document.querySelector('.pumpkin-electro-number');
     numberElectroDoom.textContent = `${this.numberElectrons}`;
+  }
+
+  finishGame(): void {
+    if (this.isMusic) {
+      this.currentMusic.stopMusic();
+    }
+
+    if (this.isSound) {
+      this.timeOver.stopMusic();
+    }
+
+    this.gameTime = 0;
+    this.isGameOver = true;
   }
 
   saveResultGameToStorage(): void {
