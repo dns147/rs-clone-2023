@@ -25,7 +25,7 @@ export type ResultGame = {
   game: string;
   score: number;
   level?: number;
-  time?: number;
+  time?: string;
 };
 
 export type DataFromDbInner = { [key: string]: ResultGame };

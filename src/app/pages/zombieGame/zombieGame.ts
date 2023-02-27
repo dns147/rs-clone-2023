@@ -55,7 +55,6 @@ export default class Page8 {
     setInitialValues();
     timer();
     getEnemyTime();
-
     soundStartGame();
   }
 }
