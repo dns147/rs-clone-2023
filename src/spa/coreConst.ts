@@ -27,8 +27,8 @@ import pumpkinLevel4Src from '../assets/audio/music/pumpkin-level4.mp3';
 
 import soundGhostSrc from '../assets/audio/effects/ghost-sound1.mp3';
 
-localStorage.setItem('isMusic', JSON.stringify(true));
-localStorage.setItem('isSoundEffects', JSON.stringify(true));
+// localStorage.setItem('isMusic', JSON.stringify(true));
+// localStorage.setItem('isSoundEffects', JSON.stringify(true));
 const unknownUserName = 'unknown ghost';
 
 //images

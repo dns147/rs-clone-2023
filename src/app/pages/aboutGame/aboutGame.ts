@@ -128,6 +128,7 @@ export default class AboutGame {
   }
 
   init(): void {
+    window.addEventListener('resize', () => document.location.reload());
     setCanvasSize();
     createAllStars();
     animateSky();

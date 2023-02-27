@@ -132,8 +132,8 @@ export default class PumpkinGame {
     this.numberFreezers = 1;
     this.gameLevel = 1;
     this.userName = '';
-    this.isMusic = localStorage['isMusic'] === 'true';
-    this.isSound = localStorage['isSoundEffects'] === 'true';
+    this.isMusic = localStorage['isMusic'] ? localStorage['isMusic'] === 'true' : true;
+    this.isSound = localStorage['isSoundEffects'] ? localStorage['isSoundEffects'] === 'true' : true;
     this.currentMusic = new Music(CORE_CONST.pumpkinLevel1Src);
 
     this.player = null;
@@ -181,6 +181,7 @@ export default class PumpkinGame {
     this.updateEntities = this.updateEntities.bind(this);
     this.setRoundName = this.setRoundName.bind(this);
     this.finishGame = this.finishGame.bind(this);
+    this.stopMusic = this.stopMusic.bind(this);
   }
 
   render(): string {
@@ -189,7 +190,7 @@ export default class PumpkinGame {
     this.resultGame.name = userName;
     this.resultGame.id = userId;
     this.resultGame.game = 'Save Pumpkin';
-    this.resultGame.time = '0';
+    this.resultGame.time = '-';
 
     return `
       <div class="game-container">
@@ -250,7 +251,8 @@ export default class PumpkinGame {
   init(): void {
     (<HTMLElement>document.querySelector('.pumpkin-freezing-icon')).addEventListener('click', this.freezMonsters);
     (<HTMLElement>document.querySelector('.pumpkin-bomb-icon')).addEventListener('click', this.burstAllMonsters);
-    
+    (<HTMLElement>document.querySelector('.settings-btn')).addEventListener('click', this.stopMusic);
+   
     const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
     gameInfoBtn.classList.remove('hide');
     gameInfoBtn.addEventListener('click', this.showGameInfo);
@@ -279,6 +281,23 @@ export default class PumpkinGame {
         this.checkLoadImages(countImages, this.imagesUrl.length);
       };
     }
+  }
+
+  stopMusic(): void {
+    window.setTimeout(() => {
+      const musicBtn = <HTMLElement>document.querySelector('.music-btn');
+      //const soundEffectsBtn = <HTMLElement>document.querySelector('.sound-btn');
+
+      musicBtn.addEventListener('click', () => {
+        if (localStorage['isPlayMusic']) {
+          this.currentMusic.stopMusic();
+        } 
+        
+        // else {
+        //   this.currentMusic.playMusic(0.9);
+        // }
+      });
+    }, 0);    
   }
 
   checkLoadImages(countImages: number, imagesLength: number): void {

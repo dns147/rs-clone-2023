@@ -44,10 +44,10 @@ export default class ShooterGame {
     this.resultGame = {
       id: userId,
       name: userName,
-      game: 'Ravens hunting',
+      game: 'Ravens Hunting',
       score: this.score,
       level: 0,
-      time: '0',
+      time: '-',
     };
   }
 
