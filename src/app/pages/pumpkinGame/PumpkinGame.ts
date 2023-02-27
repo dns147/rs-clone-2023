@@ -189,7 +189,7 @@ export default class PumpkinGame {
     this.resultGame.name = userName;
     this.resultGame.id = userId;
     this.resultGame.game = 'Save Pumpkin';
-    this.resultGame.time = 0;
+    this.resultGame.time = '0';
 
     return `
       <div class="game-container">

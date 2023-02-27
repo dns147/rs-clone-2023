@@ -1,6 +1,8 @@
 import ModalMessage from '../modalMessage/modalMessage';
 import { ParallaxGameProps } from './types';
 import CONST from '../../../spa/coreConst';
+import { ResultGame } from '../../../spa/coreTypes';
+import DataBase from '../../../utils/dataBase';
 
 export class InputHandler {
   keys: string[];
@@ -427,6 +429,7 @@ function showGameOver() {
     `
   );
   showStartBtn();
+  saveResultGameToStorage(time);
 }
 
 export function showStartBtn() {
@@ -437,6 +440,24 @@ export function showStartBtn() {
     clearGameState();
   }, 3000);
 }
+
+function saveResultGameToStorage(time: string): void {
+  const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
+  const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
+    
+  const resultGame: ResultGame = {
+    id: userId,
+    name: userName,
+    game: 'Zombie Walk',
+    score: 0,
+    level: 1,
+    time: time
+  }
+
+  const db = new DataBase();
+  db.saveToStorage(resultGame);
+}
+
 export function clearGameState() {
   const timeContainer = document.querySelector('.parallax-game-results-time__number') as HTMLElement;
   timeContainer.textContent = '00:00';

@@ -47,7 +47,7 @@ export default class ShooterGame {
       game: 'Ravens hunting',
       score: this.score,
       level: 0,
-      time: 0,
+      time: '0',
     };
   }
 
