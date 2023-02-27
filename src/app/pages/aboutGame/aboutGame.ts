@@ -69,7 +69,7 @@ export default class AboutGame {
           <div class="game-info-description">
             <p>Save the pumpkin from Halloween Monsters.</p>
             <p>Levels: 4.</p>
-            <p>Controls: ???.</p>
+            <p>Controls: Click and press keys 1-4.</p>
           </div>
         </div>
         </div>
@@ -113,6 +113,14 @@ export default class AboutGame {
               </div>
             </a>
           </div>
+        </div>
+        <div class="project-info">
+          <a class="project-info-rss-link" href="https://rs.school/js" target="_blank">
+            <div class="project-info-rss-link__container">
+              <img class="project-info-rss-link__img" src=${require('../../../assets/img/rss.svg')} alt="rsschool">
+            </div>
+          </a>
+          <p class="project-info-text">2023</p>
         </div>
       </div>
     </div>
