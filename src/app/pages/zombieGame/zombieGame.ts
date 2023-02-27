@@ -32,6 +32,7 @@ export default class Page8 {
   }
 
   init(): void {
+    window.addEventListener('resize', () => document.location.reload());
     window.addEventListener('click', this.handlerGame.bind(this));
 
     setCanvasSize();
