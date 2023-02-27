@@ -74,7 +74,7 @@ export default class ChooseGames {
         <div class="location-ghost__link-container">
           <a class="location-ghost__link" href="#/zombieGame">
             <div class="location-ghost__link-img-container">
-              <img class="location-ghost__link-img" src="" alt="???">
+              <img class="location-ghost__link-img" src=${require('../../../assets/parallax-game/witch1.png')} alt="witch">
             </div>
           </a>
         </div>

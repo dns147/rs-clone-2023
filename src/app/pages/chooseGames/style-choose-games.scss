@@ -126,6 +126,10 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   transform: rotate(15deg);
 }
 
+#location-ghost-three .location-ghost__link-img {
+  transform: rotate(-15deg);
+}
+
 .location-ghost__link-img-container_opened {
   background: $gradient-5;
 }
