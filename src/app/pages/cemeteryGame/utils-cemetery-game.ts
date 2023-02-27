@@ -2,6 +2,8 @@ import { MatchGameState, StorageInfo } from './types-cemetery-game';
 import ModalMessage from '../modalMessage/modalMessage';
 import Page7 from './cemeteryGame';
 import CONST from '../../../spa/coreConst';
+import { ResultGame } from '../../../spa/coreTypes';
+import DataBase from '../../../utils/dataBase';
 
 const matchGameState: MatchGameState = {
   hasFlippedCard: false,
@@ -145,6 +147,27 @@ function createResults() {
   result.time = timeContainer.textContent;
   matchGameState.results.push(result);
   setLocalstorage();
+  saveResultGameToStorage(result);
+}
+
+function saveResultGameToStorage(result: StorageInfo): void {
+  const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
+  const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
+  const timeGame = <string>result.time;
+  const levelGame = <number>result.level;
+  const scoreGame = <number>result.moves;
+    
+  const resultGame: ResultGame = {
+    id: userId,
+    name: userName,
+    game: 'Cemetery',
+    score: scoreGame,
+    level: levelGame,
+    time: timeGame
+  }
+
+  const db = new DataBase();
+  db.saveToStorage(resultGame);
 }
 
 function switchLevel(value: number) {
