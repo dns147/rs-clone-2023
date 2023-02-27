@@ -1,9 +1,9 @@
-import './style-page2.scss';
-import { setCanvasSize, createAllStars, animateSky, createShootingStar } from './utils-page2';
+import './style-aboutGame.scss';
+import { setCanvasSize, createAllStars, animateSky, createShootingStar } from './utils-aboutGame';
 import Music from '../../../utils/Music';
 import musicChildSongSrc from '../../../assets/audio/music/strashnye-zvuki-child-song.mp3';
 
-export default class Page2 {
+export default class AboutGame {
   musicResultsSrc: string;
   music: Music;
 

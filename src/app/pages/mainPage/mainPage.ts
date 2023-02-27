@@ -83,7 +83,7 @@ export default class MainPage {
               <div class="home-button__animation-2"></div>
             </span>
           </a>
-          <a class="home-button btn btn--big accent-font accent-font--upper" href="#/about">
+          <a class="home-button btn btn--big accent-font accent-font--upper" href="#/aboutGame">
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
