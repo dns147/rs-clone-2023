@@ -53,7 +53,7 @@ export default class ChooseGames {
         <img class="location-ghost__img" src=${require('../../../assets/map/location-ghost.png')} alt="ghost">
         <div class="location-ghost__link-container">
           <a class="location-ghost__link" href="#/cemeteryGame">
-            <div class="location-ghost__link-img-container location-ghost__link-img-container_opened">
+            <div class="location-ghost__link-img-container">
               <img class="location-ghost__link-img" src=${require('../../../assets/map/skull3.png')} alt="skull">
             </div>
           </a>
