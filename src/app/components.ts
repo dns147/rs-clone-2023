@@ -12,7 +12,7 @@ export const Header = {
 					  <a class="header-item" href="#/zombieGame">Zombie walk</a>
 					  <a class="header-item" href="#/results">Results</a>
 					  <a class="header-item" href="#/about">About</a>
-					  <a class="header-item" href="#/page2">page2</a>
+					  <a class="header-item" href="#/aboutGame">aboutGame</a>
 					  <a class="header-item" href="#/page4">test</a>
             <a class="header-item" href="#/settings">settings</a>
           </nav>

@@ -126,6 +126,10 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   transform: rotate(15deg);
 }
 
+#location-ghost-three .location-ghost__link-img {
+  transform: rotate(-15deg);
+}
+
 .location-ghost__link-img-container_opened {
   background: $gradient-5;
 }
@@ -142,7 +146,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: 0;
   left: 0;
   width: 23%;
-  animation: show-from-left 4.5s ease-out;
+  animation: show-from-left 3s ease-out;
 
   .hero__img {
     @include img-props;
@@ -164,7 +168,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: 0;
   left: 0;
   width: 100%;
-  animation: show-from-bottom 3.5s forwards;
+  animation: show-from-bottom 2s forwards;
 
   .mountain__img {
     @include img-props;
@@ -179,7 +183,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   left: 0;
   width: 60%;
 
-  animation: show-from-bottom 2.5s forwards;
+  animation: show-from-bottom 1s forwards;
 
   .graves__img {
     @include img-props;
@@ -192,7 +196,7 @@ $gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1)
   bottom: -90px;
   left: 0;
   width: 90%;
-  animation: show-from-bottom 3s forwards;
+  animation: show-from-bottom 2.2s forwards;
 
   .forest__img {
     @include img-props;

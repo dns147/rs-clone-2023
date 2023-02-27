@@ -1,6 +1,6 @@
 import { Content, Footer, Header } from './components';
 import MainPage from './pages/mainPage/mainPage';
-import Page2 from './pages/page2/Page2';
+import AboutGame from './pages/aboutGame/aboutGame';
 import ChooseGames from './pages/chooseGames/chooseGames';
 import Test from './pages/page4/Page4';
 import Spa from '../spa/spa';
@@ -32,7 +32,7 @@ export default class App {
 
     const routes = {
       mainPage: MainPage,
-      page2: Page2,
+      aboutGame: AboutGame,
       chooseGames: ChooseGames,
       page4: Test,
       pumpkinGame: PumpkinGame,
