@@ -127,7 +127,7 @@ export class Player {
   ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.height = gameHeight * 0.24;
+    this.height = gameHeight * 0.3;
     this.width = (this.height * ((playerWidth * 100) / playerHeight)) / 100;
 
     this.x = gameWidth * 0.01;
@@ -163,7 +163,7 @@ export class Player {
     this.x += this.speed;
 
     if (input.keys.indexOf('Space') > -1) {
-      if ((!this.onGround() && this.y > -1) || this.onGround()) {
+      if ((!this.onGround() && this.y > this.gameHeight * 0.1) || this.onGround()) {
         this.jump();
       }
     } else {
@@ -190,8 +190,8 @@ export class Player {
       this.y = this.gameHeight - this.height - this.gameHeight * 0.12;
     }
 
-    if (this.y < -1) {
-      this.y = -1;
+    if (this.y < this.gameHeight * 0.1) {
+      this.y = this.gameHeight * 0.1;
     }
   }
 
@@ -257,7 +257,7 @@ export class Enemy {
   ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.height = gameHeight * 0.28;
+    this.height = gameHeight * 0.35;
     this.width = (this.height * ((enemyWidth * 100) / enemyHeight)) / 100;
     this.image = image;
     this.x = gameWidth;
@@ -398,7 +398,7 @@ function getRandomEnemyInterval() {
 export function getEnemyTime() {
   clearInterval(parallaxGameState.enemyTimeId);
   parallaxGameState.enemyTimeId = window.setInterval(() => {
-    parallaxGameState.gameSpeed += 0.1;
+    parallaxGameState.gameSpeed += 0.05;
     if (parallaxGameState.gameSpeed > 10 && parallaxGameState.gameSpeed <= 15) {
       parallaxGameState.enemyInterval = 1000;
       parallaxGameState.min = 100;
@@ -406,7 +406,7 @@ export function getEnemyTime() {
       parallaxGameState.enemyInterval = 500;
       parallaxGameState.min = 50;
     } else if (parallaxGameState.gameSpeed > 25) {
-      parallaxGameState.enemyInterval = 100;
+      parallaxGameState.enemyInterval = 300;
       parallaxGameState.min = 50;
     }
     console.log(parallaxGameState.enemyTimeId);
@@ -444,15 +444,15 @@ export function showStartBtn() {
 function saveResultGameToStorage(time: string): void {
   const userName: string = localStorage['userName'] ? JSON.parse(localStorage['userName']) : '';
   const userId: string = localStorage['userId'] ? JSON.parse(localStorage['userId']) : '';
-    
+
   const resultGame: ResultGame = {
     id: userId,
     name: userName,
     game: 'Zombie Walk',
     score: 0,
     level: 1,
-    time: time
-  }
+    time: time,
+  };
 
   const db = new DataBase();
   db.saveToStorage(resultGame);
