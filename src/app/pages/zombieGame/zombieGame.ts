@@ -9,6 +9,7 @@ import {
   getEnemyTime,
   setInitialValues,
   soundStartGame,
+  clearGameState,
 } from './utils-zombie-game';
 
 export default class Page8 {
@@ -32,6 +33,7 @@ export default class Page8 {
   }
 
   init(): void {
+    window.addEventListener('hashchange', clearGameState);
     window.addEventListener('resize', () => document.location.reload());
     window.addEventListener('click', this.handlerGame.bind(this));
 
