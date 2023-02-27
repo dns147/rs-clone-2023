@@ -1,4 +1,4 @@
-import { Particle } from './utils-page2';
+import { Particle } from './utils-aboutGame';
 
 export type ShootingStarProps = Particle & {
   isDead: boolean;
