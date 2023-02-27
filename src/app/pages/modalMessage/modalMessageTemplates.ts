@@ -18,7 +18,7 @@ const toMainPageBtn = `
 `;
 
 const startGameBtnTemplate = `
-  <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>;
+  <button class="btn btn--start-game btn--fixed-center start-game-btn">Start Game</button>
 `;
 
 export default {
