@@ -1,6 +1,8 @@
 import './style-cemetery-game.scss';
-import { createElem, createRandomArr } from './utils-cemetery-game';
+import { createRandomArr, clearCards } from './utils-cemetery-game';
 import { HeroParams } from './types-cemetery-game';
+import { heroArr1, heroArr2 } from './consts';
+import ModalMessageTemplates from '../modalMessage/modalMessageTemplates';
 
 export default class Page7 {
   constructor() {}
@@ -63,195 +65,29 @@ export default class Page7 {
         </div>
       </div>
 
+      ${ModalMessageTemplates.startGameBtnTemplate}
+      <div class="cards"></div>
+
     </div>`;
   }
 
   showLevel1(): void {
-    const gameContainer = document.querySelector('.match-game') as HTMLElement;
+    const cards = document.querySelector('.cards') as HTMLElement;
+    clearCards();
 
-    const cards = createElem({
-      tagName: 'div',
-      className: 'cards',
-    });
+    const orderArr = createRandomArr(heroArr1.length);
 
-    const heroArr = [
-      {
-        hero: 'mummy',
-        link: require('../../../assets/match-game/mummy.png'),
-      },
-      {
-        hero: 'mummy',
-        link: require('../../../assets/match-game/mummy.png'),
-      },
-      {
-        hero: 'skeleton',
-        link: require('../../../assets/match-game/skeleton.png'),
-      },
-      {
-        hero: 'skeleton',
-        link: require('../../../assets/match-game/skeleton.png'),
-      },
-      {
-        hero: 'scarecrow',
-        link: require('../../../assets/match-game/scarecrow.png'),
-      },
-      {
-        hero: 'scarecrow',
-        link: require('../../../assets/match-game/scarecrow.png'),
-      },
-      {
-        hero: 'reaper',
-        link: require('../../../assets/match-game/reaper.png'),
-      },
-      {
-        hero: 'reaper',
-        link: require('../../../assets/match-game/reaper.png'),
-      },
-      {
-        hero: 'monster',
-        link: require('../../../assets/match-game/monster.png'),
-      },
-      {
-        hero: 'monster',
-        link: require('../../../assets/match-game/monster.png'),
-      },
-      {
-        hero: 'dracula',
-        link: require('../../../assets/match-game/dracula.png'),
-      },
-      {
-        hero: 'dracula',
-        link: require('../../../assets/match-game/dracula.png'),
-      },
-      {
-        hero: 'devil',
-        link: require('../../../assets/match-game/devil.png'),
-      },
-      {
-        hero: 'devil',
-        link: require('../../../assets/match-game/devil.png'),
-      },
-      {
-        hero: 'ghost',
-        link: require('../../../assets/match-game/ghost.png'),
-      },
-      {
-        hero: 'ghost',
-        link: require('../../../assets/match-game/ghost.png'),
-      },
-    ];
-    const orderArr = createRandomArr(heroArr.length);
-    gameContainer.append(cards);
-    this.createCards(cards, heroArr, orderArr);
+    this.createCards(cards, heroArr1, orderArr);
   }
 
   showLevel2() {
-    const heroArr = [
-      {
-        hero: 'skull1',
-        link: require('../../../assets/match-game/skull1.png'),
-      },
-      {
-        hero: 'skull1',
-        link: require('../../../assets/match-game/skull1.png'),
-      },
-      {
-        hero: 'skull2',
-        link: require('../../../assets/match-game/skull2.png'),
-      },
-      {
-        hero: 'skull2',
-        link: require('../../../assets/match-game/skull2.png'),
-      },
-      {
-        hero: 'skull3',
-        link: require('../../../assets/match-game/skull3.png'),
-      },
-      {
-        hero: 'skull3',
-        link: require('../../../assets/match-game/skull3.png'),
-      },
-      {
-        hero: 'skeleton2',
-        link: require('../../../assets/match-game/skeleton2.png'),
-      },
-      {
-        hero: 'skeleton2',
-        link: require('../../../assets/match-game/skeleton2.png'),
-      },
-      {
-        hero: 'cat2',
-        link: require('../../../assets/match-game/cat2.png'),
-      },
-      {
-        hero: 'cat2',
-        link: require('../../../assets/match-game/cat2.png'),
-      },
-      {
-        hero: 'cat3',
-        link: require('../../../assets/match-game/cat3.png'),
-      },
-      {
-        hero: 'cat3',
-        link: require('../../../assets/match-game/cat3.png'),
-      },
-      {
-        hero: 'cat4',
-        link: require('../../../assets/match-game/cat4.png'),
-      },
-      {
-        hero: 'cat4',
-        link: require('../../../assets/match-game/cat4.png'),
-      },
-      {
-        hero: 'cat5',
-        link: require('../../../assets/match-game/cat5.png'),
-      },
-      {
-        hero: 'cat5',
-        link: require('../../../assets/match-game/cat5.png'),
-      },
-      {
-        hero: 'cat6',
-        link: require('../../../assets/match-game/cat6.png'),
-      },
-      {
-        hero: 'cat6',
-        link: require('../../../assets/match-game/cat6.png'),
-      },
-      {
-        hero: 'cat7',
-        link: require('../../../assets/match-game/cat7.png'),
-      },
-      {
-        hero: 'cat7',
-        link: require('../../../assets/match-game/cat7.png'),
-      },
-      {
-        hero: 'cat8',
-        link: require('../../../assets/match-game/cat8.png'),
-      },
-      {
-        hero: 'cat8',
-        link: require('../../../assets/match-game/cat8.png'),
-      },
-      {
-        hero: 'dog',
-        link: require('../../../assets/match-game/dog.png'),
-      },
-      {
-        hero: 'dog',
-        link: require('../../../assets/match-game/dog.png'),
-      },
-    ];
-
-    const orderArr = createRandomArr(heroArr.length);
+    const orderArr = createRandomArr(heroArr2.length);
 
     const cards = document.querySelector('.cards') as HTMLElement;
-    cards.innerHTML = '';
+    clearCards();
     cards.classList.add('match-level2');
 
-    this.createCards(cards, heroArr, orderArr);
+    this.createCards(cards, heroArr2, orderArr);
   }
 
   createCards(cardsContainer: HTMLElement, heroList: HeroParams[], order: number[]) {
@@ -275,7 +111,22 @@ export default class Page7 {
     }
   }
 
-  init(): void {
+  handlerGame(event: MouseEvent) {
+    const currEl = event.target;
+    const shooterGameArea = document.querySelector('.match-game') as HTMLElement;
+    const startGameBtn = shooterGameArea.querySelector('.start-game-btn') as HTMLElement;
+
+    if (currEl === startGameBtn) {
+      this.initGame();
+      startGameBtn.classList.add('hide');
+    }
+  }
+
+  initGame() {
     this.showLevel1();
+  }
+
+  init(): void {
+    window.addEventListener('click', this.handlerGame.bind(this));
   }
 }

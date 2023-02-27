@@ -212,4 +212,25 @@ function showGameOver() {
     <div class="title-modal-message">Game over</div>
     `
   );
+  showStartBtn();
+}
+
+function showStartBtn() {
+  const startGameBtn = document.querySelector('.start-game-btn') as HTMLElement;
+
+  setTimeout(() => {
+    startGameBtn.classList.remove('hide');
+    clearInfo();
+    const level = document.querySelector('.match-game-moves-container__number-level') as HTMLElement;
+    level.textContent = '1';
+    matchGameState.level = 1;
+    matchGameState.results = [];
+
+    clearCards();
+  }, 3000);
+}
+
+export function clearCards() {
+  const cards = document.querySelector('.cards') as HTMLElement;
+  cards.innerHTML = '';
 }
