@@ -1,5 +1,6 @@
 import ModalMessage from '../modalMessage/modalMessage';
 import { ParallaxGameProps } from './types';
+import CONST from '../../../spa/coreConst';
 
 export class InputHandler {
   keys: string[];
@@ -149,6 +150,7 @@ export class Player {
         parallaxGameState.gameOver = true;
         const timeContainer = document.querySelector('.parallax-game-results-time__number') as HTMLElement;
         const time = timeContainer.textContent as string;
+        soundGameOver();
         setLocalstorage(time);
         clearInterval(parallaxGameState.enemyTimeId);
         clearInterval(parallaxGameState.timerInterval);
@@ -466,4 +468,18 @@ export function setNewCanvas() {
   createBackground();
   createPlayer();
   animate(0);
+}
+
+function soundGameOver() {
+  const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
+  const soundGameOver = new Audio(CONST.soundGameOverSrc);
+  soundGameOver.volume = 0.4;
+  if (isSoundEffects) soundGameOver.play();
+}
+
+export function soundStartGame() {
+  const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
+  const soundStartGame = new Audio(CONST.soundWitchLaughSrc);
+  soundStartGame.volume = 0.4;
+  if (isSoundEffects) soundStartGame.play();
 }

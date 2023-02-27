@@ -3,6 +3,7 @@ import soundGameOverSrc from '../assets/audio/effects/fail-wha-wha.mp3';
 import soundSettingsSrc from '../assets/audio/effects/settings-1.mp3';
 import soundDoorScripSrc from '../assets/audio/effects/scrip-dveri-min-2.mp3';
 import soundBooSrc from '../assets/audio/effects/boo-child.mp3';
+import soundWitchLaughSrc from '../assets/audio/effects/laughing-witch-1.mp3';
 
 import musicRavensSrc from '../assets/audio/music/strashnye-zvuki-vorony.mp3'; // for Ravens hunting
 import musicChildSongSrc from '../assets/audio/music/strashnye-zvuki-child-song.mp3'; // for results page
@@ -64,6 +65,7 @@ export default {
   soundSettingsSrc,
   soundDoorScripSrc,
   soundBooSrc,
+  soundWitchLaughSrc,
 
   musicRavensSrc,
   musicChildSongSrc,

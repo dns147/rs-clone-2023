@@ -8,6 +8,7 @@ import {
   timer,
   getEnemyTime,
   setInitialValues,
+  soundStartGame,
 } from './utils-zombie-game';
 
 export default class Page8 {
@@ -54,5 +55,7 @@ export default class Page8 {
     setInitialValues();
     timer();
     getEnemyTime();
+
+    soundStartGame();
   }
 }
