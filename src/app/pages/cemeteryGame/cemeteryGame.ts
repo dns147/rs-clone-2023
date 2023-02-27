@@ -1,5 +1,5 @@
 import './style-cemetery-game.scss';
-import { createRandomArr, clearCards } from './utils-cemetery-game';
+import { createRandomArr, clearCards, matchSoundEffect } from './utils-cemetery-game';
 import { HeroParams } from './types-cemetery-game';
 import { heroArr1, heroArr2 } from './consts';
 import ModalMessageTemplates from '../modalMessage/modalMessageTemplates';
@@ -119,6 +119,7 @@ export default class Page7 {
     if (currEl === startGameBtn) {
       this.initGame();
       startGameBtn.classList.add('hide');
+      matchSoundEffect();
     }
   }
 

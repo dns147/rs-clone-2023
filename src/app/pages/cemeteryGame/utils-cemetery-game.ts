@@ -1,6 +1,7 @@
 import { MatchGameState, ElemParams, StorageInfo } from './types-cemetery-game';
 import ModalMessage from '../modalMessage/modalMessage';
 import Page7 from './cemeteryGame';
+import CONST from '../../../spa/coreConst';
 
 const matchGameState: MatchGameState = {
   hasFlippedCard: false,
@@ -56,6 +57,7 @@ function changeStyles() {
     if (e.dataset.hero === 'ghost') {
       const hero = e.querySelector('.back__img1') as HTMLImageElement;
       hero.classList.add('fly-hero');
+      matchSoundEffect();
     }
   });
 }
@@ -174,19 +176,19 @@ function showLevel() {
   level.textContent = String(matchGameState.level);
 }
 
-export function createElem({ tagName, className, textContent }: ElemParams): HTMLElement {
-  const createdElem: HTMLElement = typeof tagName === 'string' ? document.createElement(tagName) : tagName;
+// function createElem({ tagName, className, textContent }: ElemParams): HTMLElement {
+//   const createdElem: HTMLElement = typeof tagName === 'string' ? document.createElement(tagName) : tagName;
 
-  if (className) {
-    createdElem.className = className;
-  }
+//   if (className) {
+//     createdElem.className = className;
+//   }
 
-  if (textContent) {
-    createdElem.textContent = textContent;
-  }
+//   if (textContent) {
+//     createdElem.textContent = textContent;
+//   }
 
-  return createdElem;
-}
+//   return createdElem;
+// }
 
 export function createRandomArr(length: number) {
   const ARR: number[] = [];
@@ -212,6 +214,7 @@ function showGameOver() {
     <div class="title-modal-message">Game over</div>
     `
   );
+  matchSoundEffect();
   showStartBtn();
 }
 
@@ -233,4 +236,11 @@ function showStartBtn() {
 export function clearCards() {
   const cards = document.querySelector('.cards') as HTMLElement;
   cards.innerHTML = '';
+}
+
+export function matchSoundEffect() {
+  const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
+  const sound = new Audio(CONST.soundGhostSrc);
+  sound.volume = 0.2;
+  if (isSoundEffects) sound.play();
 }
