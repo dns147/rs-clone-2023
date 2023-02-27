@@ -1,7 +1,13 @@
 @import '../mainPage/style-main-page.scss';
 
+@font-face {
+  font-family: 'HennyPenny';
+  src: url(../../../assets/fonts/HennyPenny-Regular.otf);
+}
+
 .parallax-game {
   @include parent-size;
+  background-color: #000000;
 }
 
 .parallax-game-wrapper {
@@ -10,27 +16,33 @@
   justify-content: center;
   align-items: center;
   @include parent-size;
-  background-color: #000000;
 }
 
 .parallax-game-results {
   z-index: 50;
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
-  color: #000000;
+  width: 145px;
+  border-radius: 30px;
+  padding: 10px 15px;
+
+  letter-spacing: 2px;
+
+  font-family: 'HennyPenny';
+  font-size: 16px;
+  background: #49258f;
 }
 
 .canvas-container {
-  @include parent-size;
-  max-width: 1920px;
-  max-height: 1080px;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
   font-size: 0;
 }
 
-#canvas-parallax {
-  position: relative;
-  @include parent-size;
-  max-width: 1920px;
-  max-height: 1080px;
+@media (max-width: 768px) {
+  .parallax-game-results {
+    top: 50px;
+  }
 }
