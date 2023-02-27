@@ -77,7 +77,7 @@ export default class MainPage {
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
             </span>
-            <span class="home-button__text">play games</span>  
+            <span class="home-button__text">games</span>  
             <span class="home-button__icon">
               <div class="home-button__animation-1"></div>
               <div class="home-button__animation-2"></div>
