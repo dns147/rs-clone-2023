@@ -1,4 +1,4 @@
-import { MatchGameState, ElemParams, StorageInfo } from './types-cemetery-game';
+import { MatchGameState, StorageInfo } from './types-cemetery-game';
 import ModalMessage from '../modalMessage/modalMessage';
 import Page7 from './cemeteryGame';
 import CONST from '../../../spa/coreConst';
@@ -175,20 +175,6 @@ function showLevel() {
   const level = document.querySelector('.match-game-moves-container__number-level') as HTMLElement;
   level.textContent = String(matchGameState.level);
 }
-
-// function createElem({ tagName, className, textContent }: ElemParams): HTMLElement {
-//   const createdElem: HTMLElement = typeof tagName === 'string' ? document.createElement(tagName) : tagName;
-
-//   if (className) {
-//     createdElem.className = className;
-//   }
-
-//   if (textContent) {
-//     createdElem.textContent = textContent;
-//   }
-
-//   return createdElem;
-// }
 
 export function createRandomArr(length: number) {
   const ARR: number[] = [];
