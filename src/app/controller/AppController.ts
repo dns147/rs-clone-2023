@@ -2,6 +2,7 @@ import AppModel from '../model/appModel';
 import CONST from '../../spa/coreConst';
 import Modal from '../pages/modal/modal';
 import ModalTemplates from '../pages/modal/modalTemplates';
+import Music from '../../utils/Music';
 
 export default class AppController {
   model: AppModel;
@@ -49,6 +50,7 @@ export default class AppController {
       const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
       const soundEffectsBtn = document.querySelector('.settings .sound-btn') as HTMLElement;
       const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
+      const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
 
       const currEl = event.target;
 
@@ -70,12 +72,24 @@ export default class AppController {
 
         const modalSettings = new Modal();
         modalSettings.drawModal(ModalTemplates.modalTemplateSettings);
+
+        const soundEffectsBtn = <HTMLElement>document.querySelector('.sound-btn');
+        const musicGameBtn = <HTMLElement>document.querySelector('.music-btn');
+
+        if (!isSoundEffects) {
+          soundEffectsBtn.classList.add('off');
+        }
+
+        if (!isMusic) {
+          musicGameBtn.classList.add('off');
+        }
         // this.music.stopMusic();
       }
 
       if (currEl === musicGameBtn) {
         // this.music.playMusic();
-        const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
+        //const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
+
         if (isMusic) {
           localStorage.setItem('isMusic', JSON.stringify(false));
           // this.music.stopMusic();
