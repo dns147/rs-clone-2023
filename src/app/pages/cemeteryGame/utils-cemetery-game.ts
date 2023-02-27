@@ -1,5 +1,7 @@
-import { MatchGameState, ElemParams, StorageInfo } from './types-cemetery-game';
+import { MatchGameState, StorageInfo } from './types-cemetery-game';
+import ModalMessage from '../modalMessage/modalMessage';
 import Page7 from './cemeteryGame';
+import CONST from '../../../spa/coreConst';
 
 const matchGameState: MatchGameState = {
   hasFlippedCard: false,
@@ -55,6 +57,7 @@ function changeStyles() {
     if (e.dataset.hero === 'ghost') {
       const hero = e.querySelector('.back__img1') as HTMLImageElement;
       hero.classList.add('fly-hero');
+      matchSoundEffect();
     }
   });
 }
@@ -130,6 +133,7 @@ function gameOver() {
   if (matchGameState.level === 2 && matchGameState.matched.length === 12) {
     createResults();
     clearInterval(matchGameState.interval);
+    showGameOver();
   }
 }
 
@@ -172,20 +176,6 @@ function showLevel() {
   level.textContent = String(matchGameState.level);
 }
 
-export function createElem({ tagName, className, textContent }: ElemParams): HTMLElement {
-  const createdElem: HTMLElement = typeof tagName === 'string' ? document.createElement(tagName) : tagName;
-
-  if (className) {
-    createdElem.className = className;
-  }
-
-  if (textContent) {
-    createdElem.textContent = textContent;
-  }
-
-  return createdElem;
-}
-
 export function createRandomArr(length: number) {
   const ARR: number[] = [];
   const MIN = 0;
@@ -201,4 +191,42 @@ export function createRandomArr(length: number) {
 
 function setLocalstorage() {
   localStorage.setItem('cementary', JSON.stringify(matchGameState.results));
+}
+
+function showGameOver() {
+  const gameOverMessage = new ModalMessage();
+  gameOverMessage.drawModalMessage(
+    `
+    <div class="title-modal-message">Game over</div>
+    `
+  );
+  matchSoundEffect();
+  showStartBtn();
+}
+
+function showStartBtn() {
+  const startGameBtn = document.querySelector('.start-game-btn') as HTMLElement;
+
+  setTimeout(() => {
+    startGameBtn.classList.remove('hide');
+    clearInfo();
+    const level = document.querySelector('.match-game-moves-container__number-level') as HTMLElement;
+    level.textContent = '1';
+    matchGameState.level = 1;
+    matchGameState.results = [];
+
+    clearCards();
+  }, 3000);
+}
+
+export function clearCards() {
+  const cards = document.querySelector('.cards') as HTMLElement;
+  cards.innerHTML = '';
+}
+
+export function matchSoundEffect() {
+  const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
+  const sound = new Audio(CONST.soundGhostSrc);
+  sound.volume = 0.2;
+  if (isSoundEffects) sound.play();
 }

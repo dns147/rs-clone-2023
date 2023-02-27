@@ -25,6 +25,8 @@ import pumpkinLevel2Src from '../assets/audio/music/pumpkin-level2.mp3';
 import pumpkinLevel3Src from '../assets/audio/music/pumpkin-level3.mp3';
 import pumpkinLevel4Src from '../assets/audio/music/pumpkin-level4.mp3';
 
+import soundGhostSrc from '../assets/audio/effects/ghost-sound1.mp3';
+
 localStorage.setItem('isMusic', JSON.stringify(true));
 localStorage.setItem('isSoundEffects', JSON.stringify(true));
 const unknownUserName = 'unknown ghost';
@@ -53,6 +55,8 @@ export default {
   pumpkinLevel2Src,
   pumpkinLevel3Src,
   pumpkinLevel4Src,
+
+  soundGhostSrc,
 
   castleImg,
   witch1Img,

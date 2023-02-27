@@ -113,6 +113,8 @@ img {
   bottom: 0;
   left: 0;
   width: 100%;
+  animation: show-from-bottom 1.7s forwards;
+
 }
 
 .match-game-graves__img {
@@ -125,7 +127,7 @@ img {
   position: absolute;
   bottom: 0;
   width: 52%;
-  animation: appearBottom 3s ease-in;
+  animation: show-from-bottom 1.5s forwards;
 }
 
 .match-game-graves2 {
@@ -157,7 +159,7 @@ img {
   bottom: 0;
   right: -17%;
   width: 50%;
-  animation: appearRight 1.5s ease-in;
+  animation: appearRight 2s forwards;
 }
 
 @keyframes appearRight {
