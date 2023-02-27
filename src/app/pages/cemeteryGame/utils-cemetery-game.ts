@@ -1,4 +1,5 @@
 import { MatchGameState, ElemParams, StorageInfo } from './types-cemetery-game';
+import ModalMessage from '../modalMessage/modalMessage';
 import Page7 from './cemeteryGame';
 
 const matchGameState: MatchGameState = {
@@ -130,6 +131,7 @@ function gameOver() {
   if (matchGameState.level === 2 && matchGameState.matched.length === 12) {
     createResults();
     clearInterval(matchGameState.interval);
+    showGameOver();
   }
 }
 
@@ -201,4 +203,13 @@ export function createRandomArr(length: number) {
 
 function setLocalstorage() {
   localStorage.setItem('cementary', JSON.stringify(matchGameState.results));
+}
+
+function showGameOver() {
+  const gameOverMessage = new ModalMessage();
+  gameOverMessage.drawModalMessage(
+    `
+    <div class="title-modal-message">Game over</div>
+    `
+  );
 }
