@@ -51,8 +51,14 @@
     }
 
     @media (max-width: 780px) {
-      margin: 0;
+      margin: 0 auto;
     }
+    @media (max-width: 480px) {
+      width: 92%;
+      font-size: 14px;
+      padding: 15px 15px;
+    }
+  
 
     .errorMsg {
       @include error;

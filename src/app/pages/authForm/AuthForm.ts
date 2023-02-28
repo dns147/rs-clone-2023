@@ -11,10 +11,10 @@ export default class AuthForm {
           <div class="form-content">
             <div class="block-headers">
               <div class="registration-block">
-                <h2 class="title-message title-message--dark">Register</h2>
+                <h2 class="title-modal title--dark">Register</h2>
               </div>
               <div class="authorization-block">
-                <h2 class="title-message title-message--dark">Sign in</h2>
+                <h2 class="title-modal title--dark">Sign in</h2>
               </div>
               <span class="errorMsg">Wrong e-mail or password</span>
             </div>
@@ -31,14 +31,14 @@ export default class AuthForm {
             </div>
             <p>* - required fields</p>
             <div class="registration-block">
-              <a class="registration-btn btn btn--col-3 accent-font-upper disabled">Register</a>
+              <a class="registration-btn btn btn--col-3 accent-font accent-font--upper disabled">Register</a>
               <div class="auth-link">
                 <span>Already registered?</span>
                 <button class="link-btn login-link" type="button">Yes, sign in!</button>
               </div>
             </div>
             <div class="authorization-block">
-              <a class="authorization-btn btn btn--col-3 accent-font-upper disabled">Sign in</a>
+              <a class="authorization-btn btn btn--col-3 accent-font accent-font--upper disabled">Sign in</a>
               <div class="registration-link">
                 <span>Don't have an account?</span>
                 <button class="link-btn reg-link" type="button">Register</button>
