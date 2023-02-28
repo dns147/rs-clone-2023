@@ -192,6 +192,17 @@ a:active {
   color: $text-color-light;
 }
 
+input,
+input::placeholder {
+  font-family: 'HennyPenny';
+  letter-spacing: 2px;
+}
+
+input {
+  color: $accent3-color;
+  font-weight: 700;
+}
+
 // ==== scrollbar in overflow-y ====
 ::-webkit-scrollbar-track {
   background: $gray-color-light;
