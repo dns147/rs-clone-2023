@@ -84,9 +84,7 @@ export class Raven {
     }
 
     //Stop Play Condition: When a bird moves outside the screen on the x-axis
-    if (this.x < 0 - this.width) {
-      if (this.x < 0 - this.width) localStorage.setItem('isGameOverShooterGame', '1');
-    }
+    if (this.x < 0 - this.width) localStorage.setItem('isGameOverShooterGame', '1');
   }
 
   draw() {
