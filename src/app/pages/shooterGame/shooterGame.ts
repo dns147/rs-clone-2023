@@ -121,7 +121,7 @@ export default class ShooterGame {
   soundGameOver() {
     const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
     const soundGameOver = new Audio(CONST.soundGameOverSrc);
-    soundGameOver.volume = 0.4;
+    soundGameOver.volume = 0.3;
     if (isSoundEffects) soundGameOver.play();
   }
 
@@ -143,10 +143,17 @@ export default class ShooterGame {
     const currEl = event.target;
     const shooterGameArea = document.querySelector('.shooter-game') as HTMLElement;
     const startGameBtn = shooterGameArea.querySelector('.start-game-btn') as HTMLElement;
+    const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
 
     if (currEl === startGameBtn) {
       this.initGame();
       startGameBtn.classList.add('hide');
+    }
+
+    //stop Music on click in Settings
+    if (currEl === musicGameBtn) {
+      const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
+      if (!isMusic) this.music.stopMusic();
     }
   }
 
