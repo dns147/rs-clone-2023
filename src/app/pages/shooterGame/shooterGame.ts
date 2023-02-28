@@ -84,6 +84,12 @@ export default class ShooterGame {
     this.ctx.font = '32px Impact'; // TODO delete
 
     window.addEventListener('click', this.handlerGame.bind(this));
+    window.addEventListener('resize', this.updateRender.bind(this));
+  }
+
+  updateRender() {
+    this.canvas!.width = window.innerWidth;
+    this.canvas!.height = window.innerHeight;
   }
 
   drawScore() {
