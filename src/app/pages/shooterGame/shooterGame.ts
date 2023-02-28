@@ -84,6 +84,13 @@ export default class ShooterGame {
     this.ctx.font = '32px Impact'; // TODO delete
 
     window.addEventListener('click', this.handlerGame.bind(this));
+    window.addEventListener('resize', this.updateRender.bind(this));
+    window.addEventListener('hashchange', this.finishGame.bind(this));
+  }
+
+  updateRender() {
+    this.canvas!.width = window.innerWidth;
+    this.canvas!.height = window.innerHeight;
   }
 
   drawScore() {
@@ -114,7 +121,7 @@ export default class ShooterGame {
   soundGameOver() {
     const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
     const soundGameOver = new Audio(CONST.soundGameOverSrc);
-    soundGameOver.volume = 0.4;
+    soundGameOver.volume = 0.3;
     if (isSoundEffects) soundGameOver.play();
   }
 
@@ -136,10 +143,17 @@ export default class ShooterGame {
     const currEl = event.target;
     const shooterGameArea = document.querySelector('.shooter-game') as HTMLElement;
     const startGameBtn = shooterGameArea.querySelector('.start-game-btn') as HTMLElement;
+    const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
 
     if (currEl === startGameBtn) {
       this.initGame();
       startGameBtn.classList.add('hide');
+    }
+
+    //stop Music on click in Settings
+    if (currEl === musicGameBtn) {
+      const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
+      if (!isMusic) this.music.stopMusic();
     }
   }
 
@@ -194,6 +208,17 @@ export default class ShooterGame {
   saveResultGameToStorage(resultGame: ResultGame): void {
     const db = new DataBase();
     db.saveToStorage(resultGame);
+  }
+
+  finishGame(): void {
+    this.ravens = [];
+    this.explosions = [];
+    this.particles = [];
+    localStorage.setItem('isGameOverShooterGame', '1');
+    if (this.canvas && this.ctx && this.collisionCtx) {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //clear field canvas before next animate
+      this.collisionCtx.clearRect(0, 0, this.canvas.width, this.canvas.height); //clear field canvas before next animate
+    }
   }
 
   initGame() {
