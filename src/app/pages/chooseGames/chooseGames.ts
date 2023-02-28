@@ -107,8 +107,6 @@ export default class ChooseGames {
   }
 
   init(): void {
-    window.setTimeout(() => {
-      this.music.playMusic();
-    }, 2000);
+    this.music.playMusic();
   }
 }

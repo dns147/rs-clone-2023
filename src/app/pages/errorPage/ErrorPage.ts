@@ -1,7 +1,12 @@
 import './style-error-page.scss';
+import Music from '../../../utils/Music';
+import CONST from '../../../spa/coreConst';
 
 export default class ErrorPage {
-  constructor() {}
+  music: Music;
+  constructor() {
+    this.music = new Music(CONST.musicSomethHappenSrc);
+  }
 
   render(): string {
     return `
@@ -17,5 +22,7 @@ export default class ErrorPage {
     `;
   }
 
-  init(): void {}
+  init(): void {
+    this.music.playMusic();
+  }
 }
