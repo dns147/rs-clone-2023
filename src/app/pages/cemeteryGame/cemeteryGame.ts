@@ -73,6 +73,8 @@ export default class Page7 {
 
   showLevel1(): void {
     const cards = document.querySelector('.cards') as HTMLElement;
+    cards.classList.remove('match-level2');
+
     clearCards();
 
     const orderArr = createRandomArr(heroArr1.length);
