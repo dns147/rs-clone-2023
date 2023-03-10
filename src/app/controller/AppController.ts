@@ -2,7 +2,7 @@ import AppModel from '../model/appModel';
 import CONST from '../../spa/coreConst';
 import Modal from '../pages/modal/modal';
 import ModalTemplates from '../pages/modal/modalTemplates';
-import Music from '../../utils/Music';
+import { togglePlayMusic } from '../utils-component';
 
 export default class AppController {
   model: AppModel;
@@ -44,29 +44,28 @@ export default class AppController {
       const userSignIn = <HTMLElement>event.target.closest('.user-sign-in');
 
       //  ==== nav-block, settings ====
-      const settingsBtn = document.querySelector('.settings-btn') as HTMLElement;
-      const homeBtn = document.querySelector('.home-btn') as HTMLElement;
-      const authFormBtn = document.querySelector('.main-user') as HTMLElement;
-      const musicGameBtn = document.querySelector('.settings .music-btn') as HTMLElement;
-      const soundEffectsBtn = document.querySelector('.settings .sound-btn') as HTMLElement;
+      const musicGameBtn = <HTMLElement>event.target.closest('.music-btn');
+      const soundEffectsBtn = <HTMLElement>event.target.closest('.sound-btn');
+      const settingsBtn = <HTMLElement>event.target.closest('.settings-btn');
+      const homeBtn = <HTMLElement>event.target.closest('.home-btn');
+      const authFormBtn = <HTMLElement>event.target.closest('.main-user');
+      
       const isSoundEffects: boolean = JSON.parse(localStorage.getItem('isSoundEffects') || '{}');
       const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
 
-      const currEl = event.target;
-
-      if (currEl === homeBtn) {
+      if (homeBtn) {
         const soundHome = new Audio(CONST.soundDoorScripSrc);
         soundHome.volume = 0.3;
         if (isSoundEffects) soundHome.play();
       }
 
-      if (currEl === authFormBtn) {
+      if (authFormBtn) {
         const soundBooGhost = new Audio(CONST.soundBooSrc);
         soundBooGhost.volume = 0.3;
         if (isSoundEffects) soundBooGhost.play();
       }
 
-      if (currEl === settingsBtn) {
+      if (settingsBtn) {
         const soundSettings = new Audio(CONST.soundSettingsSrc);
         if (isSoundEffects) soundSettings.play();
 
@@ -83,28 +82,23 @@ export default class AppController {
         if (!isMusic) {
           musicGameBtn.classList.add('off');
         }
-        // this.music.stopMusic();
       }
 
-      if (currEl === musicGameBtn) {
-        // this.music.playMusic();
-        //const isMusic: boolean = JSON.parse(localStorage.getItem('isMusic') || '{}');
+      if (musicGameBtn) {
+        togglePlayMusic();
 
         if (isMusic) {
           localStorage.setItem('isMusic', JSON.stringify(false));
-          // this.music.stopMusic();
           musicGameBtn.classList.add('off');
         } else {
           localStorage.setItem('isMusic', JSON.stringify(true));
-          // this.music.playMusic();
           musicGameBtn.classList.remove('off');
         }
       }
 
-      if (currEl === soundEffectsBtn) {
+      if (soundEffectsBtn) {
         soundEffectsBtn.classList.add('off');
 
-        // music.playMusic();
         if (isSoundEffects) {
           localStorage.setItem('isSoundEffects', JSON.stringify(false));
           soundEffectsBtn.classList.add('off');
@@ -113,8 +107,8 @@ export default class AppController {
           soundEffectsBtn.classList.remove('off');
         }
       }
-      //  ==== /settings ====
 
+      //  ==== /settings ====
       if (card) {
         this.model.cardGame(card);
       }

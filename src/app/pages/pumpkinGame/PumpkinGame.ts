@@ -84,9 +84,6 @@ export default class PumpkinGame {
   soundGameOver: Music;
   timeOver: Music;
   pumpkinLevel1: Music;
-  pumpkinLevel2: Music;
-  pumpkinLevel3: Music;
-  pumpkinLevel4: Music;
 
   constructor() {
     this.canvas = null;
@@ -167,9 +164,6 @@ export default class PumpkinGame {
     this.soundGameOver = new Music(CORE_CONST.soundGameOverSrc);
     this.timeOver = new Music(CORE_CONST.timeOverSrc);
     this.pumpkinLevel1 = new Music(CORE_CONST.pumpkinLevel1Src);
-    this.pumpkinLevel2 = new Music(CORE_CONST.pumpkinLevel2Src);
-    this.pumpkinLevel3 = new Music(CORE_CONST.pumpkinLevel3Src);
-    this.pumpkinLevel4 = new Music(CORE_CONST.pumpkinLevel4Src);
 
     this.freezMonsters = this.freezMonsters.bind(this);
     this.burstAllMonsters = this.burstAllMonsters.bind(this);
@@ -181,7 +175,6 @@ export default class PumpkinGame {
     this.updateEntities = this.updateEntities.bind(this);
     this.setRoundName = this.setRoundName.bind(this);
     this.finishGame = this.finishGame.bind(this);
-    this.stopMusic = this.stopMusic.bind(this);
   }
 
   render(): string {
@@ -251,7 +244,6 @@ export default class PumpkinGame {
   init(): void {
     (<HTMLElement>document.querySelector('.pumpkin-freezing-icon')).addEventListener('click', this.freezMonsters);
     (<HTMLElement>document.querySelector('.pumpkin-bomb-icon')).addEventListener('click', this.burstAllMonsters);
-    (<HTMLElement>document.querySelector('.settings-btn')).addEventListener('click', this.stopMusic);
    
     const gameInfoBtn = <HTMLButtonElement>document.querySelector('.game-info-btn');
     gameInfoBtn.classList.remove('hide');
@@ -281,23 +273,6 @@ export default class PumpkinGame {
         this.checkLoadImages(countImages, this.imagesUrl.length);
       };
     }
-  }
-
-  stopMusic(): void {
-    window.setTimeout(() => {
-      const musicBtn = <HTMLElement>document.querySelector('.music-btn');
-      //const soundEffectsBtn = <HTMLElement>document.querySelector('.sound-btn');
-
-      musicBtn.addEventListener('click', () => {
-        if (localStorage['isPlayMusic']) {
-          this.currentMusic.stopMusic();
-        } 
-        
-        // else {
-        //   this.currentMusic.playMusic(0.9);
-        // }
-      });
-    }, 0);    
   }
 
   checkLoadImages(countImages: number, imagesLength: number): void {
@@ -405,21 +380,21 @@ export default class PumpkinGame {
       case 2:
         this.makeTimer(1, 30);
         if (this.isMusic) {
-          this.currentMusic = this.pumpkinLevel2;
+          this.currentMusic = new Music(CORE_CONST.pumpkinLevel2Src);
           this.currentMusic.playMusic(0.8);
         }
         break;
       case 3:
         this.makeTimer(0, 60);
         if (this.isMusic) {
-          this.currentMusic = this.pumpkinLevel3;
+          this.currentMusic = new Music(CORE_CONST.pumpkinLevel3Src);
           this.currentMusic.playMusic(0.8);
         }
         break;
       case 4:
         this.makeTimer(0, 0);
         if (this.isMusic) {
-          this.currentMusic = this.pumpkinLevel4;
+          this.currentMusic = new Music(CORE_CONST.pumpkinLevel4Src);
           this.currentMusic.playMusic(0.3);
         }
         break;
@@ -1332,7 +1307,6 @@ export default class PumpkinGame {
     setTimeout(function tick() {
       timeMin.textContent = normalize(min);
       timeSec.textContent = normalize(sec);
-      //time.textContent = normalize(min) + ':' + normalize(sec);
 
       if (min >= 0 && !that.isGameOver) {
         setTimeout(tick, 1000);
@@ -1341,7 +1315,7 @@ export default class PumpkinGame {
       if (min < 0) {
         timeMin.textContent = normalize(0);
         timeSec.textContent = normalize(0);
-        //time.textContent = normalize(0) + ':' + normalize(0);
+
         that.gameLevel += 1;
         that.nextLevel();
       }

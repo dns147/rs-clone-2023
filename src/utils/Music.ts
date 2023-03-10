@@ -1,3 +1,5 @@
+export let currentMusic: HTMLAudioElement = new Audio();
+
 export default class Music {
   music: HTMLAudioElement;
   isMusic: boolean;
@@ -5,6 +7,9 @@ export default class Music {
   constructor(musicSrc: string) {
     this.music = new Audio();
     this.music.src = musicSrc;
+
+    currentMusic = this.music;
+
     this.isMusic = JSON.parse(localStorage.getItem('isMusic') || '{}');
     localStorage.removeItem('isPlayMusic');    
 
@@ -13,8 +18,9 @@ export default class Music {
     });
   }
 
-  playMusic(volume?: number) {
+  playMusic(volume?: number): void {
     this.updateIsMusic();
+    
     if (this.isMusic) {
       this.music.play();
       this.music.volume = volume || 0.2;
@@ -23,7 +29,7 @@ export default class Music {
     }
   }
 
-  stopMusic() {
+  stopMusic(): void {
     this.updateIsMusic();
     this.music.pause();
     this.music.currentTime = 0;
@@ -31,7 +37,7 @@ export default class Music {
     localStorage.removeItem('isPlayMusic');
   }
 
-  updateIsMusic() {
+  updateIsMusic(): void {
     this.isMusic = JSON.parse(localStorage.getItem('isMusic') || '{}');
   }
 }
