@@ -128,7 +128,7 @@ export class Player {
   ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.height = gameHeight * 0.2;
+    this.height = gameHeight * 0.18;
     this.width = (this.height * ((playerWidth * 100) / playerHeight)) / 100;
 
     this.x = gameWidth * 0.01;
