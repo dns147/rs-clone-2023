@@ -3,6 +3,7 @@ import { ParallaxGameProps } from './types';
 import CONST from '../../../spa/coreConst';
 import { ResultGame } from '../../../spa/coreTypes';
 import DataBase from '../../../utils/dataBase';
+import { getRandomInt } from '../pumpkinGame/utils-pumpkin-game';
 
 export class InputHandler {
   keys: string[];
@@ -127,11 +128,11 @@ export class Player {
   ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.height = gameHeight * 0.3;
+    this.height = gameHeight * 0.2;
     this.width = (this.height * ((playerWidth * 100) / playerHeight)) / 100;
 
     this.x = gameWidth * 0.01;
-    this.y = this.gameHeight - this.height - this.gameHeight * 0.12;
+    this.y = this.gameHeight - this.height - this.gameHeight * 0.11;
     this.image = image;
     this.speed = 0;
     this.vy = 0;
@@ -187,11 +188,11 @@ export class Player {
     }
 
     if (this.y > this.gameHeight - this.height) {
-      this.y = this.gameHeight - this.height - this.gameHeight * 0.12;
+      this.y = this.gameHeight - this.height - this.gameHeight * 0.11;
     }
 
-    if (this.y < this.gameHeight * 0.1) {
-      this.y = this.gameHeight * 0.1;
+    if (this.y < 0) {
+      this.y = 0;
     }
   }
 
@@ -204,7 +205,7 @@ export class Player {
   }
 
   onGround() {
-    return this.y >= this.gameHeight - this.height - this.gameHeight * 0.12;
+    return this.y >= this.gameHeight - this.height - this.gameHeight * 0.11;
   }
 }
 
@@ -257,11 +258,11 @@ export class Enemy {
   ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.height = gameHeight * 0.35;
+    this.height = gameHeight * 0.2;
     this.width = (this.height * ((enemyWidth * 100) / enemyHeight)) / 100;
     this.image = image;
     this.x = gameWidth;
-    this.y = this.gameHeight - this.height - this.gameHeight * 0.08;
+    this.y = this.gameHeight - this.height - this.gameHeight * (getRandomInt(0, 8) / 10);
     this.speed = parallaxGameState.gameSpeed * speedModifier;
     this.markedForDelition = false;
   }
@@ -271,7 +272,10 @@ export class Enemy {
   }
 
   update() {
+    
+
     this.x -= this.speed;
+
     if (this.x < 0 - this.width) {
       this.markedForDelition = true;
     }
