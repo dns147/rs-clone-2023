@@ -20,7 +20,10 @@ export default class AppView {
     this.isValidEmail = false;
     this.isValidPassword = false;
 
-    //this.showGamePumpkinInfo();
+
+    if (localStorage['userName']) {
+      changeSignInButton(true);
+    }
   }
 
   goToLoginContainer(): void {
