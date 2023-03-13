@@ -1,0 +1,158 @@
+@import './../../../scss/constants.scss';
+
+@keyframes animLoader {
+  0% {
+    transform: translateY(0px);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
+  40%,
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.result-loader {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  -webkit-box-reflect: below -12px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+}
+
+.result-loader span {
+  display: inline-block;
+  animation: animLoader 1s ease-in-out infinite;
+  animation-delay: calc(0.1s * var(--i));
+  color: #ffc107;
+  font-size: 40px;
+}
+
+.results-page {
+  position: absolute;
+  background: url(../../../assets/bg/bg-old-house.png) 50% 50% / cover no-repeat, $gradient-20;
+
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ==== animation-field + walk-ghost======= */
+.animation-field {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25vh;
+  overflow: hidden;
+}
+
+.walk-ghost {
+  position: absolute;
+  top: -250px;
+  right: -110px; //441px*0.25 = 110px
+  transform: translate(0, 0) scale(0.25);
+  width: 441px;
+  height: 601px;
+
+  background: transparent url(../../../assets/results-page/doll-ghost.png) 0 0 no-repeat;
+  margin: 2rem auto;
+  animation: run-ghost 1s steps(30) infinite, walk 6s linear alternate infinite, reverse-ghost 12s steps(3) infinite;
+}
+
+@keyframes run-ghost {
+  100% {
+    background-position: -13230px 0px;
+  }
+}
+
+@keyframes walk {
+  0% {
+    right: calc(0% - 110px);
+  }
+  20% {
+    right: 20%;
+  }
+  40% {
+    right: 20%;
+  }
+  60% {
+    right: 60%;
+  }
+  80% {
+    right: 60%;
+  }
+  100% {
+    right: calc(100% - 300px);
+  }
+}
+
+@keyframes reverse-ghost {
+  0% {
+    transform: translate(0, 0) scale(0.25) rotateY(0deg);
+  }
+  49.99% {
+    transform: translate(0, 0) scale(0.25) rotateY(0deg);
+  }
+  50% {
+    transform: translate(0, 0) scale(0.25) rotateY(180deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(0.25) rotateY(180deg);
+  }
+}
+
+// ==== table-styles ====
+.table-container {
+  position: relative;
+  width: 60%;
+  height: 50vh;
+  margin: 158px auto 20px; //100+38 + 20
+  overflow-y: auto;
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.table {
+  position: relative;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  // border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 2px;
+
+  @media (max-width: 620px) {
+    font-size: 14px;
+  }
+}
+
+.table__head {
+  position: sticky;
+  top: 0;
+
+  font-family: 'HennyPenny';
+  color: $text-color;
+  background: $gradient-4;
+}
+
+.table thead td,
+.table thead th {
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+}
+
+.table td,
+.table th {
+  padding: 6px;
+  border-bottom: 1px solid $gray-color;
+}

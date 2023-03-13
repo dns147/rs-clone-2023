@@ -1,0 +1,267 @@
+@import './../../../scss/constants.scss';
+// @import url('https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap');
+
+//подключает шрифт on main page
+@font-face {
+  font-family: 'SecretMidnight';
+  src: url(../../../assets/fonts/SecretMidnight-518n8.otf);
+}
+
+@keyframes AnimationColor {
+  0% {
+    box-shadow: 0 0 50px #0f0, inset 0 0 50px #0f0;
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    box-shadow: 0 0 50px #0f0, inset 0 0 60px #0f0;
+  }
+  40% {
+    box-shadow: 0 0 50px #0f0, inset 0 0 40px #0f0;
+  }
+  60% {
+    box-shadow: 0 0 50px #0f0, inset 0 0 80px #0f0;
+  }
+  100% {
+    box-shadow: 0 0 50px #0f0, inset 0 0 50px #0f0;
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes AnimIconSettings {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes AnimIconExit {
+  from {
+    transform: rotate(10deg);
+  }
+  to {
+    transform: rotate(-10deg);
+  }
+}
+
+@mixin btn-default {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+@mixin text-center {
+  font-size: 80px;
+  color: $accent2-color;
+  z-index: 10;
+  position: absolute;
+  text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626,
+    0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a,
+    0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
+}
+
+$heading-shadow: #f5f5f5;
+
+.game-container {
+  position: relative;
+  height: 100vh;
+  background-image: url(../../../assets/img/bg-pumpkin2.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  user-select: none;
+
+  .status-panel {
+    position: absolute;
+    z-index: 101; //because conflict with navBlock
+    width: 520px; //40%, 370+20+130
+    top: 20px;
+    left: 10%;
+    font-family: 'HennyPenny', 'Roboto', Arial, sans-serif;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    @media (max-width: 970px) {
+      top: 80px;
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      width: auto;
+      margin: 0 auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .wrapper-pumpkin-level {
+      display: flex;
+      column-gap: 20px;
+      background: $accent3-color;
+      border-radius: $border-radius;
+      padding: 22px 15px;
+
+      @media (max-width: 390px) {
+        column-gap: 12px;
+      }
+
+      .pumpkin-level,
+      .pumpkin-score,
+      .shells,
+      .electo-ball,
+      .bomb,
+      .freezing {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .pumpkin-level-name,
+        .pumpkin-score-name {
+          border-bottom: 1px solid $text-color-light;
+          padding: 4px;
+          margin: 0 0 4px 0;
+        }
+
+        .pumpkin-level-number,
+        .pumpkin-score-number,
+        .pumpkin-shells-number,
+        .pumpkin-electro-number,
+        .pumpkin-bomb-number,
+        .pumpkin-freezing-number {
+          padding: 6px 0 0 0;
+        }
+
+        .pumpkin-shells-number {
+          font-size: 24px;
+          line-height: 1;
+        }
+      }
+
+      .pumpkin-heart-icon,
+      .pumpkin-shells-icon,
+      .pumpkin-electro-icon,
+      .pumpkin-bomb-icon,
+      .pumpkin-freezing-icon {
+        border: 1px solid transparent;
+        padding: 4px;
+        transition: 0.1s;
+      }
+
+      .pumpkin-shells-icon:hover,
+      .pumpkin-electro-icon:hover,
+      .pumpkin-bomb-icon:hover,
+      .pumpkin-freezing-icon:hover {
+        cursor: pointer;
+        outline: 2px solid $accent2-color;
+        border-radius: $border-radius-small;
+      }
+
+      .select-weapon {
+        outline: 2px solid;
+        border-radius: $border-radius-small;
+      }
+    }
+
+    .time-game-pumpkin {
+      align-self: center;
+      color: $text-color-light;
+      font-size: 22px;
+      letter-spacing: 3.8px;
+      background: $accent3-color;
+      border-radius: $border-radius;
+      padding: 10px 15px;
+      width: 120px;
+      display: flex;
+      justify-content: space-between;
+
+      .min,
+      .sec {
+        width: 40px;
+        text-align: center;
+      }
+    }
+  }
+
+  .game-area {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .round-number-wrapper {
+      @include text-center;
+      font-family: 'HennyPenny', 'Roboto', Arial, sans-serif;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      font-size: 42px;
+      color: $accent2-color;
+      visibility: hidden;
+    }
+
+    .fire-container {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      filter: url(#fire) blur(1px);
+    }
+
+    .fire-container::before {
+      content: '';
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      margin: auto auto;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 6px solid white;
+      box-shadow: 0 0 50px #0f0, inset 0 0 50px #0f0;
+      animation: AnimationColor 5s linear infinite;
+    }
+
+    .fire-container::after {
+      content: '';
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      margin: auto auto;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      border: 6px solid white;
+      box-shadow: 0 0 50px #fff, inset 0 0 50px #fff;
+    }
+
+    .svg-fire {
+      width: 0;
+      height: 0;
+    }
+
+    .wrapper-canvas {
+      width: 80%;
+      height: 78%;
+      position: relative;
+
+      .pumpkin-canvas {
+        width: 100%;
+        height: 100%;
+      }
+
+      .pumpkin-canvas-active {
+        cursor: url('../../../assets/img/aim-dot.png'), pointer;
+      }
+    }
+  }
+}
+
+// html::-webkit-scrollbar {
+//   width: 0;
+// }

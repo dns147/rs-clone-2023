@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'HennyPenny';
+  src: url(../../../assets/fonts/HennyPenny-Regular.otf);
+}
+
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.error-info-container {
+  position: relative;
+  width: 30%;
+  transform: rotate(-6deg);
+  animation: floating 7s infinite ease-in-out;
+  &__img {
+    display: block;
+    width: 100%;
+    filter: contrast(120%);
+  }
+  &__text {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: 'HennyPenny';
+    color: #000000;
+    &-1 {
+      font-size: 1.5vw;
+    }
+    &-2 {
+      font-size: 4vw;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .error-info-container {
+    width: 60%;
+    &__text {
+      &-1 {
+        font-size: 3vw;
+      }
+      &-2 {
+        font-size: 8vw;
+      }
+    }
+  }
+}

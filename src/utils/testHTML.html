@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>:hover</title>
+  <style>
+    [data-tooltip] {
+      position: relative;
+      /* Относительное позиционирование */
+    }
+
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      /* Выводим текст */
+      position: absolute;
+      /* Абсолютное позиционирование */
+      width: 300px;
+      /* Ширина подсказки */
+      left: 0;
+      top: 0;
+      /* Положение подсказки */
+      background: #3989c9;
+      /* Синий цвет фона */
+      color: #fff;
+      /* Цвет текста */
+      padding: 0.5em;
+      /* Поля вокруг текста */
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      /* Параметры тени */
+      pointer-events: none;
+      /* Подсказка */
+      opacity: 0;
+      /* Подсказка невидима */
+      transition: 1s;
+      /* Время появления подсказки */
+    }
+
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      /* Показываем подсказку */
+      top: 2em;
+      /* Положение подсказки */
+    }
+  </style>
+</head>
+
+<body>
+  <p data-tooltip="Всплывающая подсказка сообщает о чём-то многозначном и полезном..."> Наведи сюда курсор.</p>
+</body>
+
+</html>
+
+.home-heading {
+display: flex;
+justify-content: space-between;
+justify-content: center;
+gap: 50px;
+width: calc(100vw * 0.8);
+
+font-family: 'SecretMidnight';
+font-size: 110px;
+font-weight: 100;
+line-height: 1;
+text-shadow: 2px 2px 4px $light-color-1;
+text-shadow: 6px 6px 6px $dark-color; //!!
+
+// font-family: 'MonsterPumpkin';
+// // text-shadow: 6px 2px 2px $accent1-color;//!!
+// // color: $accent2-color;
+// text-shadow: 6px 6px 4px #000; //!!
+// text-shadow: 2px 2px 0px #fff;//!!
+// text-shadow: 4px 4px 2px $accent1-color;//!!
+// font-weight: 400;
+// font-size: 130px;
+
+// font-family: 'SpookypixelsRegular';
+// // color: $accent2-color;
+// text-shadow: 4px 4px 4px #000;//!!
+// text-shadow: 2px 2px 0px #fff;//!!
+// // font-weight: 400;
+// // text-shadow: none;//!!
+// color: $accent2-color;
+// font-size: 100px;
+// gap: 50px;
+
+// margin: 30px 0 0 0;
+
+// color: $accent3-color;
+// color: $accent12-color;
+// gap: 20px;
+opacity: 0;
+animation: show-content 5s linear forwards;
+@media (max-width: 1024px) {
+font-size: 90px;
+}
+@media (max-width: 880px) {
+flex-direction: column;
+align-items: center;
+// font-size: calc(100vw * 0.13);
+}
+@media (max-width: 540px) {
+gap: 40px;
+font-size: 70px;
+}
+@media (max-width: 420px) {
+font-size: 55px;
+}
+}
+

@@ -1,0 +1,45 @@
+@import './../../../scss/constants.scss';
+// @import './../../../scss/base.scss';
+
+@font-face {
+  font-family: 'HennyPenny';
+  src: url(../../../assets/fonts/HennyPenny-Regular.otf);
+}
+
+.popup-message {
+  z-index: 115;
+
+  &__content {
+    width: 60%;
+    margin: 0 auto;
+    max-width: 300px;
+    background-color: $accent5-color;
+    padding: 30px 22px;
+    border-radius: $border-radius-big;
+    @media (max-width: 480px) {
+      width: 80%;
+      padding: 22px 18px;
+    }
+  }
+
+  &__message-info {
+    color: $text-color-light;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .btns__container {
+    display: flex;
+    align-items: center;
+  }
+
+  .btns__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: none;
+    min-width: 200px;
+    width: 200px;
+    margin: 0 auto 10px;
+  }
+}
