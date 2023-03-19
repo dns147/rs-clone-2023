@@ -383,6 +383,12 @@ img {
 }
 
 @media (max-width: 768px) {
+  .match-game-time {
+    width: 15%;
+  }
+  .match-game-moves {
+    width: 20%;
+  }
   .cards {
     width: calc(100vw * 0.53);
   }
@@ -404,17 +410,36 @@ img {
     width: 100%;
   }
   .match-level2 .card {
-    width: calc(100vw * 0.14);
-    height: calc((100vw * 0.14) * 1.75);
+    width: calc(100vw * 0.15);
+    height: calc((100vw * 0.15) * 1.75);
   }
 }
 
 @media (max-width: 425px) {
+  .match-game-time {
+    top: 50px;
+    width: 20%;
+  }
+  .match-game-moves {
+    top: 50px;
+    width: 25%;
+  }
+  .match-game-moves-container,
+  .match-game-time-container {
+    font-size: 2vw;
+  }
   .cards {
     width: calc(100vw * 0.85);
   }
   .card {
     width: calc(100vw * 0.2);
     height: calc((100vw * 0.2) * 1.75);
+  }
+}
+
+@media (max-width: 375px) {
+  .match-game-time,
+  .match-game-moves {
+    top: 70px;
   }
 }
