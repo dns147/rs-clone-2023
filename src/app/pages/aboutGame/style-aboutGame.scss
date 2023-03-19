@@ -28,7 +28,7 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
   width: 100%;
   height: 100%;
   max-height: 100vh;
-  padding-top: 5%;
+  padding-top: 80px;
   overflow-y: auto;
   font-family: 'HennyPenny';
 }
@@ -46,7 +46,7 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
 
 .games-info {
   justify-content: center;
-  // row-gap: 20px;
+  gap: 25px;
   padding: 30px 22px;
   border-radius: 50px;
   background-color: rgb($accent3-color, 0.8);
@@ -199,14 +199,14 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
 }
 
 @media (max-width: 768px) {
-  .about-game-content {
-    padding-top: 10%;
-  }
   .games-info {
     width: 70%;
   }
   .game-info-container {
-    width: 100%;
+    width: 75%;
+  }
+  .game-info-heading {
+    align-self: center;
   }
   .game-icon-container {
     width: 40px;
@@ -232,6 +232,18 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
   }
 }
 
+@media (max-width: 695px) {
+  .game-info-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 585px) {
+  .game-info-container {
+    width: 100%;
+  }
+}
+
 @media (max-width: 530px) {
   .games-info {
     width: 95%;
@@ -242,9 +254,30 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
   }
 }
 
+@media (max-width: 480px) {
+  .about-game-content {
+    padding-top: 70px;
+  }
+}
+
 @media (max-width: 425px) {
   .game-heading,
   .creator-name {
     font-size: 30px;
+  }
+
+  .game-info-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 375px) {
+  .games-info,
+  .creators-info {
+    width: 97%;
+  }
+
+  .games-info {
+    padding: 24px 8px;
   }
 }
