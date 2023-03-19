@@ -46,7 +46,7 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
 
 .games-info {
   justify-content: center;
-  // row-gap: 20px;
+  gap: 25px;
   padding: 30px 22px;
   border-radius: 50px;
   background-color: rgb($accent3-color, 0.8);
@@ -249,6 +249,10 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
   .game-heading,
   .creator-name {
     font-size: 30px;
+  }
+
+  .game-info-container {
+    gap: 15px;
   }
 }
 
