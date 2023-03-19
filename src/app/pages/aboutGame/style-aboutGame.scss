@@ -203,7 +203,10 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
     width: 70%;
   }
   .game-info-container {
-    width: 100%;
+    width: 75%;
+  }
+  .game-info-heading {
+    align-self: center;
   }
   .game-icon-container {
     width: 40px;
@@ -226,6 +229,18 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
     &-text {
       font-size: 3vw;
     }
+  }
+}
+
+@media (max-width: 695px) {
+  .game-info-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 585px) {
+  .game-info-container {
+    width: 100%;
   }
 }
 
