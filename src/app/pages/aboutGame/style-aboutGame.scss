@@ -251,3 +251,14 @@ $gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
     font-size: 30px;
   }
 }
+
+@media (max-width: 375px) {
+  .games-info,
+  .creators-info {
+    width: 97%;
+  }
+
+  .games-info {
+    padding: 24px 8px;
+  }
+}
