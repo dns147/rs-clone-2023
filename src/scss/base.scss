@@ -1,0 +1,353 @@
+@import './constants.scss';
+
+// @font-face {
+//   font-family: 'SecretMidnight';
+//   src: url(../assets/fonts/SecretMidnight-518n8.otf);
+// }
+
+// @font-face {
+//   font-family: 'HennyPenny';
+//   src: url(../assets/fonts/HennyPenny-Regular.otf);
+// }
+
+// @font-face {
+//   font-family: 'MonsterPumpkin';
+//   src: url(../assets/fonts/MonsterPumpkin-MVBzP.ttf);
+// }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  color: $text-color-light;
+  background: $gradient-20;
+}
+
+a {
+  transition: 0.3s;
+}
+
+a:hover,
+a:active {
+  color: $accent3-color;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.main {
+  height: 100vh;
+}
+
+.main-flex {
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.btn {
+  border-radius: $border-radius;
+  padding: 10px 15px;
+  min-width: 100px;
+  background-color: $accent2-color;
+  color: $text-color;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: lowercase;
+  // height: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+}
+
+.btn--transp {
+  background-color: transparent;
+}
+
+.btn--round {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.btn--big {
+  width: 100%;
+}
+
+.btn--mini {
+  min-width: auto;
+}
+.btn--border {
+  background-color: transparent;
+  border: 1px solid $text-color-light;
+}
+
+.btn--col-3 {
+  background-color: $accent3-color;
+  color: $text-color-light;
+}
+
+.btn--col-5 {
+  background-color: $accent5-color;
+  color: $text-color-light;
+}
+
+.btn--col-7 {
+  background-color: $accent7-color;
+  color: $text-color;
+  font-weight: 700;
+}
+
+.btn--fixed-center {
+  position: fixed;
+  z-index: 50;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//for use:
+//import  font-family: "HennyPenny";
+//for container-game: position: relative;
+.btn--start-game {
+  font-family: 'HennyPenny';
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-color;
+
+  border-radius: $border-radius-big;
+  padding: 26px 22px;
+  height: auto;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 22px 18px;
+  }
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 20px 16px;
+  }
+}
+
+.btn:hover,
+.btn:focus {
+  background: $gradient-4;
+  background-color: $accent6-color;
+  color: $text-color;
+}
+.btn--transp:hover,
+.btn--transp:focus {
+  background: inherit;
+  background-color: transparent;
+}
+
+.btn--col-3:hover,
+.btn--col-3:focus,
+.btn--col-7:hover,
+.btn--col-7:focus {
+  background: $gradient-5;
+  background-color: $accent3-color;
+  color: $text-color-light;
+}
+
+.btn--col-5:hover {
+  background-color: $accent9-color;
+  color: $text-color;
+}
+
+.btn--border:hover {
+  border: none;
+  background-color: $accent9-color;
+  color: $text-color-light;
+}
+
+input,
+input::placeholder {
+  font-family: 'HennyPenny';
+  letter-spacing: 2px;
+}
+
+input {
+  color: $accent3-color;
+  font-weight: 700;
+}
+
+// ==== scrollbar in overflow-y ====
+::-webkit-scrollbar-track {
+  background: $gray-color-light;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $accent3-color;
+  border-radius: 10px;
+  border: 2px solid $gray-color-light;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+// ==== /scrollbar in overflow-y ====
+
+.accent-font {
+  font-family: 'HennyPenny';
+  letter-spacing: 2px;
+  height: auto;
+}
+.accent-font--upper {
+  text-transform: uppercase;
+}
+
+// styles for Modal, ModalMessage components
+.title-modal {
+  font-family: 'HennyPenny';
+  color: $text-color-light;
+  font-weight: 700;
+  text-align: center;
+
+  text-transform: none;
+  letter-spacing: 2.8px;
+  font-size: 32px;
+  margin: 0 0 20px 0;
+  @media (max-width: 768px) {
+    font-size: 26px;
+    margin: 0 0 15px 0;
+  }
+}
+.title-modal-message {
+  font-family: 'HennyPenny';
+  color: $text-color-light;
+  font-weight: 700;
+  text-align: center;
+
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 24px;
+  margin: 0 0 15px 0;
+  @media (max-width: 480px) {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+  }
+}
+
+.title--upper {
+  text-transform: uppercase;
+}
+
+.title--dark {
+  color: $text-color;
+}
+
+.subtitle-modal {
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: $text-color-light;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 10px 0;
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin: 0 0 8px 0;
+  }
+}
+
+.text-message {
+  color: $text-color;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'HennyPenny';
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.score-number {
+  // font-family: 'Roboto', Arial, sans-serif;;
+  font-weight: 700;
+  font-size: 24px;
+  color: $accent6-color;
+  padding: 0 10px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.score-info {
+  background: $gradient-4;
+  font-size: 22px;
+  line-height: 1;
+  cursor: default;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
+}
+
+.score-info span:first-of-type {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+// ==== @keyframes ====
+// animation: show-content 1s forwards;
+
+@keyframes show-content {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes show-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(250%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+// ==== @mixins ====
+@mixin background-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

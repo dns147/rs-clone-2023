@@ -1,0 +1,37 @@
+//color palette
+//main: https://color.romanuke.com/tsvetovaya-palitra-487/
+//https://color.romanuke.com/tsvetovaya-palitra-1070/
+
+$dark-color: #000000;
+$text-color: #020024; //+
+$text-color-light: #ffffff; //+
+$gray-color: #767474;
+$gray-color-light: #ababab;
+$light-color-1: #fbf8cb; //+
+$light-color-2: #d8c7b9;
+$accent1-color: #ff9900; //+
+$accent2-color: #ffcc00; //+ rgb(255, 204, 0) icons, buttons
+$accent3-color: #49258f; //+
+$accent4-color: #d489b2;
+$accent5-color: #7e3efd;
+$accent6-color: #ffef01;
+$accent7-color: #0fcf93; //+
+$accent8-color: #3f5165; //+
+$accent9-color: #9099b8;
+$accent10-color: #020024; //+
+$accent11-color: #522f2d; //+
+$accent12-color: #8e0088; //+
+$error-color: #ff0000;
+
+$border-radius: 30px;
+$border-radius-big: 50px;
+$border-radius-small: 10px;
+
+$gradient-1: linear-gradient(180deg, rgba(73, 37, 143, 1) 0%, rgba(63, 81, 101, 1) 100%);
+$gradient-2: linear-gradient(180deg, rgba(73, 37, 143, 1) 0%, rgba(63, 81, 101, 1) 90%, rgba(0, 0, 0, 0.8) 100%);
+$gradient-3: linear-gradient(180deg, rgba(212, 137, 178, 1) 0%, rgba(63, 81, 101, 1) 100%);
+$gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%); //yellow-orange
+$gradient-4-1: linear-gradient(180deg, $accent1-color, $accent6-color 100%);
+$gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1) 100%);
+
+$gradient-20: linear-gradient(180deg, #020024 0%, #8e0088 100%); //main page

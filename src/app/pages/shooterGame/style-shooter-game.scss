@@ -1,0 +1,39 @@
+@import './../../../scss/constants.scss';
+
+.shooter-game {
+  position: absolute;
+
+  background: url(./../../../assets/png/graves-short-min.png) center bottom/100% no-repeat,
+    url(./../../../assets/png/tree-min.png) 80% bottom/40% auto no-repeat, $gradient-20;
+
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  animation: show-content 2s forwards;
+  @media (max-width: 1024px) {
+    background: url(./../../../assets/png/graves-short-min.png) center bottom/100% no-repeat,
+      url(./../../../assets/png/tree-min.png) 80% bottom/60% auto no-repeat, $gradient-20;
+  }
+  @media (max-width: 880px) {
+    background: url(./../../../assets/png/graves-short-min.png) center bottom/100% no-repeat,
+      url(./../../../assets/png/tree-min.png) 60% bottom/75% auto no-repeat, $gradient-20;
+  }
+  @media (max-width: 480px) {
+    background: url(./../../../assets/png/graves-short-min.png) center bottom/100% no-repeat,
+      url(./../../../assets/png/tree-min.png) 60% bottom/120% auto no-repeat, $gradient-20;
+  }
+}
+
+.shooter-game canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#canvas-collision {
+  opacity: 0;
+}

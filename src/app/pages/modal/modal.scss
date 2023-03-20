@@ -1,0 +1,113 @@
+@import './../../../scss/constants.scss';
+// @import './../../../scss/base.scss';
+
+// ===== popup ======
+.popup {
+  z-index: 200;
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &__content {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    max-width: 440px;
+    border-radius: $border-radius-big;
+    background-color: $accent3-color;
+    color: $text-color-light;
+    padding: 30px 22px;
+    text-align: center;
+
+    @media (max-width: 480px) {
+      width: 90%;
+      padding: 22px 18px;
+    }
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+  }
+
+  p,
+  li {
+    text-align: left;
+    margin: 0 0 5px 0;
+  }
+}
+
+// ===== modal-Settings ====
+.settings {
+  &__container {
+    align-items: center;
+  }
+
+  &__title {
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    width: 200px;
+    margin: 0 auto 10px;
+  }
+
+  &__btn span {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 20px 0 0;
+  }
+
+  &__btn--sound,
+  &__btn--music {
+    width: auto;
+  }
+
+  &__btn--sound:hover,
+  &__btn--music:hover,
+  &__btn--sound:focus,
+  &__btn--music:focus {
+    background: none;
+    background-color: transparent;
+  }
+  &__btn--sound span {
+    background-image: url(./../../../assets/icons/icon-speaker-audio-1.png);
+    transform: scale(1.15);
+  }
+  &__btn--music span {
+    background-image: url(./../../../assets/icons/icon-music-alt-1.png);
+  }
+
+  &__btn span:after {
+    position: absolute;
+    content: '';
+    top: -6px;
+    left: 15px;
+    display: inline-block;
+    opacity: 0;
+    width: 3px;
+    height: 40px;
+    border-radius: $border-radius;
+    background-color: #fff;
+    transform: rotate(30deg);
+  }
+  &__btn.off span:after {
+    opacity: 1;
+  }
+}
+// ===== /modal-Settings ====

@@ -1,0 +1,207 @@
+@import './../../../scss/constants.scss';
+
+@mixin border-with-shadow {
+  box-shadow: 2px 4px 7px -2px rgba(34, 60, 80, 0.2);
+  border-radius: $border-radius-big;
+}
+
+@mixin error {
+  opacity: 0;
+  font-size: 14px;
+  color: #fe8366;
+  transition: 0.3s;
+}
+
+@mixin disabledAhref {
+  pointer-events: none;
+  cursor: default;
+  background-color: #b9b9b9;
+  border-color: #b9b9b9;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.registration-container {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: black;
+
+  .registration-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 660px;
+    //height: 400px;
+    background-color: #e5e5e5;
+    padding: 30px 60px;
+    text-align: center;
+    @include border-with-shadow;
+    box-shadow: 0 0 0 99999px rgb(0 0 0 / 50%);
+
+    @media (max-width: 1440px) {
+      width: 400px;
+      padding: 20px 40px;
+    }
+
+    @media (max-width: 780px) {
+      margin: 0 auto;
+    }
+    @media (max-width: 480px) {
+      width: 92%;
+      font-size: 14px;
+      padding: 15px 15px;
+    }
+  
+
+    .errorMsg {
+      @include error;
+      display: block;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    .form-fields {
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        border: none;
+        font-size: 22px;
+        line-height: 28px;
+        padding: 15px 20px;
+        border-radius: 5px;
+        box-shadow: inset 1px 1px 5px 0 #eee;
+        border-radius: $border-radius;
+
+        @media (max-width: 1440px) {
+          font-size: 16px;
+          padding: 5px 15px;
+        }
+      }
+
+      input:focus {
+        outline: 1px solid #8eb0d2;
+        box-shadow: inset 1px 1px 5px 0 #e1edf2;
+      }
+
+      .field {
+        margin: 30px 0;
+        position: relative;
+
+        @media (max-width: 1440px) {
+          margin: 20px 0;
+        }
+
+        span {
+          position: absolute;
+          bottom: -20px;
+          left: 5px;
+          @include error;
+        }
+      }
+    }
+
+    .registration-block {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+
+      .registration-btn {
+        margin: 20px 0 20px;
+        padding: 15px 40px;
+        // background: #a5d6a7;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+        @media (max-width: 1440px) {
+          margin: 15px 0 15px;
+          padding: 10px 30px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          box-shadow: rgb(130 226 113 / 25%) 0px 30px 60px -12px inset, rgb(16 43 10 / 66%) 0px 18px 36px -18px inset;
+        }
+      }
+
+      .disabled {
+        @include disabledAhref;
+        color: white;
+      }
+    }
+
+    .authorization-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .authorization-btn {
+        display: block;
+        margin: 20px 0 20px;
+        width: 170px;
+        padding: 15px 0;
+        // background: #a5d6a7;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+        @media (max-width: 1440px) {
+          margin: 15px 0 15px;
+          padding: 10px;
+          width: 130px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          box-shadow: rgb(130 226 113 / 25%) 0px 30px 60px -12px inset, rgb(16 43 10 / 66%) 0px 18px 36px -18px inset;
+        }
+      }
+
+      .disabled {
+        @include disabledAhref;
+        color: white;
+      }
+    }
+
+    .link-btn {
+      border: none;
+      outline: none;
+      background-color: transparent;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .close-registration-form {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    // font-size: 30px;
+    // color: rgba(0, 0, 0, 0.4196078431);
+  }
+  .close-registration-form svg {
+    color: $accent2-color;
+    // font-size: 30px;
+    // color: rgba(0, 0, 0, 0.4196078431);
+  }
+
+  .close-registration-form:hover {
+    // cursor: pointer;
+    // color: #000000;
+  }
+}

@@ -1,0 +1,576 @@
+$main-background: linear-gradient(to top, #3584a7 0%, #0a1425 100%);
+
+$ground-color: #000000;
+
+$map-moon-size: 15vw;
+$moon-color: whitesmoke;
+$dark-moon-color: darken($moon-color, 5%);
+$darker-moon-color: darken($moon-color, 10%);
+$darkest-moon-color: darken($moon-color, 15%);
+
+$accent3-color: #49258f; //+
+$accent7-color: #0fcf93; //+
+$gradient-5: linear-gradient(180deg, rgba(15, 207, 147) 0%, rgba(73, 37, 143, 1) 100%);
+
+@mixin img-props {
+  display: block;
+  width: 100%;
+}
+
+.map {
+  z-index: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: $main-background;
+  overflow: hidden;
+}
+
+.map-castle {
+  z-index: 20;
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 55%;
+
+  .map-castle__img {
+    @include img-props;
+    object-fit: cover;
+  }
+}
+
+.ground {
+  z-index: 15;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  background-color: $ground-color;
+}
+
+.location-ghost {
+  position: absolute;
+  .location-ghost__img {
+    @include img-props;
+    filter: contrast(150%);
+  }
+}
+
+#location-ghost-one {
+  bottom: 2%;
+  left: 25%;
+  width: 20%;
+  transform: rotate(-12deg);
+  animation: floating 7s infinite ease-in-out;
+}
+
+#location-ghost-two {
+  width: 17%;
+  bottom: 8%;
+  left: 75%;
+  transform: rotate(-12deg);
+  animation: floating 9s infinite ease-in-out;
+}
+
+#location-ghost-three {
+  width: 14%;
+  bottom: 23%;
+  left: 52%;
+  transform: rotate(12deg);
+  animation: floating 11s infinite ease-in-out;
+}
+
+#location-ghost-four {
+  width: 11%;
+  bottom: 37%;
+  left: 76%;
+  transform: rotate(-12deg);
+  animation: floating 13s infinite ease-in-out;
+}
+
+.location-ghost__link-container {
+  position: absolute;
+  top: 21%;
+  left: 13%;
+  width: 70%;
+  height: 56%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.location-ghost__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 15%;
+}
+
+.location-ghost__link-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 12%;
+  // background: $accent3-color;
+  background: rgb($accent3-color, 0.8);
+}
+
+.location-ghost__link-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(15deg);
+}
+
+#location-ghost-three .location-ghost__link-img {
+  transform: rotate(-15deg);
+}
+
+.location-ghost__link-img-container_opened {
+  background: $gradient-5;
+}
+
+@keyframes floating {
+  50% {
+    transform: translateY(-10%) scale(1.15);
+  }
+}
+
+.hero {
+  z-index: 25;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 23%;
+  animation: show-from-left 3s ease-out;
+
+  .hero__img {
+    @include img-props;
+  }
+}
+
+@keyframes show-from-left {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.mountain {
+  z-index: 5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  animation: show-from-bottom 2s forwards;
+
+  .mountain__img {
+    @include img-props;
+    filter: brightness(190%);
+  }
+}
+
+.graves {
+  z-index: 15;
+  position: absolute;
+  bottom: -170px;
+  left: 0;
+  width: 60%;
+
+  animation: show-from-bottom 1s forwards;
+
+  .graves__img {
+    @include img-props;
+  }
+}
+
+.forest {
+  z-index: 10;
+  position: absolute;
+  bottom: -90px;
+  left: 0;
+  width: 90%;
+  animation: show-from-bottom 2.2s forwards;
+
+  .forest__img {
+    @include img-props;
+    filter: brightness(90%);
+  }
+}
+
+.sky {
+  position: relative;
+  height: 250px;
+}
+
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cloud {
+  z-index: 3;
+  position: absolute;
+  height: fit-content;
+  animation-name: clouds;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.cloud__img {
+  @include img-props;
+  opacity: 0.8;
+}
+
+.cloud-front-center-slow {
+  left: 30%;
+  width: 10%;
+  animation-duration: 120s;
+  filter: brightness(70%);
+}
+
+.cloud-front-center-very-slow {
+  left: 0;
+  width: 7%;
+  animation-duration: 160s;
+}
+
+.cloud-front-center-fast {
+  left: 50%;
+  width: 7%;
+  animation-duration: 80s;
+}
+
+.cloud-front-bottom-fast {
+  left: 60%;
+  bottom: 0;
+  width: 10%;
+  animation-duration: 30s;
+}
+
+.cloud-front-bottom-slow {
+  left: 40%;
+  bottom: 0;
+  width: 10%;
+  animation-duration: 50s;
+}
+
+.cloud-front-bottom-very-slow {
+  left: 0;
+  bottom: 0;
+  width: 12%;
+  animation-duration: 120s;
+}
+
+.cloud-front-bottom-slow .cloud__img {
+  filter: brightness(150%);
+}
+
+.cloud-front-bottom-fast .cloud__img {
+  filter: brightness(120%);
+}
+
+@keyframes clouds {
+  0% {
+    margin-left: -10%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 100%;
+  }
+  100% {
+    margin-left: 110%;
+  }
+}
+
+.map-moon {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  height: $map-moon-size;
+  width: $map-moon-size;
+  border-radius: 100%;
+  background-color: $moon-color;
+  background-image: radial-gradient(circle at 0 20%, $moon-color 0%, transparent 65%, $dark-moon-color 65%);
+  animation: blink-map-game-moon 5s alternate infinite, map-moon 1.5s ease-in;
+}
+
+@keyframes blink-map-game-moon {
+  0% {
+    box-shadow: 0px 0px 1px 0px rgb(250, 250, 250), 0px 0px 2px 0px rgb(250, 250, 250),
+      0px 0px 20px 0px rgb(250, 250, 250);
+  }
+  100% {
+    box-shadow: 0px 0px 5px 0px rgb(250, 250, 250), 0px 0px 10px 0px rgb(250, 250, 250),
+      0px 0px 100px 0px rgb(250, 250, 250);
+  }
+}
+
+.map-moon-spots {
+  &__one {
+    height: calc($map-moon-size / 8);
+    width: calc($map-moon-size / 8);
+    top: 15%;
+    left: 40%;
+  }
+
+  &__two {
+    height: calc($map-moon-size / 4);
+    width: calc($map-moon-size / 4);
+    top: 63%;
+    left: 48%;
+  }
+
+  &__three {
+    height: calc($map-moon-size/ 4);
+    width: calc($map-moon-size / 4);
+    top: 28%;
+    left: 14%;
+  }
+
+  &__four {
+    height: calc($map-moon-size / 6);
+    width: calc($map-moon-size / 6);
+    top: 64%;
+    left: 15%;
+  }
+
+  &__five {
+    height: calc($map-moon-size / 7);
+    width: calc($map-moon-size / 7);
+    top: 38%;
+    left: 73%;
+  }
+
+  &__six {
+    height: calc($map-moon-size/ 14);
+    width: calc($map-moon-size / 14);
+    top: 17%;
+    left: 20%;
+  }
+
+  &__seven {
+    height: calc($map-moon-size / 16);
+    width: calc($map-moon-size / 16);
+    top: 63%;
+    left: 35%;
+  }
+
+  &__eigth {
+    height: calc($map-moon-size / 16);
+    width: calc($map-moon-size / 16);
+    top: 48%;
+    left: 56%;
+  }
+}
+
+@keyframes map-moon {
+  0% {
+    top: -100%;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+@media (max-width: 1440px) {
+  .map-castle {
+    width: 65%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .map-castle {
+    width: 75%;
+  }
+
+  .graves {
+    width: 70%;
+    bottom: -120px;
+  }
+
+  .forest {
+    bottom: -50px;
+  }
+
+  .mountain {
+    bottom: 50px;
+  }
+}
+
+@media (max-width: 1024px) {
+  $map-moon-size: 20vw;
+
+  .map-moon {
+    height: $map-moon-size;
+    width: $map-moon-size;
+  }
+
+  .map-moon-spots {
+    &__one {
+      height: calc($map-moon-size / 8);
+      width: calc($map-moon-size / 8);
+      top: 15%;
+      left: 40%;
+    }
+
+    &__two {
+      height: calc($map-moon-size / 4);
+      width: calc($map-moon-size / 4);
+      top: 63%;
+      left: 48%;
+    }
+
+    &__three {
+      height: calc($map-moon-size/ 4);
+      width: calc($map-moon-size / 4);
+      top: 28%;
+      left: 14%;
+    }
+
+    &__four {
+      height: calc($map-moon-size / 6);
+      width: calc($map-moon-size / 6);
+      top: 64%;
+      left: 15%;
+    }
+
+    &__five {
+      height: calc($map-moon-size / 7);
+      width: calc($map-moon-size / 7);
+      top: 38%;
+      left: 73%;
+    }
+
+    &__six {
+      height: calc($map-moon-size/ 14);
+      width: calc($map-moon-size / 14);
+      top: 17%;
+      left: 20%;
+    }
+
+    &__seven {
+      height: calc($map-moon-size / 16);
+      width: calc($map-moon-size / 16);
+      top: 63%;
+      left: 35%;
+    }
+
+    &__eigth {
+      height: calc($map-moon-size / 16);
+      width: calc($map-moon-size / 16);
+      top: 48%;
+      left: 56%;
+    }
+  }
+
+  .map-castle {
+    width: 90%;
+  }
+
+  .hero {
+    display: none;
+  }
+
+  .forest {
+    bottom: -40px;
+  }
+
+  .cloud-front-center-slow {
+    width: 20%;
+  }
+
+  .cloud-front-center-very-slow {
+    width: 14%;
+  }
+
+  .cloud-front-center-fast {
+    width: 14%;
+  }
+
+  .cloud-front-bottom-fast {
+    width: 20%;
+  }
+
+  .cloud-front-bottom-slow {
+    width: 20%;
+  }
+
+  .cloud-front-bottom-very-slow {
+    width: 24%;
+  }
+}
+
+@media (max-width: 900px) {
+  .map-castle {
+    width: 100%;
+    bottom: -15px;
+  }
+
+  .graves {
+    display: none;
+  }
+
+  .forest {
+    bottom: -37px;
+  }
+
+  .mountain {
+    bottom: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-castle {
+    bottom: 100px;
+    width: 107%;
+    left: -5%;
+    right: -2%;
+  }
+
+  .ground {
+    height: 120px;
+  }
+
+  .forest {
+    bottom: 100px;
+  }
+
+  .mountain {
+    bottom: 180px;
+  }
+}
+
+@media (max-width: 500px) {
+  .sky {
+    height: 140px;
+  }
+
+  .map-castle {
+    bottom: 150px;
+    width: 114%;
+    left: -12%;
+    right: -2%;
+  }
+
+  .ground {
+    height: 200px;
+  }
+
+  .forest {
+    bottom: 150px;
+  }
+
+  .mountain {
+    bottom: 190px;
+  }
+}

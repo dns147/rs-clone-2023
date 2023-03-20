@@ -1,0 +1,283 @@
+// https://codepen.io/Hornebom/pen/bGwZZQ
+
+$accent6-color: #ffef01;
+$accent1-color: #ff9900;
+$accent3-color: #49258f;
+$gradient-4: linear-gradient(180deg, $accent6-color, $accent1-color 100%);
+
+.about-game,
+.canvas-stars-container {
+  width: 100%;
+  height: 100%;
+}
+
+#canvas-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.about-game-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  padding-top: 80px;
+  overflow-y: auto;
+  font-family: 'HennyPenny';
+}
+
+.creators-info,
+.games-info {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+
+.creators-info {
+  justify-content: space-between;
+}
+
+.games-info {
+  justify-content: center;
+  gap: 25px;
+  padding: 30px 22px;
+  border-radius: 50px;
+  background-color: rgb($accent3-color, 0.8);
+}
+
+.game-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 48%;
+  padding: 1%;
+}
+
+.game-info-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+}
+
+.game-icon-container {
+  width: 60px;
+
+  &__img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.game-heading {
+  font-family: 'HennyPenny';
+  font-size: 40px;
+  text-align: center;
+  color: black;
+}
+
+.game-info-description {
+  gap: 15px;
+  font-size: 18px;
+}
+
+.creator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 32%;
+  border-radius: 50px;
+  background: $gradient-4;
+  background: linear-gradient(180deg, rgb($accent6-color, 0.8), rgb($accent1-color, 0.8) 100%);
+  padding: 30px 22px;
+
+  font-family: 'HennyPenny';
+  color: black;
+}
+
+.creator-name {
+  font-size: 35px;
+  color: $accent3-color;
+}
+
+.duties-list__item {
+  position: relative;
+}
+
+.duties-list__item::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  width: 22px;
+  height: 22px;
+  background-size: 22px 22px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url(../../../assets/img/bat-svg.svg);
+}
+
+.github-link {
+  display: block;
+  align-self: flex-end;
+  width: 12%;
+  transition: transform 0.5s linear;
+  will-change: transform;
+}
+
+.github-link__container {
+  width: 100%;
+  height: 100%;
+}
+
+.github-link__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.github-link:hover {
+  transform: scale(1.2);
+}
+
+.project-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 12%;
+  padding: 1%;
+  &-text {
+    font-size: 1.5vw;
+    font-weight: bolder;
+    color: black;
+  }
+  &-rss-link {
+    display: block;
+    width: 55%;
+    transition: transform 0.5s linear;
+    will-change: transform;
+    &__container {
+      width: 100%;
+    }
+    &__img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+.project-info-rss-link:hover {
+  transform: scale(1.2);
+}
+
+@media (max-width: 1200px) {
+  .game-heading {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .games-info,
+  .creators-info {
+    width: 95%;
+  }
+
+  .project-info {
+    width: 20%;
+    &-text {
+      font-size: 2vw;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .games-info {
+    width: 70%;
+  }
+  .game-info-container {
+    width: 75%;
+  }
+  .game-info-heading {
+    align-self: center;
+  }
+  .game-icon-container {
+    width: 40px;
+  }
+  .game-info-description {
+    font-size: 16px;
+  }
+  .creators-info {
+    width: 70%;
+    gap: 10px;
+  }
+  .creator {
+    width: 100%;
+  }
+  .github-link {
+    width: 9%;
+  }
+  .project-info {
+    width: 30%;
+    &-text {
+      font-size: 3vw;
+    }
+  }
+}
+
+@media (max-width: 695px) {
+  .game-info-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 585px) {
+  .game-info-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 530px) {
+  .games-info {
+    width: 95%;
+  }
+  .creators-info {
+    width: 95%;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-game-content {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 425px) {
+  .game-heading,
+  .creator-name {
+    font-size: 30px;
+  }
+
+  .game-info-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 375px) {
+  .games-info,
+  .creators-info {
+    width: 97%;
+  }
+
+  .games-info {
+    padding: 24px 8px;
+  }
+}
